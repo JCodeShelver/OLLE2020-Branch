@@ -38,13 +38,22 @@ public class SpinnerSystem extends SubsystemBase
     m_colorMatcher.addColorMatch(Constants.COLOR_GREEN);
     m_colorMatcher.addColorMatch(Constants.COLOR_RED);
     m_colorMatcher.addColorMatch(Constants.COLOR_YELLOW); 
+  }
+  
+  
+  // -----------------------------------------------------
+  // Take one sample from color sensor and return raw color code
+  public void getRawSensorColor() 
+  {
+    Color detectedColor = m_colorSensor.getColor();
+    System.out.println("Red: " + detectedColor.red + "  Green: " + detectedColor.green + "  Blue: " + detectedColor.blue );
 
   }
   
   // -----------------------------------------------------
   // Take one sample from color sensor.  Map color values to
-  // char codes and return.
-  public char getSensorColor() 
+  // char codes and return.  Match constants tuned to colors
+  public char getAdjustedSensorColor() 
   {
     Color detectedColor = m_colorSensor.getColor();
 
@@ -62,8 +71,6 @@ public class SpinnerSystem extends SubsystemBase
     } else {
       colorCode = ' ';
     }
-
-    System.out.println("Red: " + detectedColor.red + "  Green: " + detectedColor.green + "  Blue: " + detectedColor.blue );
 
     return colorCode;
   }
@@ -101,7 +108,7 @@ public class SpinnerSystem extends SubsystemBase
   // falling off the end of the string.  Should be called periodically.
   public void sampleRecentColors()
   {
-    char newestColor = getSensorColor();                          // Get instantaneous color sampled
+    char newestColor = getAdjustedSensorColor();                          // Get instantaneous color sampled
     recentColorSequence = newestColor + recentColorSequence;      // Append new color to front of string
     
     // If String exceeds desired length, let last char fall off
