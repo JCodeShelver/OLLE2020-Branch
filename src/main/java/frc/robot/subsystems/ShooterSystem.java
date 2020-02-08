@@ -1,0 +1,92 @@
+// FRC Team 3770 - BlitzCreek - OLLE 20
+// Shooter subsystem
+// Manage controls ball shooter system.  Utilizes PID controller for motor speed.
+
+package frc.robot.subsystems;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import frc.robot.Constants;
+
+import com.ctre.phoenix.motorcontrol.*;
+import com.ctre.phoenix.motorcontrol.can.*;
+
+public class ShooterSystem extends SubsystemBase 
+{
+
+  TalonSRX shooterMotor;
+  TalonSRX feedMotor;
+  PIDController ShooterPID;
+  double currentSetPoint;
+  int TPM;
+
+
+  // ----------------------------------------------------------------------------
+  // Constructor - (Do nothing)
+  public ShooterSystem() 
+  {
+    shooterMotor = new TalonSRX(Constants.SHOOTER_MOTOR_CAN_ID);
+    feedMotor = new TalonSRX(Constants.FEED_MOTOR_CAN_ID);
+    shooterMotor.setInverted(true);
+    ShooterPID = new PIDController(Constants.SHOOTER_PID_P, Constants.SHOOTER_PID_I, Constants.SHOOTER_PID_D);
+    TPM = 0;
+  }
+
+  // ----------------------------------------------------------------------------
+  // Spin motor up to current set point.  Designed to be periodically called.
+  // Precondition:  SetPoint has been set!
+  public void spinToSetPoint()
+  {
+    currentSetPoint = 3000;
+    TPM = -shooterMotor.getSelectedSensorVelocity();
+
+    System.out.println("Current Set point for RPM: " + currentSetPoint);
+    System.out.println("Current RPM: " + TPM/Constants.SHOOTER_TICKS_PER_RPM);
+    
+    double pidOutput = ShooterPID.calculate(TPM/Constants.SHOOTER_TICKS_PER_RPM, currentSetPoint);
+
+    System.out.println("Motor: " + pidOutput);
+
+    shooterMotor.set(ControlMode.PercentOutput, -pidOutput);
+  }
+  
+  public void feedInBall()
+  {
+    feedMotor.set(ControlMode.PercentOutput, 0.5);
+  }
+  public void stopBallFeed()
+  {
+    feedMotor.set(ControlMode.PercentOutput, 0.0);
+  }
+  // ----------------------------------------------------------------------------
+  // Turn motor off
+  public void setSetPoint(double s)
+  {
+    currentSetPoint = -s;
+  }
+
+  public double getSetPoint()
+  {
+    return currentSetPoint;
+  }
+
+  public double getRPM()
+  {
+    return shooterMotor.getSelectedSensorVelocity()/Constants.SHOOTER_TICKS_PER_RPM;
+  }
+
+  // Set shooter motor full speed
+  public void motorOnFull()
+  {
+    shooterMotor.set(ControlMode.PercentOutput, 1.0);
+  }
+
+  // ----------------------------------------------------------------------------
+  // Turn motor off
+  public void stop()
+  {
+    currentSetPoint = 0.0;
+    shooterMotor.set(ControlMode.PercentOutput, 0.0);
+    feedMotor.set(ControlMode.PercentOutput, 0.0);
+  } 
+  
+}
