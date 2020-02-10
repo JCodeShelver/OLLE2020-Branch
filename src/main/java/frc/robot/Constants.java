@@ -94,6 +94,8 @@ public final class Constants
     public static final int LOADER_SWITCH_3_DIGITAL_PORT    = 3;
     public static final int LOADER_SWITCH_4_DIGITAL_PORT    = 4;
 
+    public static final int LIFT_DRIVE_MOTOR_CAN_ID         = 33;
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     
     public static boolean shooterSystemActive;
