@@ -4,21 +4,19 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.SpinnerSystem;
+import frc.robot.subsystems.Spinner;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class GetColorData extends CommandBase {
 
-  private final SpinnerSystem spinner;   // Reference to spinner system object 
+  private final Spinner spinner;   // Reference to spinner system object 
 
-  private int onColorCount;
-  private boolean onTargetColor;
   private int cycleCount;
   
   private final int MAX_CYCLES_TO_COUNT = 20;
 
   // ----------------------------------------------------------------------------
-  public GetColorData(SpinnerSystem s) 
+  public GetColorData(Spinner s) 
   {
     spinner = s;
   }

@@ -4,18 +4,18 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.SpinnerSystem;
+import frc.robot.subsystems.Spinner;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SpinToColor extends CommandBase {
 
-  private final SpinnerSystem spinner;   // Reference to spinner system object 
+  private final Spinner spinner;   // Reference to spinner system object 
 
   private int onColorCount;
   private boolean onTargetColor;
 
   // ----------------------------------------------------------------------------
-  public SpinToColor(SpinnerSystem s) 
+  public SpinToColor(Spinner s) 
   {
     spinner = s;
     onColorCount = 0;

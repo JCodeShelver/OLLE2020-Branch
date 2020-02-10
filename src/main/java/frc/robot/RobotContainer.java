@@ -8,8 +8,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveSystem;
-import frc.robot.subsystems.ShooterSystem;
-import frc.robot.subsystems.SpinnerSystem;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Spinner;
 import frc.robot.subsystems.GyroPID;
 import frc.robot.subsystems.VisionPID;
 
@@ -21,6 +21,7 @@ import frc.robot.commands.AutonSimple;
 import frc.robot.commands.AutonStages;
 import frc.robot.commands.AlignToTarget;
 import frc.robot.commands.DontShoot;
+import frc.robot.commands.GetColorData;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -34,8 +35,8 @@ public class RobotContainer
 
   // Instantiate all robot subsystems
   private final DriveSystem   driveSystem   = new DriveSystem();
-  private final ShooterSystem shooterSystem = new ShooterSystem();
-  private final SpinnerSystem spinner       = new SpinnerSystem();
+  private final Shooter       shooter       = new Shooter();
+  private final Spinner       spinner       = new Spinner();
   private final GyroPID       gyroPID       = new GyroPID();
   private final VisionPID     visionPID     = new VisionPID();
 
@@ -52,7 +53,7 @@ public class RobotContainer
                       () -> leftStick.getY()
                       ));
 
-    shooterSystem.setDefaultCommand(new DontShoot(shooterSystem, visionPID));
+    shooter.setDefaultCommand(new DontShoot(shooter, visionPID));
   }
 
   // -----------------------------------------------
@@ -61,8 +62,10 @@ public class RobotContainer
   {
     new JoystickButton(rightStick, 3).whenPressed(new SpinToColor(spinner));
     new JoystickButton(leftStick, 6).toggleWhenPressed(new AlignToTarget(driveSystem, visionPID));
-    new JoystickButton(leftStick, 4).toggleWhenPressed(new PrepareToShoot(shooterSystem, visionPID));
-    new JoystickButton(rightStick, 1).whileHeld(new ShootBall(shooterSystem, visionPID));
+    new JoystickButton(leftStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
+    new JoystickButton(rightStick, 1).whileHeld(new ShootBall(shooter, visionPID));
+
+    new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
   }
 
   // Determine choice for auton from basic dashboard buttons.  Set choice

@@ -10,7 +10,7 @@ import frc.robot.Constants;
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.*;
 
-public class ShooterSystem extends SubsystemBase 
+public class Shooter extends SubsystemBase 
 {
 
   TalonSRX shooterMotor;
@@ -22,7 +22,7 @@ public class ShooterSystem extends SubsystemBase
 
   // ----------------------------------------------------------------------------
   // Constructor - (Do nothing)
-  public ShooterSystem() 
+  public Shooter() 
   {
     shooterMotor = new TalonSRX(Constants.SHOOTER_MOTOR_CAN_ID);
     feedMotor = new TalonSRX(Constants.FEED_MOTOR_CAN_ID);

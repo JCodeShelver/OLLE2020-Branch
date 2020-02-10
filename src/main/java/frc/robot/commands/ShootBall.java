@@ -4,24 +4,22 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ShooterSystem;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VisionPID;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-
-
 public class ShootBall extends CommandBase 
 {
-  private final ShooterSystem shooterSystem;   // Reference to shooter system object 
+  private final Shooter shooter;   // Reference to shooter system object 
   private final VisionPID visionPID;
   public boolean RPMGood;
   public boolean XGood;
 
 
   // ----------------------------------------------------------------------------
-  public ShootBall(ShooterSystem s, VisionPID v) 
+  public ShootBall(Shooter s, VisionPID v) 
   {
-    shooterSystem = s;
+    shooter = s;
     visionPID = v;
   }
 
@@ -47,7 +45,7 @@ public class ShootBall extends CommandBase
       XGood = false;
 
 
-    if(Math.abs(shooterSystem.getSetPoint()-shooterSystem.getRPM())<= 100)
+    if(Math.abs(shooter.getSetPoint()-shooter.getRPM())<= 100)
       RPMGood = true;
     else
       RPMGood = false;
@@ -55,9 +53,9 @@ public class ShootBall extends CommandBase
 
 
     if (RPMGood == true && XGood == true)
-      shooterSystem.feedInBall();
+      shooter.feedInBall();
     else
-      shooterSystem.stopBallFeed();
+      shooter.stopBallFeed();
   }
 
   // ----------------------------------------------------------------------------

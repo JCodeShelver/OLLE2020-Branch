@@ -1,7 +1,7 @@
 
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShooterSystem;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VisionPID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -10,18 +10,18 @@ public class DontShoot extends CommandBase
 
 
     // Robot object referencess required for this action
-    private final ShooterSystem  shooterSystem;
-    private final VisionPID       visionPID;
+    private final Shooter    shooter;
+    private final VisionPID  visionPID;
     public double Distance, RPM;
 
     //-------------------------------------------------
     // Constructor:  Capture time and motor level for straight drive
-    public DontShoot( ShooterSystem s, VisionPID v)
+    public DontShoot( Shooter s, VisionPID v)
     {
         // Capture references to existing robot subsystems.  Define them as requirements.
-        shooterSystem   = s;
+        shooter  = s;
         visionPID       = v;
-        addRequirements(shooterSystem);
+        addRequirements(shooter);
     }
 
     //-------------------------------------------------
@@ -35,7 +35,7 @@ public class DontShoot extends CommandBase
     // Called repeatedly when this Command is scheduled to run
     public void execute() 
     {
-        shooterSystem.stop();
+        shooter.stop();
  //       visionPID.LEDoff();
 
  SmartDashboard.putString("DB/String 3", "x: "     + Double.toString(visionPID.getXValue()));

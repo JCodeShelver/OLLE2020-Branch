@@ -11,29 +11,38 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.I2C;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DriverStation;
-
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import com.ctre.phoenix.motorcontrol.can.*;  
 import com.ctre.phoenix.motorcontrol.*;
 
-public class SpinnerSystem extends SubsystemBase 
+public class Spinner extends SubsystemBase 
 { 
   private  I2C.Port i2cPort;
   private  ColorSensorV3 m_colorSensor;
   private  ColorMatch m_colorMatcher;
+
   private TalonSRX spinnerMotor;
+
+  private DoubleSolenoid bigCylinder;
+  private DoubleSolenoid smallCylinder;
 
   private String recentColorSequence;
 
   // -----------------------------------------------------
   // Constructor
-  public SpinnerSystem() 
+  public Spinner() 
   {
-   spinnerMotor = new TalonSRX(Constants.SPINER_MOTOR_CAN_ID); 
+    spinnerMotor = new TalonSRX(Constants.SPINER_MOTOR_CAN_ID); 
 
+    bigCylinder   = new DoubleSolenoid(Constants.SPINNER_BIG_CYLINDER_INPORT,Constants.SPINNER_BIG_CYLINDER__OUTPORT);
+    smallCylinder = new DoubleSolenoid(Constants.SPINNER_SMALL_CYLINDER_INPORT,Constants.SPINNER_SMALL_CYLINDER_OUTPORT);
+
+    // Prepare color sensor
     i2cPort = I2C.Port.kOnboard;
     m_colorSensor = new ColorSensorV3(i2cPort);
     m_colorMatcher = new ColorMatch();
 
+    // Make pre-defined color matching constants available
     m_colorMatcher.addColorMatch(Constants.COLOR_BLUE);
     m_colorMatcher.addColorMatch(Constants.COLOR_GREEN);
     m_colorMatcher.addColorMatch(Constants.COLOR_RED);
@@ -76,18 +85,41 @@ public class SpinnerSystem extends SubsystemBase
   }
   
   // -----------------------------------------------------
-  // Spin wheel motor forward at designated speed
+  // Manage spinner motor - basic on and off
   public void motorOn()
   {
     spinnerMotor.set(ControlMode.PercentOutput,Constants.SPINNER_MOTOR_LEVEL); 
   }
-  
-  // -----------------------------------------------------
-  // Stop wheel motor
+
   public void motorOff()
   {
     spinnerMotor.set(ControlMode.PercentOutput,0.0); 
   }
+
+  // -----------------------------------------------------
+  // Manage small pneumatic unit
+  public void smallCylinderExtend() 
+  {
+    smallCylinder.set(DoubleSolenoid.Value.kForward);
+  }
+
+  public void smallCylinderRetract() 
+  {
+    smallCylinder.set(DoubleSolenoid.Value.kReverse);
+  }
+
+  // -----------------------------------------------------
+  // Manage big pneumatic unit
+  public void bigCylinderExtend() 
+  {
+    bigCylinder.set(DoubleSolenoid.Value.kForward);
+  }
+
+  public void bigCylinderRetract() 
+  {
+    bigCylinder.set(DoubleSolenoid.Value.kReverse);
+  }
+
   
   // -----------------------------------------------------  
   // Build initial color sampling string with all 'X' values

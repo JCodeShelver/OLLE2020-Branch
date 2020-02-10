@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShooterSystem;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VisionPID;
 
 
@@ -13,13 +13,13 @@ public class PrepareToShoot extends CommandBase
 
 
     // Robot object referencess required for this action
-    private final ShooterSystem  shooterSystem;
-    private final VisionPID       visionPID;
+    private final Shooter   shooterSystem;
+    private final VisionPID visionPID;
     public double Distance, RPM;
 
     //-------------------------------------------------
     // Constructor:  Capture time and motor level for straight drive
-    public PrepareToShoot( ShooterSystem s, VisionPID v)
+    public PrepareToShoot( Shooter s, VisionPID v)
     {
         // Capture references to existing robot subsystems.  Define them as requirements.
         shooterSystem   = s;

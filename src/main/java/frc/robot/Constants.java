@@ -60,16 +60,42 @@ public final class Constants
     public static  final double VISION_PID_D           = 0.0025;
 
     //PID_P = .0025, PID_I = 0.01, PID_D = 0.000175;
-    public static final double SHOOTER_PID_P = .003;
-    public static final double SHOOTER_PID_I = 0.01;
-    public static final double SHOOTER_PID_D = 0.000175;
-    public static final double SHOOTER_TICKS_PER_RPM = 6.837;
+    public static final double SHOOTER_PID_P               = 0.003;
+    public static final double SHOOTER_PID_I               = 0.01;
+    public static final double SHOOTER_PID_D               = 0.000175;
+    public static final double SHOOTER_TICKS_PER_RPM       = 6.837;
 
-    public static boolean shooterSystemActive;
-
-    public static final int COLOR_SAMPLE_NUMBER = 5;
+    public static final int COLOR_SAMPLE_NUMBER            = 5;   // Number samples taken for color sampling
     
-    public static  final int SPINER_MOTOR_CAN_ID       = 5;
-    public static  final double SPINNER_MOTOR_LEVEL    = 0.50; 
+    public static  final int SPINER_MOTOR_CAN_ID           = 5;
+    public static  final double SPINNER_MOTOR_LEVEL        = 0.50; 
+
+    public static final int LIFTER_CYLINDER1_INPORT        = 0;
+    public static final int LIFTER_CYLINDER1_OUTPORT       = 1;
+    public static final int LIFTER_CYLINDER2_INPORT        = 7;
+    public static final int LIFTER_CYLINDER2_OUTPORT       = 8;
+
+    public static final int INTAKE_SIDE_MOTOR_CAN_ID       = 99;
+    public static final int INTAKE_FRONTBACK_MOTOR_CAN_ID  = 98;
+
+    public static final int INTAKE_CYLINDER_INPORT         = 97;
+    public static final int INTAKE_CYLINDER_OUTPORT        = 96;
+
+    public static final int SPINNER_BIG_CYLINDER_INPORT     = 3;
+    public static final int SPINNER_BIG_CYLINDER__OUTPORT   = 4;
+    public static final int SPINNER_SMALL_CYLINDER_INPORT   = 5;
+    public static final int SPINNER_SMALL_CYLINDER_OUTPORT  = 6;
+
+    public static final int LOADER_TOP_MOTOR_CAN_ID         = 44;
+    public static final int LOADER_BOTTOM_MOTOR_CAN_ID      = 55;
+
+    public static final int LOADER_SWITCH_1_DIGITAL_PORT    = 1;
+    public static final int LOADER_SWITCH_2_DIGITAL_PORT    = 2;
+    public static final int LOADER_SWITCH_3_DIGITAL_PORT    = 3;
+    public static final int LOADER_SWITCH_4_DIGITAL_PORT    = 4;
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    
+    public static boolean shooterSystemActive;
 
 }

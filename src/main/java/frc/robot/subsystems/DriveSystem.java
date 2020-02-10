@@ -5,13 +5,10 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import com.ctre.phoenix.motorcontrol.can.*;  
 import com.ctre.phoenix.motorcontrol.*;
 import edu.wpi.first.wpilibj.Counter;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import frc.robot.Constants;
 
 public class DriveSystem extends SubsystemBase 
