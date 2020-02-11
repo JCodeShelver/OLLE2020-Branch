@@ -70,16 +70,18 @@ public final class Constants
     public static  final int SPINER_MOTOR_CAN_ID           = 5;
     public static  final double SPINNER_MOTOR_LEVEL        = 0.50; 
 
-    public static final int LIFTER_CYLINDER1_INPORT        = 0;
-    public static final int LIFTER_CYLINDER1_OUTPORT       = 1;
-    public static final int LIFTER_CYLINDER2_INPORT        = 7;
-    public static final int LIFTER_CYLINDER2_OUTPORT       = 8;
+    public static final int LIFTER_BOTTOM_CYLINDER1_INPORT  = 0;
+    public static final int LIFTER_BOTTOM_CYLINDER1_OUTPORT = 1;
+    public static final int LIFTER_BOTTOM_CYLINDER2_INPORT  = 7;
+    public static final int LIFTER_BOTTOM_CYLINDER2_OUTPORT = 8;
+    public static final int LIFTER_MIDDLE_CYLINDER_PORT     = 7;
+    public static final int LIFTER_TOP_CYLINDER_PORT        = 8;
 
-    public static final int INTAKE_SIDE_MOTOR_CAN_ID       = 99;
-    public static final int INTAKE_FRONTBACK_MOTOR_CAN_ID  = 98;
+    public static final int INTAKE_SIDE_MOTOR_CAN_ID        = 99;
+    public static final int INTAKE_FRONTBACK_MOTOR_CAN_ID   = 98;
 
-    public static final int INTAKE_CYLINDER_INPORT         = 97;
-    public static final int INTAKE_CYLINDER_OUTPORT        = 96;
+    public static final int INTAKE_CYLINDER_INPORT          = 97;
+    public static final int INTAKE_CYLINDER_OUTPORT         = 96;
 
     public static final int SPINNER_BIG_CYLINDER_INPORT     = 3;
     public static final int SPINNER_BIG_CYLINDER__OUTPORT   = 4;
