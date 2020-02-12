@@ -17,7 +17,6 @@ public class Lifter extends SubsystemBase
   private Solenoid       middleCylinder;
   private Solenoid       topCylinder;
 
-
   private TalonSRX liftDriveMotor;
 
   // -----------------------------------------------------
@@ -34,21 +33,42 @@ public class Lifter extends SubsystemBase
   }
   
   // -----------------------------------------------------
-  // Extend both pneumatic cyliders to fully extend the lifter
-  public void extend() 
+  // Manage bottom double pneumatic cyliders synchronously
+  public void extendBottomCylinders() 
   {
     bottomCylinder1.set(DoubleSolenoid.Value.kForward);
     bottomCylinder2.set(DoubleSolenoid.Value.kForward);
   }
   
-  // -----------------------------------------------------
-  // Retract both pneumatic cyliders on lifter
-  public void retract() 
+  public void retractBottomCylinders() 
   {
     bottomCylinder1.set(DoubleSolenoid.Value.kReverse);
     bottomCylinder2.set(DoubleSolenoid.Value.kReverse);
   }
-  
+    
+  // -----------------------------------------------------
+  // Manage middle single solenoid
+  public void extendeMiddleCylinder() 
+  {
+    middleCylinder.set(true);
+  }
+      
+  public void retractMiddleCylinder() 
+  {
+    middleCylinder.set(false);
+  }
+    
+  // -----------------------------------------------------
+  // Manage bottom single solenoid
+  public void extendTopCylinder() 
+  {
+    topCylinder.set(true);
+  }
+      
+  public void retractTopCylinder() 
+  {
+    topCylinder.set(false);
+  }
   // -----------------------------------------------------
   // Lifter rail drive motor
   public void driveLifter(double motorLevel)

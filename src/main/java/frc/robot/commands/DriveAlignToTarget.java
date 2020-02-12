@@ -12,7 +12,7 @@ import frc.robot.subsystems.VisionPID;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveSystem;
 
-public class AlignToTarget extends CommandBase
+public class DriveAlignToTarget extends CommandBase
 {
     // Robot object referencess required for this action
     private final DriveSystem   driveSystem;  
@@ -29,7 +29,7 @@ public class AlignToTarget extends CommandBase
     
     //-------------------------------------------------
     // Constructor:  Capture time and motor level for straight drive
-    public AlignToTarget(DriveSystem d, VisionPID v ) 
+    public DriveAlignToTarget(DriveSystem d, VisionPID v ) 
     {
         // Capture references to existing robot subsystems.  Define them as requirements.
         driveSystem   = d;   

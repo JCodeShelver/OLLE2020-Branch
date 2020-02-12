@@ -5,10 +5,8 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VisionPID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DontShoot extends CommandBase
+public class ShootDefaultActions extends CommandBase
 {
-
-
     // Robot object referencess required for this action
     private final Shooter    shooter;
     private final VisionPID  visionPID;
@@ -16,7 +14,7 @@ public class DontShoot extends CommandBase
 
     //-------------------------------------------------
     // Constructor:  Capture time and motor level for straight drive
-    public DontShoot( Shooter s, VisionPID v)
+    public ShootDefaultActions( Shooter s, VisionPID v)
     {
         // Capture references to existing robot subsystems.  Define them as requirements.
         shooter  = s;

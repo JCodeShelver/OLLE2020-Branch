@@ -63,6 +63,9 @@ public class DriveSystem extends SubsystemBase
     // Return distance traveled in inches
     public double getDistanceInches()
     {
+        // leftMotor1.getSelectedSensorPosition(0);
+
+
         int aveTicks = (leftEncoder.get() + rightEncoder.get()) / 2;
         return aveTicks * Constants.INCHES_PER_TICK;
     }

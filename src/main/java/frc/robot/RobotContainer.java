@@ -19,8 +19,8 @@ import frc.robot.commands.ShootBall;
 import frc.robot.commands.SpinToColor;
 import frc.robot.commands.AutonSimple;
 import frc.robot.commands.AutonStages;
-import frc.robot.commands.AlignToTarget;
-import frc.robot.commands.DontShoot;
+import frc.robot.commands.DriveAlignToTarget;
+import frc.robot.commands.ShootDefaultActions;
 import frc.robot.commands.GetColorData;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -53,7 +53,7 @@ public class RobotContainer
                       () -> leftStick.getY()
                       ));
 
-    shooter.setDefaultCommand(new DontShoot(shooter, visionPID));
+    shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID));
   }
 
   // -----------------------------------------------
@@ -61,7 +61,7 @@ public class RobotContainer
   private void configureButtonBindings() 
   {
     new JoystickButton(rightStick, 3).whenPressed(new SpinToColor(spinner));
-    new JoystickButton(leftStick, 6).toggleWhenPressed(new AlignToTarget(driveSystem, visionPID));
+    new JoystickButton(leftStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
     new JoystickButton(leftStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
     new JoystickButton(rightStick, 1).whileHeld(new ShootBall(shooter, visionPID));
 
