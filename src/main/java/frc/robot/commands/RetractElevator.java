@@ -3,17 +3,17 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Lifter;
+import frc.robot.subsystems.Elevator;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class DeployLifter extends CommandBase 
+public class RetractElevator extends CommandBase 
 {
-  private final Lifter lifter;   
+  private final Elevator elevator;   
 
   // ----------------------------------------------------------------------------
-  public DeployLifter(Lifter l) 
+  public RetractElevator(Elevator e) 
   {
-    lifter = l;
+    elevator = e;
   }
 
   // ----------------------------------------------------------------------------
@@ -29,9 +29,8 @@ public class DeployLifter extends CommandBase
   @Override
   public void execute() 
   {
-    lifter.extendBottomCylinders();
-    lifter.extendeMiddleCylinder();
-    lifter.extendTopCylinder();
+    elevator.retractBottomCylinders();
+    elevator.retractTop2Cylinders();
   }
 
   // ----------------------------------------------------------------------------

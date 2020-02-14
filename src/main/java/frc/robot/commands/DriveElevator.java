@@ -3,17 +3,17 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Lifter;
+import frc.robot.subsystems.Elevator;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class DriveLifter extends CommandBase 
+public class DriveElevator extends CommandBase 
 {
-  private final Lifter lifter;   
+  private final Elevator elevator;   
 
   // ----------------------------------------------------------------------------
-  public DriveLifter(Lifter l) 
+  public DriveElevator(Elevator e) 
   {
-    lifter = l;
+    elevator = e;
   }
 
   // ----------------------------------------------------------------------------

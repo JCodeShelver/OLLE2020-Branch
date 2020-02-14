@@ -16,6 +16,7 @@ import frc.robot.subsystems.VisionPID;
 import frc.robot.commands.DriveHuman;
 import frc.robot.commands.PrepareToShoot;
 import frc.robot.commands.ShootBall;
+import frc.robot.commands.RetractSpinner;
 import frc.robot.commands.SpinToColor;
 import frc.robot.commands.AutonSimple;
 import frc.robot.commands.AutonStages;
@@ -23,6 +24,7 @@ import frc.robot.commands.DriveAlignToTarget;
 import frc.robot.commands.ShootDefaultActions;
 import frc.robot.commands.GetColorData;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -32,6 +34,7 @@ public class RobotContainer
   // Instantiate joystick objects
   Joystick leftStick  = new Joystick(Constants.LEFT_STICK_USB_PORT);
   Joystick rightStick = new Joystick(Constants.RIGHT_STICK_USB_PORT);
+  XboxController controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
 
   // Instantiate all robot subsystems
   private final DriveSystem   driveSystem   = new DriveSystem();
@@ -64,7 +67,7 @@ public class RobotContainer
     new JoystickButton(leftStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
     new JoystickButton(leftStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
     new JoystickButton(rightStick, 1).whileHeld(new ShootBall(shooter, visionPID));
-
+    new JoystickButton (controller, 9).whenPressed(new RetractSpinner(spinner));
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
   }
 

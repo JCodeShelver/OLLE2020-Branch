@@ -30,8 +30,8 @@ public class RetractSpinner extends CommandBase
   @Override
   public void execute() 
   {
-    spinner.bigCylinderRetract();
-    spinner.smallCylinderRetract();
+    spinner.assemblyCylinderRetract();
+    spinner.wheelCylinderRetract();
   }
 
   // ----------------------------------------------------------------------------

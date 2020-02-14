@@ -29,8 +29,8 @@ public class DeploySpinner extends CommandBase
   @Override
   public void execute() 
   {
-    spinner.bigCylinderExtend();
-    spinner.smallCylinderExtend();
+    spinner.assemblyCylinderExtend();
+    spinner.wheelCylinderExtend();
   }
 
   // ----------------------------------------------------------------------------

@@ -11,6 +11,7 @@ public final class Constants
     // Declare constant values for ports
     public static  final int LEFT_STICK_USB_PORT       = 0;
     public static  final int RIGHT_STICK_USB_PORT      = 1;
+    public static  final int XBOX_CONTROLLER_USB_PORT  = 2;
     
     public static  final int RIGHT_MOTOR1_CAN_ID       = 4;
     public static  final int RIGHT_MOTOR2_CAN_ID       = 1;
@@ -19,22 +20,6 @@ public final class Constants
 
     public static final int SHOOTER_MOTOR_CAN_ID       = 12;
     public static final int FEED_MOTOR_CAN_ID          = 20;
-
-    public static  final int UTILITY_MOTOR_PORT        = 0;
-    
-    public static  final int POT_ANALOG_PORT           = 0;
-    public static  final int SONAR_ANALOG_PORT         = 1;
-
-    public static  final int PNEUMATICS_IN_PORT        = 7;
-    public static  final int PNEUMATICS_OUT_PORT       = 4;
-    
-    public static  final int HEAVY_SWITCH_DIG_PORT     = 0;
-    public static  final int LIGHT_SWITCH_DIG_PORT     = 1;
-
-    public static  final int LT_ENCODER_DIGITAL_PORT   = 2;
-    public static  final int RT_ENCODER_DIGITAL_PORT   = 4;
-
-    public static  final int LIGHT_RELAY_PORT          = 0;
 
     public static  final Color COLOR_BLUE   = ColorMatch.makeColor(0.143, 0.427, 0.429);
     public static  final Color COLOR_GREEN  = ColorMatch.makeColor(0.197, 0.561, 0.240);
@@ -60,34 +45,42 @@ public final class Constants
     public static  final double VISION_PID_D           = 0.0025;
 
     //PID_P = .0025, PID_I = 0.01, PID_D = 0.000175;
-    public static final double SHOOTER_PID_P               = 0.003;
-    public static final double SHOOTER_PID_I               = 0.01;
-    public static final double SHOOTER_PID_D               = 0.000175;
-    public static final double SHOOTER_TICKS_PER_RPM       = 6.837;
+    public static  final double SHOOTER_PID_P               = 0.003;
+    public static  final double SHOOTER_PID_I               = 0.01;
+    public static  final double SHOOTER_PID_D               = 0.000175;
+    public static  final double SHOOTER_TICKS_PER_RPM       = 6.837;
 
-    public static final int COLOR_SAMPLE_NUMBER            = 5;   // Number samples taken for color sampling
+    public static  final int COLOR_SAMPLE_NUMBER            = 5;   // Number samples taken for color sampling
     
     public static  final int SPINER_MOTOR_CAN_ID           = 5;
     public static  final double SPINNER_MOTOR_LEVEL        = 0.50; 
 
-    public static final int LIFTER_BOTTOM_CYLINDER1_INPORT  = 0;
-    public static final int LIFTER_BOTTOM_CYLINDER1_OUTPORT = 1;
-    public static final int LIFTER_BOTTOM_CYLINDER2_INPORT  = 7;
-    public static final int LIFTER_BOTTOM_CYLINDER2_OUTPORT = 8;
-    public static final int LIFTER_MIDDLE_CYLINDER_PORT     = 7;
-    public static final int LIFTER_TOP_CYLINDER_PORT        = 8;
+    public static  final int PCM_MODULE_0                  = 0;
+    public static  final int PCM_MODULE_1                  = 1;
 
+    // PCM 0 Ports
+    public static final int SPINNER_ASSEMBLY_CYLINDER_OUTPORT    = 0;
+    public static final int SPINNER_ASSEMBLY_CYLINDER_INPORT     = 1;
+    public static final int SPINNER_WHEEL_CYLINDER_OUTPORT       = 2;
+    public static final int SPINNER_WHEEL_CYLINDER_INPORT        = 3;
+
+    public static final int SHOOTER_LOAD_CYLINDER_OUTPORT = 4;
+    public static final int SHOOTER_LOAD_CYLINDER_INPORT  = 5;
+    public static final int SHOOTER_FIRE_CYLINDER_INPORT  = 6;
+    public static final int SHOOTER_FIRE_CYLINDER_OUTPORT = 7;
+
+    // PCM 1 Ports
+    public static final int ELEVATOR_BOTTOM_CYLINDERS_OUTPORT = 0;
+    public static final int ELEVATOR_BOTTOM_CYLINDERS_INPORT  = 1;
+    public static final int ELEVATOR_TOP2_CYLINDERS_OUTPORT   = 2;
+    public static final int ELEVATOR_TOP2_CYLINDERS_INPORT    = 3;
+
+    public static final int INTAKE_CYLINDER_OUTPORT         = 4;
+    public static final int INTAKE_CYLINDER_INPORT          = 5;
+    
+    // Motor CAN IDs
     public static final int INTAKE_SIDE_MOTOR_CAN_ID        = 99;
     public static final int INTAKE_FRONTBACK_MOTOR_CAN_ID   = 98;
-
-    public static final int INTAKE_CYLINDER_INPORT          = 97;
-    public static final int INTAKE_CYLINDER_OUTPORT         = 96;
-
-    public static final int SPINNER_BIG_CYLINDER_INPORT     = 3;
-    public static final int SPINNER_BIG_CYLINDER__OUTPORT   = 4;
-    public static final int SPINNER_SMALL_CYLINDER_INPORT   = 5;
-    public static final int SPINNER_SMALL_CYLINDER_OUTPORT  = 6;
-
     public static final int LOADER_TOP_MOTOR_CAN_ID         = 44;
     public static final int LOADER_BOTTOM_MOTOR_CAN_ID      = 55;
 
@@ -96,7 +89,7 @@ public final class Constants
     public static final int LOADER_SWITCH_3_DIGITAL_PORT    = 3;
     public static final int LOADER_SWITCH_4_DIGITAL_PORT    = 4;
 
-    public static final int LIFT_DRIVE_MOTOR_CAN_ID         = 33;
+    public static final int ELEVATOR_DRIVE_MOTOR_CAN_ID         = 33;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     

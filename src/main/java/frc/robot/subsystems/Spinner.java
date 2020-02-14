@@ -23,8 +23,8 @@ public class Spinner extends SubsystemBase
 
   private TalonSRX spinnerMotor;
 
-  private DoubleSolenoid bigCylinder;
-  private DoubleSolenoid smallCylinder;
+  private DoubleSolenoid assemblyCylinder;
+  private DoubleSolenoid wheelCylinder;
 
   private String recentColorSequence;
 
@@ -34,8 +34,8 @@ public class Spinner extends SubsystemBase
   {
     spinnerMotor = new TalonSRX(Constants.SPINER_MOTOR_CAN_ID); 
 
-    bigCylinder   = new DoubleSolenoid(Constants.SPINNER_BIG_CYLINDER_INPORT,Constants.SPINNER_BIG_CYLINDER__OUTPORT);
-    smallCylinder = new DoubleSolenoid(Constants.SPINNER_SMALL_CYLINDER_INPORT,Constants.SPINNER_SMALL_CYLINDER_OUTPORT);
+    assemblyCylinder   = new DoubleSolenoid(Constants.PCM_MODULE_0, Constants.SPINNER_ASSEMBLY_CYLINDER_OUTPORT,Constants.SPINNER_ASSEMBLY_CYLINDER_INPORT);
+    wheelCylinder      = new DoubleSolenoid(Constants.PCM_MODULE_0, Constants.SPINNER_WHEEL_CYLINDER_OUTPORT,Constants.SPINNER_WHEEL_CYLINDER_INPORT);
 
     // Prepare color sensor
     i2cPort = I2C.Port.kOnboard;
@@ -97,27 +97,27 @@ public class Spinner extends SubsystemBase
   }
 
   // -----------------------------------------------------
-  // Manage small pneumatic unit
-  public void smallCylinderExtend() 
+  // Manage wheel pneumatic unit
+  public void wheelCylinderExtend() 
   {
-    smallCylinder.set(DoubleSolenoid.Value.kForward);
+    wheelCylinder.set(DoubleSolenoid.Value.kForward);
   }
 
-  public void smallCylinderRetract() 
+  public void wheelCylinderRetract() 
   {
-    smallCylinder.set(DoubleSolenoid.Value.kReverse);
+    wheelCylinder.set(DoubleSolenoid.Value.kReverse);
   }
 
   // -----------------------------------------------------
-  // Manage big pneumatic unit
-  public void bigCylinderExtend() 
+  // Manage assembly pneumatic unit
+  public void assemblyCylinderExtend() 
   {
-    bigCylinder.set(DoubleSolenoid.Value.kForward);
+    assemblyCylinder.set(DoubleSolenoid.Value.kForward);
   }
 
-  public void bigCylinderRetract() 
+  public void assemblyCylinderRetract() 
   {
-    bigCylinder.set(DoubleSolenoid.Value.kReverse);
+    assemblyCylinder.set(DoubleSolenoid.Value.kReverse);
   }
 
   
