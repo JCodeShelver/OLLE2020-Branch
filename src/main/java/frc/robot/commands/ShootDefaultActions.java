@@ -34,7 +34,7 @@ public class ShootDefaultActions extends CommandBase
     public void execute() 
     {
         shooter.stop();
- //       visionPID.LEDoff();
+        visionPID.LEDoff();
 
  SmartDashboard.putString("DB/String 3", "x: "     + Double.toString(visionPID.getXValue()));
  SmartDashboard.putString("DB/String 4", "y: "    + Double.toString(visionPID.getYValue()));

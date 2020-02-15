@@ -4,12 +4,14 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Loader;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class LoadOneBall extends CommandBase 
 {
 
   private final Loader loader;   
+  private Timer loadingTimer;
 
   // ----------------------------------------------------------------------------
   public LoadOneBall(Loader l) 
@@ -22,7 +24,8 @@ public class LoadOneBall extends CommandBase
   @Override
   public void initialize() 
   { 
-     
+    loadingTimer.reset();
+    loadingTimer.start();
   }
 
   // ----------------------------------------------------------------------------
@@ -30,7 +33,10 @@ public class LoadOneBall extends CommandBase
   @Override
   public void execute() 
   {
-
+    if(loadingTimer.get() < 0.2) //however long it takes to retract piston
+      loader.LoadBall();
+    else
+      loader.resetLoadingPiston();
   }
 
   // ----------------------------------------------------------------------------

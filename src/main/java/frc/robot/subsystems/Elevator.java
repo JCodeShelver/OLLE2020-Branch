@@ -13,7 +13,7 @@ public class Elevator extends SubsystemBase
 { 
   private DoubleSolenoid bottomCylinders;
   private DoubleSolenoid top2Cylinders;
-
+  private boolean isDeployed1 = false, isDeployed2 = false;
   private TalonSRX elevatorDriveMotor;
 
   // -----------------------------------------------------
@@ -31,11 +31,13 @@ public class Elevator extends SubsystemBase
   public void extendBottomCylinders() 
   {
     bottomCylinders.set(DoubleSolenoid.Value.kForward);
+    isDeployed1 = true;
   }
   
   public void retractBottomCylinders() 
   {
     bottomCylinders.set(DoubleSolenoid.Value.kReverse);
+    isDeployed1 = false;
   }
     
   // -----------------------------------------------------
@@ -43,16 +45,28 @@ public class Elevator extends SubsystemBase
   public void extendTop2Cylinders() 
   {
     top2Cylinders.set(DoubleSolenoid.Value.kForward);
+    isDeployed2 = true;
   }
       
   public void retractTop2Cylinders() 
   {
     top2Cylinders.set(DoubleSolenoid.Value.kReverse);
+    isDeployed2 = false;
   }
 
   public void stopTop2Cylinders()
   {
     top2Cylinders.set(DoubleSolenoid.Value.kOff);
+  }
+
+  public boolean TopDeployed()
+  {
+    return isDeployed2;
+  }
+
+  public boolean BottomDeployed()
+  {
+    return isDeployed1;
   }
   // -----------------------------------------------------
   // Elevator rail drive motor

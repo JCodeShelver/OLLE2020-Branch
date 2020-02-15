@@ -29,7 +29,8 @@ public class DriveElevator extends CommandBase
   @Override
   public void execute() 
   {
-
+    elevator.extendBottomCylinders();
+    elevator.extendTop2Cylinders();
   }
 
   // ----------------------------------------------------------------------------

@@ -28,6 +28,7 @@ public class Spinner extends SubsystemBase
 
   private String recentColorSequence;
 
+  private boolean systemUp = false, engaged = false;
   // -----------------------------------------------------
   // Constructor
   public Spinner() 
@@ -101,11 +102,18 @@ public class Spinner extends SubsystemBase
   public void wheelCylinderExtend() 
   {
     wheelCylinder.set(DoubleSolenoid.Value.kForward);
+    engaged = false;
   }
 
   public void wheelCylinderRetract() 
   {
     wheelCylinder.set(DoubleSolenoid.Value.kReverse);
+    engaged = true;
+  }
+
+  public boolean engaged()
+  {
+    return engaged;
   }
 
   // -----------------------------------------------------
@@ -113,11 +121,18 @@ public class Spinner extends SubsystemBase
   public void assemblyCylinderExtend() 
   {
     assemblyCylinder.set(DoubleSolenoid.Value.kForward);
+    systemUp = true;
   }
 
   public void assemblyCylinderRetract() 
   {
     assemblyCylinder.set(DoubleSolenoid.Value.kReverse);
+    systemUp = false;
+  }
+
+  public boolean systemUp()
+  {
+    return systemUp;
   }
 
   

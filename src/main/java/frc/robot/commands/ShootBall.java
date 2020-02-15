@@ -6,25 +6,29 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VisionPID;
+import frc.robot.Constants;
+import frc.robot.subsystems.Loader;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ShootBall extends CommandBase 
 {
   private final Shooter shooter;   // Reference to shooter system object 
   private final VisionPID visionPID;
+  private final Loader loader;
   public boolean RPMGood;
-  public boolean XGood;
+  public boolean XGood, ballInPlace;
 
 
   // ----------------------------------------------------------------------------
-  public ShootBall(Shooter s, VisionPID v) 
+  public ShootBall(Shooter s, VisionPID v, Loader l) 
   {
     shooter = s;
     visionPID = v;
+    loader = l;
   }
 
   // ----------------------------------------------------------------------------
-  // Initiate shooting by starting action timer
+  // Initiate shooting
   @Override
   public void initialize() 
   { 
@@ -44,22 +48,18 @@ public class ShootBall extends CommandBase
     else
       XGood = false;
 
-
     if(Math.abs(shooter.getSetPoint()-shooter.getRPM())<= 100)
       RPMGood = true;
     else
       RPMGood = false;
 
-
-
-    if (RPMGood == true && XGood == true)
-      shooter.feedInBall();
+    if (RPMGood == true && XGood == true && Constants.BallInShooter == true)
+      shooter.shootBall();
     else
-      shooter.stopBallFeed();
+      shooter.lowerShootingPiston();
   }
 
   // ----------------------------------------------------------------------------
-  // Return true when timer reaches designated target time.
   @Override
   public boolean isFinished() 
   {

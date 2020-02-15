@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.Constants;
 
@@ -14,18 +15,18 @@ public class Shooter extends SubsystemBase
 {
 
   TalonSRX shooterMotor;
-  TalonSRX feedMotor;
   PIDController ShooterPID;
   double currentSetPoint;
   int TPM;
+  DoubleSolenoid ShootingPiston;
 
 
   // ----------------------------------------------------------------------------
   // Constructor - (Do nothing)
   public Shooter() 
   {
+    ShootingPiston = new DoubleSolenoid(Constants.PCM_MODULE_1,Constants.SHOOTING_PISTON_OUTPORT,Constants.SHOOTING_PISTON_INPORT);
     shooterMotor = new TalonSRX(Constants.SHOOTER_MOTOR_CAN_ID);
-    feedMotor = new TalonSRX(Constants.FEED_MOTOR_CAN_ID);
     shooterMotor.setInverted(true);
     ShooterPID = new PIDController(Constants.SHOOTER_PID_P, Constants.SHOOTER_PID_I, Constants.SHOOTER_PID_D);
     TPM = 0;
@@ -49,13 +50,14 @@ public class Shooter extends SubsystemBase
     shooterMotor.set(ControlMode.PercentOutput, -pidOutput);
   }
   
-  public void feedInBall()
+  public void shootBall()
   {
-    feedMotor.set(ControlMode.PercentOutput, 0.5);
+    ShootingPiston.set(DoubleSolenoid.Value.kForward);
   }
-  public void stopBallFeed()
+  public void lowerShootingPiston()
   {
-    feedMotor.set(ControlMode.PercentOutput, 0.0);
+    ShootingPiston.set(DoubleSolenoid.Value.kReverse);
+    Constants.BallInShooter = false;
   }
   // ----------------------------------------------------------------------------
   // Turn motor off
@@ -86,7 +88,7 @@ public class Shooter extends SubsystemBase
   {
     currentSetPoint = 0.0;
     shooterMotor.set(ControlMode.PercentOutput, 0.0);
-    feedMotor.set(ControlMode.PercentOutput, 0.0);
+    this.lowerShootingPiston();
   } 
   
 }

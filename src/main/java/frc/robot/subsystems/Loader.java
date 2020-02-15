@@ -2,72 +2,77 @@
 // Ball loader manager
 
 package frc.robot.subsystems;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.Constants;
 import com.ctre.phoenix.motorcontrol.can.*;  
 import com.ctre.phoenix.motorcontrol.*;
 
 public class Loader extends SubsystemBase 
 { 
-  private TalonSRX topMotor,  bottomMotor;
+  private DoubleSolenoid loadingPiston;
+  private TalonSRX movingMotor;
 
-  private DigitalInput switch1,switch2,switch3,switch4;
+  private DigitalInput switch2,switch3;
+  private DigitalInput backSwitch, intakeSwitch;
 
   // -----------------------------------------------------
   // Constructor
   public Loader() 
   {
-    topMotor    = new TalonSRX(Constants.LOADER_TOP_MOTOR_CAN_ID); 
-    bottomMotor = new TalonSRX(Constants.LOADER_BOTTOM_MOTOR_CAN_ID); 
+    movingMotor    = new TalonSRX(Constants.LOADER_MOTOR_CAN_ID); 
 
-    switch1 =  new DigitalInput(Constants.LOADER_SWITCH_1_DIGITAL_PORT);
+    loadingPiston = new DoubleSolenoid(Constants.PCM_MODULE_1,Constants.LOADING_PISTON_OUTPORT,Constants.LOADING_PISTON_INPORT);
+
     switch2 =  new DigitalInput(Constants.LOADER_SWITCH_2_DIGITAL_PORT);
     switch3 =  new DigitalInput(Constants.LOADER_SWITCH_3_DIGITAL_PORT);
-    switch4 =  new DigitalInput(Constants.LOADER_SWITCH_4_DIGITAL_PORT);
+    backSwitch =  new DigitalInput(Constants.LOADER_SWITCH_4_DIGITAL_PORT);
+    intakeSwitch =  new DigitalInput(Constants.LOADER_SWITCH_1_DIGITAL_PORT); 
+
   }
 
   // -----------------------------------------------------
   // Manage top motor
-  public void topMotorOn() 
+  public void MovingMotorOn() 
   {
-    topMotor.set(ControlMode.PercentOutput,1.0); 
+    movingMotor.set(ControlMode.PercentOutput,1.0); 
   }
 
-  public void topMotorOff() 
+  public void MovingMotorOff() 
   {
-    topMotor.set(ControlMode.PercentOutput,0.0); 
+    movingMotor.set(ControlMode.PercentOutput,0.0); 
   }
 
-  // -----------------------------------------------------
-  // Manage top motor
-  public void bottomMotorOn() 
+  public void LoadBall()
   {
-    bottomMotor.set(ControlMode.PercentOutput,1.0); 
+    loadingPiston.set(DoubleSolenoid.Value.kForward);
   }
 
-  public void bottomSideMotorOff() 
+  public void resetLoadingPiston()
   {
-    bottomMotor.set(ControlMode.PercentOutput,0.0); 
+    loadingPiston.set(DoubleSolenoid.Value.kReverse);
   }
+
 
   // -----------------------------------------------------
   // Receive a switch number as integer and returns true
   // if indicated switch is engaged
-  public boolean switchEngaged(int switchNumber)
+
+  public boolean switchAtIntakeEngaged()
   {
-    boolean returnValue = false;
+    return intakeSwitch.get();
+  }
+  public boolean BallInSwitch()
+  {
+    return switch2.get();
+  }
 
-    if (switchNumber == 1 && switch1.get() == false)
-       returnValue = true;
-    if (switchNumber == 2 && switch2.get() == false)
-       returnValue = true;
-    if (switchNumber == 3 && switch3.get() == false)
-       returnValue = true;
-    if (switchNumber == 4 && switch4.get() == false)
-       returnValue = true;
-
-    return returnValue;
+  public boolean ballAtBack()
+  {
+    return backSwitch.get();
   }
  
 }

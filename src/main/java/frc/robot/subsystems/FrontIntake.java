@@ -13,6 +13,7 @@ public class FrontIntake extends SubsystemBase
 { 
     private TalonSRX sideToSideMotor,  intakeMotor;
     private DoubleSolenoid deployCylinder;
+    private boolean isOut = false;
 
   // -----------------------------------------------------
   // Constructor
@@ -20,43 +21,33 @@ public class FrontIntake extends SubsystemBase
   {
     sideToSideMotor = new TalonSRX(Constants.INTAKE_SIDE_MOTOR_CAN_ID);
     intakeMotor     = new TalonSRX(Constants.INTAKE_FRONTBACK_MOTOR_CAN_ID); 
-
     deployCylinder = new DoubleSolenoid(Constants.PCM_MODULE_1,Constants.INTAKE_CYLINDER_INPORT,Constants.INTAKE_CYLINDER_OUTPORT);
-  }
-
-  // -----------------------------------------------------
-  // Manage side-to-side motor action
-  public void sideSideMotorOn() 
-  {
-    sideToSideMotor.set(ControlMode.PercentOutput,1.0); 
-  }
-
-  public void sideSideMotorOff() 
-  {
-    sideToSideMotor.set(ControlMode.PercentOutput,0.0); 
   }
   
   // -----------------------------------------------------
-  // Manage intake motor action
-  public void intakeMotorOn() 
+  // Manage intake motors action
+  public void driveIntakeMotors(double input) 
   {
-    intakeMotor.set(ControlMode.PercentOutput,1.0); 
-  }
-
-  public void intakeMotorOff() 
-  {
-    intakeMotor.set(ControlMode.PercentOutput,0.0); 
+    intakeMotor.set(ControlMode.PercentOutput, input); 
+    sideToSideMotor.set(ControlMode.PercentOutput, input);
   }
 
   // -----------------------------------------------------
   // Manage pneumatic unit for front intake
-  public void moveDown() 
+  public void pushDown() 
   {
     deployCylinder.set(DoubleSolenoid.Value.kForward);
+    isOut = true;
   }
 
-  public void moveUp() 
+  public void pullUp() 
   {
     deployCylinder.set(DoubleSolenoid.Value.kReverse);
+    isOut = false;
+  }
+
+  public boolean isOut()
+  {
+    return isOut;
   }
 }
