@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot 
 {
@@ -28,8 +29,28 @@ public class Robot extends TimedRobot
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
 
-            
+    // Priority Variables
+    SmartDashboard.putBoolean("Intake Pneumatic", false);
+    SmartDashboard.putNumber("Shooter RPM", 0.0);
+    SmartDashboard.putNumber("Distance from Target", 0.0);
+    SmartDashboard.putNumber("Gyro Angle", 0.0);
+    SmartDashboard.putBoolean("Ball In Shooter", false);
+    SmartDashboard.putBoolean("Winch Inverted", false);
+    SmartDashboard.putBoolean("End Game Enabled", false);
+    SmartDashboard.putBoolean("Elevator Stages 2-3", false);
+    SmartDashboard.putBoolean("Elevator Stage 1", false);
+    
+    // Lower Priority Variables
+    SmartDashboard.putNumber("Distance from Target", 0.0);
+    SmartDashboard.putBoolean("Assembly Pneumatic", false);
+    SmartDashboard.putBoolean("Wheel Pneumatic", false);
+    SmartDashboard.putNumber("Red", 0.0);
+    SmartDashboard.putNumber("Green", 0.0);
+    SmartDashboard.putNumber("Blue", 0.0);
+
+
     // Initiate camera
+    CameraServer.getInstance().startAutomaticCapture();
     CameraServer.getInstance().startAutomaticCapture();
   }
 

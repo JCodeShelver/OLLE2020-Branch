@@ -4,6 +4,7 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.FrontIntake;
 import frc.robot.subsystems.Spinner;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class PneumaticManager extends CommandBase 
@@ -42,6 +43,7 @@ public class PneumaticManager extends CommandBase
             frontIntake.pullUp();
         else
             frontIntake.pushDown();
+        SmartDashboard.putBoolean("Intake Pneumatic", frontIntake.isOut());
       }
       if(actionCode == Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE)
       {
@@ -49,6 +51,7 @@ public class PneumaticManager extends CommandBase
             spinner.wheelCylinderExtend();
         else
             spinner.wheelCylinderRetract();
+        SmartDashboard.putBoolean("Wheel Pneumatic", spinner.engaged());
       }
       if(actionCode == Constants.IntakeMovementActions.WOF_UP_DOWN)
       {
@@ -56,20 +59,23 @@ public class PneumaticManager extends CommandBase
             spinner.assemblyCylinderRetract();
         else
             spinner.assemblyCylinderExtend();
+        SmartDashboard.putBoolean("Assembly Pneumatic", spinner.systemUp());
       }
-      if(actionCode == Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS)
+      if(actionCode == Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS)
       {
         if(elevator.TopDeployed())
             elevator.retractTop2Cylinders();
         else
             elevator.extendTop2Cylinders();
+        SmartDashboard.putBoolean("Elevator Stages 2-3", elevator.TopDeployed());
       }
-      if(actionCode == Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS)
+      if(actionCode == Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS)
       {
         if(elevator.BottomDeployed())
             elevator.retractBottomCylinders();
         else
             elevator.extendBottomCylinders();
+        SmartDashboard.putBoolean("Elevator Stage 1", elevator.BottomDeployed());
       }
   }
   // ----------------------------------------------------------------------------

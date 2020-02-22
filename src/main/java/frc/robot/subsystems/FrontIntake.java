@@ -21,7 +21,7 @@ public class FrontIntake extends SubsystemBase
   {
     sideToSideMotor = new TalonSRX(Constants.INTAKE_SIDE_MOTOR_CAN_ID);
     intakeMotor     = new TalonSRX(Constants.INTAKE_FRONTBACK_MOTOR_CAN_ID); 
-    deployCylinder = new DoubleSolenoid(Constants.PCM_MODULE_1,Constants.INTAKE_CYLINDER_INPORT,Constants.INTAKE_CYLINDER_OUTPORT);
+    //deployCylinder = new DoubleSolenoid(Constants.PCM_MODULE_1,Constants.INTAKE_CYLINDER_INPORT,Constants.INTAKE_CYLINDER_OUTPORT);
   }
   
   // -----------------------------------------------------
@@ -39,7 +39,7 @@ public class FrontIntake extends SubsystemBase
     deployCylinder.set(DoubleSolenoid.Value.kForward);
     isOut = true;
   }
-
+  
   public void pullUp() 
   {
     deployCylinder.set(DoubleSolenoid.Value.kReverse);

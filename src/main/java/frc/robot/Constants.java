@@ -69,29 +69,25 @@ public final class Constants
     public static final int SPINNER_WHEEL_CYLINDER_OUTPORT       = 2;
     public static final int SPINNER_WHEEL_CYLINDER_INPORT        = 3;
 
-    public static final int SHOOTER_LOAD_CYLINDER_OUTPORT = 4;
-    public static final int SHOOTER_LOAD_CYLINDER_INPORT  = 5;
-    public static final int SHOOTER_FIRE_CYLINDER_INPORT  = 6;
-    public static final int SHOOTER_FIRE_CYLINDER_OUTPORT = 7;
+    public static final int INTAKE_CYLINDER_OUTPORT              = 4;
+    public static final int INTAKE_CYLINDER_INPORT               = 5;
+
+    public static final int SHOOTER_FIRE_CYLINDER_INPORT         = 6;
+    public static final int SHOOTER_FIRE_CYLINDER_OUTPORT        = 7;
 
     // PCM 1 Ports
     public static final int ELEVATOR_BOTTOM_CYLINDERS_OUTPORT = 0;
     public static final int ELEVATOR_BOTTOM_CYLINDERS_INPORT  = 1;
     public static final int ELEVATOR_TOP2_CYLINDERS_OUTPORT   = 2;
     public static final int ELEVATOR_TOP2_CYLINDERS_INPORT    = 3;
-    public static final int INTAKE_CYLINDER_OUTPORT           = 4;
-    public static final int INTAKE_CYLINDER_INPORT            = 5;
 
-    //PCM 2 Ports
-    public static final int LOADING_PISTON_OUTPORT            = 1;
-    public static final int LOADING_PISTON_INPORT             = 2;
-    public static final int SHOOTING_PISTON_OUTPORT           = 3;
-    public static final int SHOOTING_PISTON_INPORT            = 4;
     
     // Motor CAN IDs
     public static final int INTAKE_SIDE_MOTOR_CAN_ID        = 99;
     public static final int INTAKE_FRONTBACK_MOTOR_CAN_ID   = 98;
-    public static final int LOADER_MOTOR_CAN_ID             = 44;
+    public static final int MOVING_MOTOR_CAN_ID             = 44;
+    public static final int LOADING_MOTOR_CAN_ID            = 45;
+
 
     public static final int LOADER_SWITCH_1_DIGITAL_PORT    = 1;
     public static final int LOADER_SWITCH_2_DIGITAL_PORT    = 2;
@@ -103,6 +99,7 @@ public final class Constants
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     
     public static boolean shooterSystemActive;
+    public static boolean manualMode;
     public static boolean BallInShooter;
 
 }

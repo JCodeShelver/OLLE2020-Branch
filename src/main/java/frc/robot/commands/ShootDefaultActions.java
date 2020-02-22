@@ -20,6 +20,7 @@ public class ShootDefaultActions extends CommandBase
         shooter  = s;
         visionPID       = v;
         addRequirements(shooter);
+        addRequirements(visionPID);
     }
 
     //-------------------------------------------------

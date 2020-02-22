@@ -25,7 +25,7 @@ public class Shooter extends SubsystemBase
   // Constructor - (Do nothing)
   public Shooter() 
   {
-    ShootingPiston = new DoubleSolenoid(Constants.PCM_MODULE_1,Constants.SHOOTING_PISTON_OUTPORT,Constants.SHOOTING_PISTON_INPORT);
+    ShootingPiston = new DoubleSolenoid(Constants.PCM_MODULE_1,Constants.SHOOTER_FIRE_CYLINDER_INPORT,Constants.SHOOTER_FIRE_CYLINDER_OUTPORT);
     shooterMotor = new TalonSRX(Constants.SHOOTER_MOTOR_CAN_ID);
     shooterMotor.setInverted(true);
     ShooterPID = new PIDController(Constants.SHOOTER_PID_P, Constants.SHOOTER_PID_I, Constants.SHOOTER_PID_D);

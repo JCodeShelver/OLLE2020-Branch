@@ -8,6 +8,8 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VisionPID;
 import frc.robot.Constants;
 import frc.robot.subsystems.Loader;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ShootBall extends CommandBase 
@@ -17,6 +19,7 @@ public class ShootBall extends CommandBase
   private final Loader loader;
   public boolean RPMGood;
   public boolean XGood, ballInPlace;
+  public XboxController controller;
 
 
   // ----------------------------------------------------------------------------
@@ -35,7 +38,7 @@ public class ShootBall extends CommandBase
     visionPID.enable();
     RPMGood = false;
     XGood = false;
-
+    controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
   }
 
   // ----------------------------------------------------------------------------
@@ -53,7 +56,7 @@ public class ShootBall extends CommandBase
     else
       RPMGood = false;
 
-    if (RPMGood == true && XGood == true && Constants.BallInShooter == true)
+    if (RPMGood == true && XGood == true && Constants.BallInShooter == true && controller.getBumper(Hand.kLeft))
       shooter.shootBall();
     else
       shooter.lowerShootingPiston();

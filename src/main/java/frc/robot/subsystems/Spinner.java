@@ -9,6 +9,7 @@ import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -56,8 +57,9 @@ public class Spinner extends SubsystemBase
   public void getRawSensorColor() 
   {
     Color detectedColor = m_colorSensor.getColor();
-    System.out.println("Red: " + detectedColor.red + "  Green: " + detectedColor.green + "  Blue: " + detectedColor.blue );
-
+    SmartDashboard.putNumber("Red" , detectedColor.red); 
+    SmartDashboard.putNumber("Green" , detectedColor.green); 
+    SmartDashboard.putNumber("Blue" , detectedColor.blue); 
   }
   
   // -----------------------------------------------------
