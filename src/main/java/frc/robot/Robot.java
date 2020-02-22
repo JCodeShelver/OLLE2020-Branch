@@ -37,16 +37,20 @@ public class Robot extends TimedRobot
     SmartDashboard.putBoolean("Ball In Shooter", false);
     SmartDashboard.putBoolean("Winch Inverted", false);
     SmartDashboard.putBoolean("End Game Enabled", false);
-    SmartDashboard.putBoolean("Elevator Stages 2-3", false);
     SmartDashboard.putBoolean("Elevator Stage 1", false);
+    SmartDashboard.putBoolean("Elevator Stages 2-3", false);
     
     // Lower Priority Variables
+    SmartDashboard.putBoolean("Auton Stages", true);
     SmartDashboard.putNumber("Distance from Target", 0.0);
     SmartDashboard.putBoolean("Assembly Pneumatic", false);
     SmartDashboard.putBoolean("Wheel Pneumatic", false);
     SmartDashboard.putNumber("Red", 0.0);
     SmartDashboard.putNumber("Green", 0.0);
     SmartDashboard.putNumber("Blue", 0.0);
+    SmartDashboard.putNumber("Vision X", 0.0);
+    SmartDashboard.putNumber("Vision Y", 0.0);
+    SmartDashboard.putNumber("Vision Area", 0.0);
 
 
     // Initiate camera

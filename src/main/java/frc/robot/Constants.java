@@ -9,18 +9,29 @@ import com.revrobotics.ColorMatch;
 public final class Constants 
 {
     // Declare constant values for ports
-    public static  final int LEFT_STICK_USB_PORT       = 0;
-    public static  final int RIGHT_STICK_USB_PORT      = 1;
-    public static  final int XBOX_CONTROLLER_USB_PORT  = 2;
+    public static  final int LEFT_STICK_USB_PORT            = 0;
+    public static  final int RIGHT_STICK_USB_PORT           = 1;
+    public static  final int XBOX_CONTROLLER_USB_PORT       = 2;
     
-    public static  final int RIGHT_MOTOR1_CAN_ID       = 4;
-    public static  final int RIGHT_MOTOR2_CAN_ID       = 1;
-    public static  final int LEFT_MOTOR1_CAN_ID        = 2;
-    public static  final int LEFT_MOTOR2_CAN_ID        = 3;
 
-    public static final int SHOOTER_MOTOR_CAN_ID       = 12;
-    public static final int FEED_MOTOR_CAN_ID          = 20;
+    // Motor CAN ID's
+    public static  final int RIGHT_MOTOR1_CAN_ID            = 4;
+    public static  final int RIGHT_MOTOR2_CAN_ID            = 5;
+    public static  final int LEFT_MOTOR1_CAN_ID             = 6;
+    public static  final int LEFT_MOTOR2_CAN_ID             = 7;
 
+    public static final int INTAKE_SIDE_MOTOR_CAN_ID        = 11;
+    public static final int INTAKE_FRONTBACK_MOTOR_CAN_ID   = 12;
+
+    public static final int MOVING_MOTOR_CAN_ID             = 15;
+    public static final int LOADING_MOTOR_CAN_ID            = 16;
+
+    public static final int ELEVATOR_DRIVE_MOTOR_CAN_ID     = 22;
+
+    public static final int SHOOTER_MOTOR_CAN_ID            = 10;
+
+
+    
     public static  final Color COLOR_BLUE   = ColorMatch.makeColor(0.143, 0.427, 0.429);
     public static  final Color COLOR_GREEN  = ColorMatch.makeColor(0.197, 0.561, 0.240);
     public static  final Color COLOR_RED    = ColorMatch.makeColor(0.561, 0.232, 0.114);
@@ -64,16 +75,16 @@ public final class Constants
 
 
     // PCM 0 Ports
-    public static final int SPINNER_ASSEMBLY_CYLINDER_OUTPORT    = 0;
-    public static final int SPINNER_ASSEMBLY_CYLINDER_INPORT     = 1;
-    public static final int SPINNER_WHEEL_CYLINDER_OUTPORT       = 2;
-    public static final int SPINNER_WHEEL_CYLINDER_INPORT        = 3;
+    public static final int SPINNER_ASSEMBLY_CYLINDER_OUTPORT    = 4;
+    public static final int SPINNER_ASSEMBLY_CYLINDER_INPORT     = 5;
+    public static final int SPINNER_WHEEL_CYLINDER_OUTPORT       = 6;
+    public static final int SPINNER_WHEEL_CYLINDER_INPORT        = 7;
 
-    public static final int INTAKE_CYLINDER_OUTPORT              = 4;
-    public static final int INTAKE_CYLINDER_INPORT               = 5;
+    public static final int INTAKE_CYLINDER_OUTPORT              = 2;
+    public static final int INTAKE_CYLINDER_INPORT               = 3;
 
-    public static final int SHOOTER_FIRE_CYLINDER_INPORT         = 6;
-    public static final int SHOOTER_FIRE_CYLINDER_OUTPORT        = 7;
+    public static final int SHOOTER_FIRE_CYLINDER_INPORT         = 0;
+    public static final int SHOOTER_FIRE_CYLINDER_OUTPORT        = 1;
 
     // PCM 1 Ports
     public static final int ELEVATOR_BOTTOM_CYLINDERS_OUTPORT = 0;
@@ -83,10 +94,7 @@ public final class Constants
 
     
     // Motor CAN IDs
-    public static final int INTAKE_SIDE_MOTOR_CAN_ID        = 99;
-    public static final int INTAKE_FRONTBACK_MOTOR_CAN_ID   = 98;
-    public static final int MOVING_MOTOR_CAN_ID             = 44;
-    public static final int LOADING_MOTOR_CAN_ID            = 45;
+
 
 
     public static final int LOADER_SWITCH_1_DIGITAL_PORT    = 1;
@@ -94,12 +102,9 @@ public final class Constants
     public static final int LOADER_SWITCH_3_DIGITAL_PORT    = 3;
     public static final int LOADER_SWITCH_4_DIGITAL_PORT    = 4;
 
-    public static final int ELEVATOR_DRIVE_MOTOR_CAN_ID     = 33;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     
     public static boolean shooterSystemActive;
     public static boolean manualMode;
-    public static boolean BallInShooter;
-
 }

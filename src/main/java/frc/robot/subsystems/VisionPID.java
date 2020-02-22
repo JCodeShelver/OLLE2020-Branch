@@ -106,8 +106,9 @@ public class VisionPID extends PIDSubsystem
 		tx = table.getEntry("tx");
 		double x = tx.getDouble(0.0);
 
-		System.out.println("x: "+ x + " | y: " + y + " | a: " + a);
-		SmartDashboard.putString("DB/String 2", "XYA for LimeLight: "     + "x: "+ x + " | y: " + y + " | a: " + a );   
+		SmartDashboard.putNumber("Vision X", x);
+		SmartDashboard.putNumber("Vision Y", y);
+		SmartDashboard.putNumber("Vision Area", a);
 	}
 
 }

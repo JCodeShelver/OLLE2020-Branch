@@ -65,7 +65,7 @@ public class RobotContainer
                       frontIntake));
 
     shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID));
-    loader.setDefaultCommand(new QueueManager(loader));
+    loader.setDefaultCommand(new QueueManager(loader, shooter));
   }
 
   // -----------------------------------------------
@@ -87,14 +87,14 @@ public class RobotContainer
     new JoystickButton(controller, 9).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.WOF_UP_DOWN));
   }
 
-  // Determine choice for auton from basic dashboard buttons.  Set choice
+  // Determine choice for auton from Smart Dashboard checkbox.  Set choice
   // and return.
   public Command getAutonomousCommand() 
   {
     // Set simple auton routine as default
     Command autonCommandChoice =  new AutonSimple(driveSystem);
 
-    if (SmartDashboard.getBoolean("DB/Button 1",false))
+    if (SmartDashboard.getBoolean("Auton Stages",true))
         autonCommandChoice = new AutonStages(driveSystem,gyroPID);
 
     return autonCommandChoice;

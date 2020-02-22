@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Loader;
+import frc.robot.subsystems.Shooter;
 import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -8,13 +9,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class QueueManager extends CommandBase 
 {
     private Loader loader;
+    private Shooter shooter;
 
-    boolean ballInQueue = false, ballComingIn = false, ballAtBack = false, ballReady = false;
+    boolean ballInQueue = false, ballComingIn = false, ballAtBack = false;
 
   // ----------------------------------------------------------------------------
-  public QueueManager(Loader l) 
+  public QueueManager(Loader l, Shooter s) 
   {
       loader = l;
+      shooter = s;
 
       addRequirements(loader);
   }
@@ -32,6 +35,10 @@ public class QueueManager extends CommandBase
   @Override
   public void execute() 
   {
+    if(shooter.isBallInShooter()== false)
+        shooter.lowerShootingPiston();
+    
+    
     if(loader.ballAtIntake())
         ballComingIn = true;
     else
@@ -61,11 +68,11 @@ public class QueueManager extends CommandBase
     
 
     // load a ball if you can
-    if(ballAtBack && Constants.BallInShooter== false)
+    if(ballAtBack && shooter.isBallInShooter()  == false)
         loader.LoadBallMotorOn();
         loader.MovingMotorOn();
     
-    if(Constants.BallInShooter == true)
+    if(shooter.isBallInShooter() == true)
         loader.MovingMotorOff();
 
 

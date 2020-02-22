@@ -54,12 +54,12 @@ public class Spinner extends SubsystemBase
   
   // -----------------------------------------------------
   // Take one sample from color sensor and return raw color code
-  public void getRawSensorColor() 
+  public void getSensorColor() 
   {
     Color detectedColor = m_colorSensor.getColor();
     SmartDashboard.putNumber("Red" , detectedColor.red); 
-    SmartDashboard.putNumber("Green" , detectedColor.green); 
-    SmartDashboard.putNumber("Blue" , detectedColor.blue); 
+    SmartDashboard.putNumber("Green" , detectedColor.green);
+    SmartDashboard.putNumber("Blue" , detectedColor.blue);
   }
   
   // -----------------------------------------------------

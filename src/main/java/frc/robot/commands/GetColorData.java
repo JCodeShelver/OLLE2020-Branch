@@ -34,7 +34,7 @@ public class GetColorData extends CommandBase {
   @Override
   public void execute() 
   {
-      spinner.getRawSensorColor();
+      spinner.getSensorColor();
       cycleCount++;
   }
 

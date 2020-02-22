@@ -3,7 +3,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VisionPID;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ShootDefaultActions extends CommandBase
 {
@@ -36,11 +35,6 @@ public class ShootDefaultActions extends CommandBase
     {
         shooter.stop();
         visionPID.LEDoff();
-
- SmartDashboard.putString("DB/String 3", "x: "     + Double.toString(visionPID.getXValue()));
- SmartDashboard.putString("DB/String 4", "y: "    + Double.toString(visionPID.getYValue()));
-
-
     }
     
     //-------------------------------------------------
