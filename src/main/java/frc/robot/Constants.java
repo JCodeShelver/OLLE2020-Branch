@@ -1,4 +1,4 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
+// FRC Team 3770 - BlitzCreek - OLLE 2020
 // Robot constant definition repository.
 
 package frc.robot;
@@ -17,6 +17,13 @@ public final class Constants
     public static  final int RIGHT_MOTOR2_CAN_ID       = 1;
     public static  final int LEFT_MOTOR1_CAN_ID        = 2;
     public static  final int LEFT_MOTOR2_CAN_ID        = 3;
+    
+    public static final int INTAKE_SIDE_MOTOR_CAN_ID        = 99;
+    public static final int INTAKE_FRONTBACK_MOTOR_CAN_ID   = 55;
+    public static final int ELEVATOR_DRIVE_MOTOR_CAN_ID     = 33;
+    
+    public static final int MOVING_MOTOR_CAN_ID             = 44;
+    public static final int LOADING_MOTOR_CAN_ID            = 45;
 
     public static final int SHOOTER_MOTOR_CAN_ID       = 12;
     public static final int FEED_MOTOR_CAN_ID          = 20;
@@ -55,8 +62,8 @@ public final class Constants
     public static  final int SPINER_MOTOR_CAN_ID           = 5;
     public static  final double SPINNER_MOTOR_LEVEL        = 0.50; 
 
-    public static  final int PCM_MODULE_0                  = 0;
-    public static  final int PCM_MODULE_1                  = 1;
+    public static  final int PCM0                  = 0;
+    public static  final int PCM1                  = 1;
 
     //Enumerated type for toggling pneumatics
     //public static enum ballMovementActions {TOGGLE_LOADER_FEEDER, TOGGLE_SHOOTER_SHOT};
@@ -81,25 +88,15 @@ public final class Constants
     public static final int ELEVATOR_TOP2_CYLINDERS_OUTPORT   = 2;
     public static final int ELEVATOR_TOP2_CYLINDERS_INPORT    = 3;
 
-    
-    // Motor CAN IDs
-    public static final int INTAKE_SIDE_MOTOR_CAN_ID        = 99;
-    public static final int INTAKE_FRONTBACK_MOTOR_CAN_ID   = 98;
-    public static final int MOVING_MOTOR_CAN_ID             = 44;
-    public static final int LOADING_MOTOR_CAN_ID            = 45;
-
-
     public static final int LOADER_SWITCH_1_DIGITAL_PORT    = 1;
     public static final int LOADER_SWITCH_2_DIGITAL_PORT    = 2;
     public static final int LOADER_SWITCH_3_DIGITAL_PORT    = 3;
     public static final int LOADER_SWITCH_4_DIGITAL_PORT    = 4;
 
-    public static final int ELEVATOR_DRIVE_MOTOR_CAN_ID     = 33;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     
     public static boolean shooterSystemActive;
     public static boolean manualMode;
     public static boolean BallInShooter;
-
 }

@@ -1,4 +1,4 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
+// FRC Team 3770 - BlitzCreek - OLLE 2020
 // Drive subsystem
 // Manage motors for human driving and auton motion.
 
@@ -30,8 +30,8 @@ public class DriveSystem extends SubsystemBase
         // encoderReading = new TalonSRX(Constants.MOVING_MOTOR_CAN_ID);
 
         // Instantiate encoders as simple counters
-        //leftEncoder  = new Counter(Constants.LT_ENCODER_DIGITAL_PORT);
-        //rightEncoder = new Counter(Constants.RT_ENCODER_DIGITAL_PORT);
+        // leftEncoder  = new Counter(Constants.LT_ENCODER_DIGITAL_PORT);
+        // rightEncoder = new Counter(Constants.RT_ENCODER_DIGITAL_PORT);
 
         // Reverse rotation (polarity) of left motor set
         // leftMotor1.setInverted(true);

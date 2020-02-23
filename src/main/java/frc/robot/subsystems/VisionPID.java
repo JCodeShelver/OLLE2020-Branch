@@ -1,4 +1,4 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
+// FRC Team 3770 - BlitzCreek - OLLE 2020
 // VisionPID subsystem
 // Manaages PID control for vision
 
@@ -24,7 +24,7 @@ public class VisionPID extends PIDSubsystem
 
 	public VisionPID() 
 	{
-		super( new PIDController(Constants.VISION_PID_P, Constants.VISION_PID_I, Constants.VISION_PID_D) );   
+		super(new PIDController(Constants.VISION_PID_P, Constants.VISION_PID_I, Constants.VISION_PID_D) );   
 
 		tableData = NetworkTableInstance.getDefault();
         table = tableData.getTable("limelight");
@@ -38,7 +38,7 @@ public class VisionPID extends PIDSubsystem
 	public double getMeasurement() 
 	{
 		tx = table.getEntry("tx");
-		double x = tx.getDouble(0.0);
+		double x = tx.getDouble(-1.0);
 		return x;
 	}
 
@@ -66,22 +66,22 @@ public class VisionPID extends PIDSubsystem
 
 	public double getXValue()
 	{
-		return table.getEntry("tx").getDouble(0.0);
+		return table.getEntry("tx").getDouble(-1.0);
 	}
 
 	public double getYValue()
 	{
-		return table.getEntry("ty").getDouble(0.0);
+		return table.getEntry("ty").getDouble(-1.0);
 	}
 
-	public boolean getTargetInView(){
+	public boolean getTargetInView()
+	{
 		ta = table.getEntry("ta");
 		double a = ta.getDouble(0.0);
-		if (a > 0){
+		if (a > 0)
 			return true;
-		}else{
+		else
 			return false;
-		}
 	}
 
 	// Green LEDs do turn on.  However, threshold and color changes for pipeline reset.
@@ -98,16 +98,16 @@ public class VisionPID extends PIDSubsystem
 	public void getVisionData()
 	{
 		ta = table.getEntry("ta");
-		double a = ta.getDouble(0.0);
+		double a = ta.getDouble(-1.0);
 
 		ty = table.getEntry("ty");
-		double y = ty.getDouble(0.0);
+		double y = ty.getDouble(-1.0);
 
 		tx = table.getEntry("tx");
-		double x = tx.getDouble(0.0);
+		double x = tx.getDouble(-1.0);
 
-		System.out.println("x: "+ x + " | y: " + y + " | a: " + a);
-		SmartDashboard.putString("DB/String 2", "XYA for LimeLight: "     + "x: "+ x + " | y: " + y + " | a: " + a );   
+		SmartDashboard.putNumber("Vision X", x);
+		SmartDashboard.putNumber("Vision Y", y);
+		SmartDashboard.putNumber("Vision Area", a);
 	}
-
 }

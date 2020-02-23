@@ -1,5 +1,5 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
-// Command to shoot ball
+// FRC Team 3770 - BlitzCreek - OLLE 2020
+// Shoot Ball Command
 // Requires access to shooter system.  Performs one ball shot cycle.
 
 package frc.robot.commands;
@@ -46,12 +46,12 @@ public class ShootBall extends CommandBase
   @Override
   public void execute()
   {
-    if( Math.abs(visionPID.getOutput()) <= .05)
+    if (Math.abs(visionPID.getOutput()) <= .05)
       XGood = true;
     else
       XGood = false;
 
-    if(Math.abs(shooter.getSetPoint()-shooter.getRPM())<= 100)
+    if (Math.abs(shooter.getSetPoint()-shooter.getRPM()) <= 100)
       RPMGood = true;
     else
       RPMGood = false;

@@ -1,3 +1,8 @@
+// FRC Team 3770 - BlitzCreek - OLLE 2020
+// Pneumatic Manager Command
+// Manages MOST OF THE PNEMUATICS in one
+// file. It does not manage the Shooter
+// or Conveyor pneumatics. 
 package frc.robot.commands;
 
 import frc.robot.subsystems.Elevator;
@@ -9,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class PneumaticManager extends CommandBase 
 {
-
   private final FrontIntake frontIntake;   
   private final Spinner spinner;
   private final Elevator elevator;
@@ -37,41 +41,41 @@ public class PneumaticManager extends CommandBase
   @Override
   public void execute() 
   {
-      if(actionCode == Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN)
+      if (actionCode == Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN)
       {
-        if(frontIntake.isOut())
+        if (frontIntake.isOut())
             frontIntake.pullUp();
         else
             frontIntake.pushDown();
         SmartDashboard.putBoolean("Intake Pneumatic", frontIntake.isOut());
       }
-      if(actionCode == Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE)
+      if (actionCode == Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE)
       {
-        if(spinner.engaged())
+        if (spinner.engaged())
             spinner.wheelCylinderExtend();
         else
             spinner.wheelCylinderRetract();
         SmartDashboard.putBoolean("Wheel Pneumatic", spinner.engaged());
       }
-      if(actionCode == Constants.IntakeMovementActions.WOF_UP_DOWN)
+      if (actionCode == Constants.IntakeMovementActions.WOF_UP_DOWN)
       {
-        if(spinner.systemUp())
+        if (spinner.systemUp())
             spinner.assemblyCylinderRetract();
         else
             spinner.assemblyCylinderExtend();
         SmartDashboard.putBoolean("Assembly Pneumatic", spinner.systemUp());
       }
-      if(actionCode == Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS)
+      if (actionCode == Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS)
       {
-        if(elevator.TopDeployed())
+        if (elevator.TopDeployed())
             elevator.retractTop2Cylinders();
         else
             elevator.extendTop2Cylinders();
         SmartDashboard.putBoolean("Elevator Stages 2-3", elevator.TopDeployed());
       }
-      if(actionCode == Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS)
+      if (actionCode == Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS)
       {
-        if(elevator.BottomDeployed())
+        if (elevator.BottomDeployed())
             elevator.retractBottomCylinders();
         else
             elevator.extendBottomCylinders();
@@ -85,5 +89,4 @@ public class PneumaticManager extends CommandBase
   {
     return true;
   }
-
 }

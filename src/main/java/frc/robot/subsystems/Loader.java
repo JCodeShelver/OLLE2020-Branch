@@ -1,4 +1,4 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
+// FRC Team 3770 - BlitzCreek - OLLE 2020
 // Ball loader manager
 
 package frc.robot.subsystems;
@@ -13,19 +13,17 @@ public class Loader extends SubsystemBase
 { 
   private TalonSRX movingMotor, loadingMotor;
 
-  private DigitalInput closeSwitch;
-  private DigitalInput backSwitch, intakeSwitch;
+  private DigitalInput closeSwitch, backSwitch, intakeSwitch;
 
   // -----------------------------------------------------
   // Constructor
   public Loader() 
   {
     movingMotor    = new TalonSRX(Constants.MOVING_MOTOR_CAN_ID); 
-    loadingMotor  = new TalonSRX(Constants.LOADING_MOTOR_CAN_ID);
-    closeSwitch =  new DigitalInput(Constants.LOADER_SWITCH_2_DIGITAL_PORT);
-    backSwitch =  new DigitalInput(Constants.LOADER_SWITCH_4_DIGITAL_PORT);
-    intakeSwitch =  new DigitalInput(Constants.LOADER_SWITCH_1_DIGITAL_PORT); 
-
+    loadingMotor   = new TalonSRX(Constants.LOADING_MOTOR_CAN_ID);
+    intakeSwitch   = new DigitalInput(Constants.LOADER_SWITCH_1_DIGITAL_PORT); 
+    closeSwitch    = new DigitalInput(Constants.LOADER_SWITCH_2_DIGITAL_PORT);
+    backSwitch     = new DigitalInput(Constants.LOADER_SWITCH_4_DIGITAL_PORT);
   }
 
   // -----------------------------------------------------
@@ -69,5 +67,4 @@ public class Loader extends SubsystemBase
   {
     return backSwitch.get();
   }
- 
 }

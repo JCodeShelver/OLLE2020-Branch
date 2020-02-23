@@ -1,13 +1,13 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
+// FRC Team 3770 - BlitzCreek - OLLE 2020
+// Auton Simple Command
 // Basic auton routine
 // Drive forward two seconds and stop
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.DriveSystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.subsystems.DriveSystem;
 
 public class AutonSimple extends CommandBase {
 
@@ -36,13 +36,10 @@ public class AutonSimple extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-
     if (driveTimer.get() < DRIVE_TIME)
       driveSystem.drive(-0.5,-0.5);
     else
       driveSystem.drive(0.0,0.0);
-
   }
 
   // ----------------------------------------------------------------------------
@@ -51,8 +48,8 @@ public class AutonSimple extends CommandBase {
   public boolean isFinished() 
   {
     if (driveTimer.get() >= DRIVE_TIME)
-       return true;
+      return true;
     else
-        return false;
+      return false;
   }
 }

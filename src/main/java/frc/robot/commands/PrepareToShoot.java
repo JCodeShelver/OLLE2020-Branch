@@ -1,8 +1,9 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
-// PrepareToShoot command
+// FRC Team 3770 - BlitzCreek - OLLE 2020
+// Prepare to Shoot command
 // Prepares shooter motor for shooting.  Motor speed set using vision feedback.
 
 package frc.robot.commands;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VisionPID;
@@ -10,8 +11,6 @@ import frc.robot.subsystems.VisionPID;
 
 public class PrepareToShoot extends CommandBase
 {
-
-
     // Robot object referencess required for this action
     private final Shooter   shooterSystem;
     private final VisionPID visionPID;
@@ -41,9 +40,9 @@ public class PrepareToShoot extends CommandBase
     public void execute() 
     {
         Distance = yToDistanceFormula(visionPID.getYValue());
-        System.out.println("visionPID Y: " + visionPID.getYValue());
-        System.out.println("Distnace: " + Distance); 
+        SmartDashboard.putNumber("Distance from Target", Distance);
         RPM = distanceToRPMFormula(Distance);
+        SmartDashboard.putNumber("Shooter RPM", RPM);
         shooterSystem.setSetPoint(RPM);
         shooterSystem.spinToSetPoint();
         visionPID.LEDon();

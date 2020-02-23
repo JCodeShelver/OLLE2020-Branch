@@ -1,7 +1,8 @@
-// Delta College/Team 3770 Robotics Programming
-// Example: DriveTurn
-// Command that will control DriveSystem subsystem and use
-// encoder measure pivot turn to a desired angle measure.
+// FRC Team 3770 - BlitzCreek - OLLE 2020
+// Drive Align to Target Command
+// Command that will control DriveSystem 
+// subsystem and use encoder measure pivot
+// turn to a desired angle measure.
 
 package frc.robot.commands;
 
@@ -19,7 +20,7 @@ public class DriveAlignToTarget extends CommandBase
     private final VisionPID     visionPID;
     boolean doneTurning; 
     
-    Joystick leftStick  = new Joystick(Constants.RIGHT_STICK_USB_PORT);
+    Joystick leftStick  = new Joystick(Constants.LEFT_STICK_USB_PORT);
 
     double angleRotateMotorAdjust;          // For adjusting left/right motors for angle correction
     
@@ -53,7 +54,6 @@ public class DriveAlignToTarget extends CommandBase
     {
         visionPID.LEDon();
         double xVisionTarget = visionPID.getMeasurement();
-        System.out.println("XVISIONTARGET: " + xVisionTarget);
 
         if (xVisionTarget != 0 && doneTuring == false)
             doneTurning = true;
@@ -61,16 +61,13 @@ public class DriveAlignToTarget extends CommandBase
             doneTuring = false;
 
 
-        if(doneTurning == false)
+        if (doneTurning == false)
         {
             driveSystem.drive(-idleTurnSpeed, idleTurnSpeed);
         }
-
         else
         {
             angleRotateMotorAdjust = visionPID.getOutput();
-            System.out.println("PID Output: " + angleRotateMotorAdjust);
-
             // Adjust left/right motor sets to PID output.  Rotate
             // as needed toward target angle
             double left  = (+angleRotateMotorAdjust * 0.4) + leftStick.getY();
@@ -96,13 +93,9 @@ public class DriveAlignToTarget extends CommandBase
     // Then, stop when absolute error within tolerance.
     public boolean isFinished() 
     {
-        return false;
-        /*
-        if(Constants.shooterSystemActive == false)
+        if (Constants.shooterSystemActive == false)
             return true;
         else
             return false;
-            */
     }
-
 }

@@ -1,4 +1,5 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
+// FRC Team 3770 - BlitzCreek - OLLE 2020
+// Auton Stages Command
 // Auto routine requiring multiple segments & turns in sequence
 // Drive forward two seconds and stop
 
@@ -15,16 +16,12 @@ public class AutonStages extends SequentialCommandGroup
     {
         gyroPID.resetGyro();
         addCommands(
-
            new DriveSegment(driveSystem,gyroPID,0.5,80,0.0),
-           
            new DriveTurn(driveSystem,gyroPID,45.0)
         );
 
         /*
-
-           new DriveSegment(driveSystem,gyroPID,0.5,44,45.0),
-           
+           new DriveSegment(driveSystem,gyroPID,0.5,44,45.0), 
            new DriveSegment(driveSystem,gyroPID,0.5,111,-90.0) ); */
     }
 }

@@ -1,9 +1,10 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
-// Example: DriveTurn
+// FRC Team 3770 - BlitzCreek - OLLE 2020
+// DriveTurn Command
 // Command that will control DriveSystem subsystem and use
 // encoder measure pivot turn to a desired angle measure.
 
 package frc.robot.commands;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.DriveSystem;
@@ -18,7 +19,7 @@ public class DriveTurn extends CommandBase
     
     double angleRotateMotorAdjust;      // For adjusting left/right motors for angle correction
     double zValue;                      // Parameter for mecanum axis managed by PID
-    private double left,right;
+    private double left, right;
 
     // Robot object referencess required for this action
     private final DriveSystem   driveSystem;  
@@ -26,15 +27,14 @@ public class DriveTurn extends CommandBase
 
     //-------------------------------------------------
     // Constructor:  Capture time and motor level for straight drive
-    public DriveTurn( DriveSystem d, GyroPID g, double angle) 
+    public DriveTurn(DriveSystem d, GyroPID g, double angle) 
     {
         // Capture references to existing robot subsystems.  Define them as requirements.
         driveSystem   = d;   
         gyroPID       = g;  
-        addRequirements(driveSystem);
-        addRequirements(gyroPID);
+        addRequirements(driveSystem, gyroPID);
         
-        targetAngle = angle;   
+        targetAngle       = angle;   
         segmentDriveTimer = new Timer();
     }
 
@@ -55,7 +55,6 @@ public class DriveTurn extends CommandBase
     // Called repeatedly when this Command is scheduled to run
     public void execute() 
     {
-        
         angleRotateMotorAdjust = gyroPID.getOutput();
            
         // Adjust left/right motor sets to PID output.  Rotate
@@ -70,7 +69,7 @@ public class DriveTurn extends CommandBase
     {
         // If not get at target angle (within tolerance) AND time limit not
         // reached, continue to update drive system motors.
-        if ( gyroPID.getMeasurement() < Constants.ANGLE_TOLERANCE  ||  segmentDriveTimer.get() <  Constants.TURN_TIME_LIMIT) 
+        if (gyroPID.getMeasurement() < Constants.ANGLE_TOLERANCE || segmentDriveTimer.get() < Constants.TURN_TIME_LIMIT) 
         {
             driveSystem.drive(left, right);  // Set drive motors to target level
             return false;
@@ -84,7 +83,14 @@ public class DriveTurn extends CommandBase
     }
 
     //-------------------------------------------------
-    protected void end()      { }
-    public void interrupted() { }
+    protected void end()
+    {
+
+    }
+
+    public void interrupted()
+    {
+
+    }
 }
 

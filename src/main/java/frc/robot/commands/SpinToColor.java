@@ -1,14 +1,16 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
+// FRC Team 3770 - BlitzCreek - OLLE 2020
+// Spin To Color Command
 // Command to spin spinner until given color
-// Requires access to spinner system.  Performs one spin cycle.
+// Requires access to spinner system.  Performs 7 spin cycles.
 
 package frc.robot.commands;
 
 import frc.robot.subsystems.Spinner;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SpinToColor extends CommandBase {
-
+public class SpinToColor extends CommandBase
+{
   private final Spinner spinner;   // Reference to spinner system object 
 
   private int onColorCount;
@@ -22,11 +24,12 @@ public class SpinToColor extends CommandBase {
   }
 
   // ----------------------------------------------------------------------------
-  // Initization
+  // Initialization
   @Override
   public void initialize() 
   { 
     spinner.initiateColorSampler();  // Start sampling colors
+    onTargetColor = false;
   }
 
   // ----------------------------------------------------------------------------
@@ -37,11 +40,8 @@ public class SpinToColor extends CommandBase {
     spinner.sampleRecentColors();      // Build sample set of most recent colors sensed
     spinner.motorOn();
 
-
-    
-
     // Manage boolean value used for counting
-    if (spinner.isSensorOnTargetColor())
+    if (spinner.isSensorOnTargetColor('R')) // Test for Rotation Control
     {
       if (onTargetColor == false)
           onTargetColor = true;   
@@ -54,8 +54,7 @@ public class SpinToColor extends CommandBase {
           onColorCount++;           // If on color and now off, count one visit
       }
     }
-
-    System.out.println("Count: " + onColorCount);
+    SmartDashboard.putNumber("Spin Count", onColorCount);
   }
 
   // ----------------------------------------------------------------------------
@@ -63,14 +62,14 @@ public class SpinToColor extends CommandBase {
   @Override
   public boolean isFinished() 
   {
-    if (spinner.isSensorOnTargetColor() && onColorCount >= 7)
+    if (spinner.isSensorOnTargetColor('R') && onColorCount >= 7)
     {
-       spinner.motorOff();
-       return true;
+      spinner.motorOff();
+      return true;
     }
     else
-        return false;
-    
+    {
+      return false;
+    }
   }
-
 }
