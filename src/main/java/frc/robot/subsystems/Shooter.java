@@ -1,4 +1,4 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
+// FRC Team 3770 - BlitzCreek - OLLE 2020
 // Shooter subsystem
 // Manage controls ball shooter system.  Utilizes PID controller for motor speed.
 
@@ -20,16 +20,16 @@ public class Shooter extends SubsystemBase
   int TPM;
   DoubleSolenoid ShootingPiston;
 
-
   // ----------------------------------------------------------------------------
   // Constructor - (Do nothing)
   public Shooter() 
   {
-    ShootingPiston = new DoubleSolenoid(Constants.PCM_MODULE_1,Constants.SHOOTER_FIRE_CYLINDER_INPORT,Constants.SHOOTER_FIRE_CYLINDER_OUTPORT);
-    shooterMotor = new TalonSRX(Constants.SHOOTER_MOTOR_CAN_ID);
+    ShootingPiston = new DoubleSolenoid(Constants.PCM1,Constants.SHOOTER_FIRE_CYLINDER_INPORT,Constants.SHOOTER_FIRE_CYLINDER_OUTPORT);
+    shooterMotor   = new TalonSRX(Constants.SHOOTER_MOTOR_CAN_ID);
+    ShooterPID     = new PIDController(Constants.SHOOTER_PID_P, Constants.SHOOTER_PID_I, Constants.SHOOTER_PID_D);
+    TPM            = 0;
+
     shooterMotor.setInverted(true);
-    ShooterPID = new PIDController(Constants.SHOOTER_PID_P, Constants.SHOOTER_PID_I, Constants.SHOOTER_PID_D);
-    TPM = 0;
   }
 
   // ----------------------------------------------------------------------------
@@ -40,12 +40,12 @@ public class Shooter extends SubsystemBase
     currentSetPoint = 3000;
     TPM = -shooterMotor.getSelectedSensorVelocity();
 
-    System.out.println("Current Set point for RPM: " + currentSetPoint);
-    System.out.println("Current RPM: " + TPM/Constants.SHOOTER_TICKS_PER_RPM);
+    //System.out.println("Current Set point for RPM: " + currentSetPoint);
+    //System.out.println("Current RPM: " + TPM/Constants.SHOOTER_TICKS_PER_RPM);
     
     double pidOutput = ShooterPID.calculate(TPM/Constants.SHOOTER_TICKS_PER_RPM, currentSetPoint);
 
-    System.out.println("Motor: " + pidOutput);
+    //System.out.println("Motor: " + pidOutput);
 
     shooterMotor.set(ControlMode.PercentOutput, -pidOutput);
   }
@@ -54,6 +54,7 @@ public class Shooter extends SubsystemBase
   {
     ShootingPiston.set(DoubleSolenoid.Value.kForward);
   }
+
   public void lowerShootingPiston()
   {
     ShootingPiston.set(DoubleSolenoid.Value.kReverse);
@@ -90,5 +91,4 @@ public class Shooter extends SubsystemBase
     shooterMotor.set(ControlMode.PercentOutput, 0.0);
     this.lowerShootingPiston();
   } 
-  
 }

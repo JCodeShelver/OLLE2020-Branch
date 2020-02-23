@@ -1,4 +1,5 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
+// FRC Team 3770 - BlitzCreek - OLLE 2020
+// Get Color Data Command
 // Command to read color sensor and retrieve color values.
 // Use for calibration of spinner color sensor
 
@@ -12,7 +13,6 @@ public class GetColorData extends CommandBase {
   private final Spinner spinner;   // Reference to spinner system object 
 
   private int cycleCount;
-  
   private final int MAX_CYCLES_TO_COUNT = 20;
 
   // ----------------------------------------------------------------------------
@@ -34,7 +34,7 @@ public class GetColorData extends CommandBase {
   @Override
   public void execute() 
   {
-      spinner.getRawSensorColor();
+      spinner.getSensorColor();
       cycleCount++;
   }
 
@@ -44,12 +44,8 @@ public class GetColorData extends CommandBase {
   public boolean isFinished() 
   {
     if (cycleCount >= MAX_CYCLES_TO_COUNT)
-    {
        return true;
-    }
     else
-        return false;
-    
+        return false;    
   }
-
 }

@@ -1,5 +1,7 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
-// Command to 
+// FRC Team 3770 - BlitzCreek - OLLE 2020
+// Front Intake Driver Command
+// Command that manages the front intake 
+// mechanism.
 
 package frc.robot.commands;
 
@@ -35,14 +37,13 @@ public class FrontIntakeDriver extends CommandBase
   @Override
   public void execute()
   {
-    if(frontIntake.isOut())
+    if (frontIntake.isOut())
     {
       input = controller.getTriggerAxis(Hand.kRight);
       frontIntake.driveIntakeMotors(input);
     }
     else
       frontIntake.driveIntakeMotors(0.0);
-
   }
 
   // ----------------------------------------------------------------------------
@@ -52,5 +53,4 @@ public class FrontIntakeDriver extends CommandBase
   {
     return false;
   }
-
 }

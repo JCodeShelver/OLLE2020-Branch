@@ -1,6 +1,6 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
+// FRC Team 3770 - BlitzCreek - OLLE 2020
 // GyroPID subsystem
-// Manaages gyro mechanism and PID control with gyro.
+// Manages gyro mechanism and PID control with gyro.
 
 package frc.robot.subsystems;
 
@@ -19,7 +19,7 @@ public class GyroPID extends PIDSubsystem
 
 	public GyroPID() 
 	{
-		super( new PIDController(Constants.GYRO_PID_P, Constants.GYRO_PID_I, Constants.GYRO_PID_D) );   
+		super(new PIDController(Constants.GYRO_PID_P, Constants.GYRO_PID_I, Constants.GYRO_PID_D));   
 
         // Initialize gyro
         try {
@@ -74,5 +74,4 @@ public class GyroPID extends PIDSubsystem
 	{
 		getController().setP(newP);
 	}
-	
 }

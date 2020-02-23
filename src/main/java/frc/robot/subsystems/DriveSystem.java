@@ -1,4 +1,4 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
+// FRC Team 3770 - BlitzCreek - OLLE 2020
 // Drive subsystem
 // Manage motors for human driving and auton motion.
 
@@ -23,19 +23,19 @@ public class DriveSystem extends SubsystemBase
     public DriveSystem() 
     {
         // Declare/instantiate robot objects by calling constructors
-        // leftMotor1  = new CANSparkMax(Constants.LEFT_MOTOR1_CAN_ID, MotorType.kBrushless);   
-        // leftMotor2  = new CANSparkMax(Constants.LEFT_MOTOR2_CAN_ID, MotorType.kBrushless);    
-        // rightMotor1 = new CANSparkMax(Constants.RIGHT_MOTOR1_CAN_ID, MotorType.kBrushless);
-        // rightMotor2 = new CANSparkMax(Constants.RIGHT_MOTOR2_CAN_ID, MotorType.kBrushless);
-        // encoderReading = new TalonSRX(Constants.MOVING_MOTOR_CAN_ID);
+        leftMotor1  = new CANSparkMax(Constants.LEFT_MOTOR1_CAN_ID, MotorType.kBrushless);   
+        leftMotor2  = new CANSparkMax(Constants.LEFT_MOTOR2_CAN_ID, MotorType.kBrushless);    
+        rightMotor1 = new CANSparkMax(Constants.RIGHT_MOTOR1_CAN_ID, MotorType.kBrushless);
+        rightMotor2 = new CANSparkMax(Constants.RIGHT_MOTOR2_CAN_ID, MotorType.kBrushless);
+        encoderReading = new TalonSRX(Constants.MOVING_MOTOR_CAN_ID);
 
         // Instantiate encoders as simple counters
-        //leftEncoder  = new Counter(Constants.LT_ENCODER_DIGITAL_PORT);
-        //rightEncoder = new Counter(Constants.RT_ENCODER_DIGITAL_PORT);
+        // leftEncoder  = new Counter(Constants.LT_ENCODER_DIGITAL_PORT);
+        // rightEncoder = new Counter(Constants.RT_ENCODER_DIGITAL_PORT);
 
         // Reverse rotation (polarity) of left motor set
-        // leftMotor1.setInverted(true);
-        // leftMotor2.setInverted(true);
+        leftMotor1.setInverted(true);
+        leftMotor2.setInverted(true);
     }
     
     // ----------------------------------------------------------------------------
@@ -43,24 +43,23 @@ public class DriveSystem extends SubsystemBase
     // Reversed drive allows backwards driving from a forward reference.
     public void drive(double inputL, double inputR)
     {
-        // leftMotor1.set(inputL);
-        // leftMotor2.set(inputL);
-        // rightMotor1.set(inputR);
-        // rightMotor2.set(inputR); 
+        leftMotor1.set(inputL);
+        leftMotor2.set(inputL);
+        rightMotor1.set(inputR);
+        rightMotor2.set(inputR); 
      } 
      
     // ----------------------------------------------------------------------------
     // Reset encoders to zero
     public void zeroEncoder()
     {
-        // encoderReading.setSelectedSensorPosition(0);   
+        encoderReading.setSelectedSensorPosition(0);   
     }
 
     // ----------------------------------------------------------------------------
     // Return distance traveled in inches
     public double getDistanceInches()
     {
-        return 0.0;
-        // return encoderReading.getSelectedSensorPosition()/Constants.INCHES_PER_TICK;
+        return encoderReading.getSelectedSensorPosition()/Constants.INCHES_PER_TICK;
     }
 }

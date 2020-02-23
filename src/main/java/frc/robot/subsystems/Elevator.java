@@ -1,4 +1,4 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
+// FRC Team 3770 - BlitzCreek - OLLE 2020
 // Lifter subsystem
 // Manage robot lifter for end game
 
@@ -11,8 +11,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class Elevator extends SubsystemBase 
 { 
-  private DoubleSolenoid bottomCylinders;
-  private DoubleSolenoid top2Cylinders;
+  private DoubleSolenoid bottomCylinders, top2Cylinders;
   private boolean isDeployed1 = false, isDeployed2 = false;
   private TalonSRX elevatorDriveMotor;
 
@@ -20,9 +19,9 @@ public class Elevator extends SubsystemBase
   // Constructor
   public Elevator() 
   {
-    bottomCylinders = new DoubleSolenoid(Constants.PCM_MODULE_1,Constants.ELEVATOR_BOTTOM_CYLINDERS_OUTPORT,Constants.ELEVATOR_BOTTOM_CYLINDERS_INPORT);
-    top2Cylinders  = new DoubleSolenoid(Constants.PCM_MODULE_1,Constants.ELEVATOR_TOP2_CYLINDERS_OUTPORT,Constants.ELEVATOR_TOP2_CYLINDERS_INPORT);
-
+    bottomCylinders    = new DoubleSolenoid(Constants.PCM1,Constants.ELEVATOR_BOTTOM_CYLINDERS_OUTPORT,Constants.ELEVATOR_BOTTOM_CYLINDERS_INPORT);
+    top2Cylinders      = new DoubleSolenoid(Constants.PCM1,Constants.ELEVATOR_TOP2_CYLINDERS_OUTPORT,Constants.ELEVATOR_TOP2_CYLINDERS_INPORT);
+    
     elevatorDriveMotor = new TalonSRX(Constants.ELEVATOR_DRIVE_MOTOR_CAN_ID); 
   }
   
@@ -72,7 +71,6 @@ public class Elevator extends SubsystemBase
   // Elevator rail drive motor
   public void driveElevator(double motorLevel)
   {
-    elevatorDriveMotor.set(ControlMode.PercentOutput,motorLevel); 
+    elevatorDriveMotor.set(ControlMode.PercentOutput, motorLevel); 
   }
- 
 }

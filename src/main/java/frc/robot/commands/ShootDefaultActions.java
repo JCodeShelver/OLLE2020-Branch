@@ -1,26 +1,26 @@
+// FRC Team 3770 - BlitzCreek - OLLE 2020
+// ShootDefaultActions Command
+// Manages shooter mechanism when not explicitly used
 
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VisionPID;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 public class ShootDefaultActions extends CommandBase
 {
     // Robot object referencess required for this action
     private final Shooter    shooter;
     private final VisionPID  visionPID;
-    public double Distance, RPM;
+    public double            Distance, RPM;
 
     //-------------------------------------------------
     // Constructor:  Capture time and motor level for straight drive
-    public ShootDefaultActions( Shooter s, VisionPID v)
+    public ShootDefaultActions(Shooter s, VisionPID v)
     {
         // Capture references to existing robot subsystems.  Define them as requirements.
-        shooter  = s;
-        visionPID       = v;
-        addRequirements(shooter);
-        addRequirements(visionPID);
+        shooter    = s;
+        visionPID  = v;
+        addRequirements(shooter, visionPID);
     }
 
     //-------------------------------------------------
@@ -36,11 +36,6 @@ public class ShootDefaultActions extends CommandBase
     {
         shooter.stop();
         visionPID.LEDoff();
-
- SmartDashboard.putString("DB/String 3", "x: "     + Double.toString(visionPID.getXValue()));
- SmartDashboard.putString("DB/String 4", "y: "    + Double.toString(visionPID.getYValue()));
-
-
     }
     
     //-------------------------------------------------

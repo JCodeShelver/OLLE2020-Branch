@@ -1,5 +1,7 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
-// Command to 
+// FRC Team 3770 - BlitzCreek - OLLE 2020
+// Drive Elevator Command
+// Deploys Elevator structure to deliver 
+// the Bar Crawler mechanism.
 
 package frc.robot.commands;
 
@@ -40,5 +42,4 @@ public class DriveElevator extends CommandBase
   {
     return true;
   }
-
 }

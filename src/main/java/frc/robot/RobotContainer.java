@@ -1,4 +1,4 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
+// FRC Team 3770 - BlitzCreek - OLLE 2020
 // RobotContainer Class
 // Declare and instantiate robot objects.  Assign button actions.  
 // Set default drive.
@@ -65,7 +65,7 @@ public class RobotContainer
                       frontIntake));
 
     shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID));
-    loader.setDefaultCommand(new QueueManager(loader));
+    loader.setDefaultCommand(new QueueManager(loader, shooter));
   }
 
   // -----------------------------------------------
@@ -78,7 +78,6 @@ public class RobotContainer
     new JoystickButton(rightStick, 1).whileHeld(new ShootBall(shooter, visionPID, loader));
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
 
-    
     //Toggling pneumatics
     new JoystickButton(controller, 5).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
     new JoystickButton(controller, 6).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
@@ -92,9 +91,9 @@ public class RobotContainer
   public Command getAutonomousCommand() 
   {
     // Set simple auton routine as default
-    Command autonCommandChoice =  new AutonSimple(driveSystem);
+    Command autonCommandChoice = new AutonSimple(driveSystem);
 
-    if (SmartDashboard.getBoolean("DB/Button 1",false))
+    if (SmartDashboard.getBoolean("Auton Stages",false))
         autonCommandChoice = new AutonStages(driveSystem,gyroPID);
 
     return autonCommandChoice;

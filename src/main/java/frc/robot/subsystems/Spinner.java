@@ -1,4 +1,4 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
+// FRC Team 3770 - BlitzCreek - OLLE 2020
 // Spinner subsystem
 // Manage spinner motor and color sensor
 
@@ -36,8 +36,8 @@ public class Spinner extends SubsystemBase
   {
     spinnerMotor = new TalonSRX(Constants.SPINER_MOTOR_CAN_ID); 
 
-    assemblyCylinder   = new DoubleSolenoid(Constants.PCM_MODULE_0, Constants.SPINNER_ASSEMBLY_CYLINDER_OUTPORT,Constants.SPINNER_ASSEMBLY_CYLINDER_INPORT);
-    wheelCylinder      = new DoubleSolenoid(Constants.PCM_MODULE_0, Constants.SPINNER_WHEEL_CYLINDER_OUTPORT,Constants.SPINNER_WHEEL_CYLINDER_INPORT);
+    assemblyCylinder   = new DoubleSolenoid(Constants.PCM0, Constants.SPINNER_ASSEMBLY_CYLINDER_OUTPORT,Constants.SPINNER_ASSEMBLY_CYLINDER_INPORT);
+    wheelCylinder      = new DoubleSolenoid(Constants.PCM0, Constants.SPINNER_WHEEL_CYLINDER_OUTPORT,Constants.SPINNER_WHEEL_CYLINDER_INPORT);
 
     // Prepare color sensor
     i2cPort = I2C.Port.kOnboard;
@@ -54,7 +54,7 @@ public class Spinner extends SubsystemBase
   
   // -----------------------------------------------------
   // Take one sample from color sensor and return raw color code
-  public void getRawSensorColor() 
+  public void getSensorColor() 
   {
     Color detectedColor = m_colorSensor.getColor();
     SmartDashboard.putNumber("Red" , detectedColor.red); 
@@ -72,17 +72,16 @@ public class Spinner extends SubsystemBase
     char colorCode;
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
-    if (match.color == Constants.COLOR_BLUE)          {
+    if (match.color == Constants.COLOR_BLUE)
       colorCode = 'B';
-    } else if (match.color == Constants.COLOR_RED)    {
+    else if (match.color == Constants.COLOR_RED)
       colorCode = 'R';
-    } else if (match.color == Constants.COLOR_GREEN)  {
+    else if (match.color == Constants.COLOR_GREEN)
       colorCode = 'G';
-    } else if (match.color == Constants.COLOR_YELLOW) {
+    else if (match.color == Constants.COLOR_YELLOW)
       colorCode = 'Y';
-    } else {
+    else
       colorCode = ' ';
-    }
 
     return colorCode;
   }
@@ -164,10 +163,7 @@ public class Spinner extends SubsystemBase
     if (recentColorSequence.length() > Constants.COLOR_SAMPLE_NUMBER)
     {
        recentColorSequence = recentColorSequence.substring(0,Constants.COLOR_SAMPLE_NUMBER);
-    }
-    
-System.out.println(recentColorSequence);
-    
+    }    
   }
  
   // -----------------------------------------------------
@@ -192,10 +188,7 @@ System.out.println(recentColorSequence);
     char returnValue = 'X';
     char frontCharColor = recentColorSequence.charAt(0);
     if (charsMatch && frontCharColor != 'X')
-       returnValue = frontCharColor;
-       
-System.out.println("==>" + returnValue);
-    
+       returnValue = frontCharColor;    
     return returnValue;
   }
   
@@ -211,18 +204,23 @@ System.out.println("==>" + returnValue);
     else
         return 'X';
   }
-
   
   // ----------------------------------------------------------------------------
   // Return true when current color matches target color
-  public boolean isSensorOnTargetColor()
+  public boolean isSensorOnTargetColor(char mode)
   {
-    System.out.println(getCurrentSampledColor() + "====" + getGameDataColor() );
-
-    if (getCurrentSampledColor() == getGameDataColor() && getCurrentSampledColor() != 'X')
-      return true;
-    else
-       return false;
+    switch (mode) 
+    {
+      case 'R':
+        if (getCurrentSampledColor() == getGameDataColor() && getCurrentSampledColor() != 'X')
+          return true;
+        else
+          return false;
+      default:
+        if (getCurrentSampledColor() == mode && getCurrentSampledColor() != 'X')
+          return true;
+        else
+          return false;
+    }
   }
-
 }

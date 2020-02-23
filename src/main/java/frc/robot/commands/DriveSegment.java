@@ -1,6 +1,6 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
-// Example: DriveStraight
-// Command that will control DriveSystem subsystem and use
+// FRC Team 3770 - BlitzCreek - OLLE 2020
+// Drive Straight Command
+// Command that controls DriveSystem subsystem and uses
 // encoder measure to drive a given distance in inches.
 // Note:  FORWARD drive is NEGATIVE
 
@@ -8,10 +8,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.GyroPID;
 import frc.robot.Constants;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class DriveSegment extends CommandBase
@@ -37,17 +37,14 @@ public class DriveSegment extends CommandBase
         // Capture references to existing robot subsystems.  Define them as requirements.
         driveSystem   = d;   
         gyroPID       = g;  
-        addRequirements(driveSystem);
-        addRequirements(gyroPID);
+        addRequirements(driveSystem, gyroPID);
         
-        targetDistance = distance;   
-        powerLevel     = -power; // Negative = forward?
-        targetAngle    = angle;
-
+        targetDistance    = distance;   
+        powerLevel        = -power; // Negative = forward?
+        targetAngle       = angle;
         segmentDriveTimer = new Timer();
 
         driveSystem.zeroEncoder();
-
         gyroPID.enable();
         
         // Start clock for this action
@@ -63,25 +60,25 @@ public class DriveSegment extends CommandBase
     public void execute() 
     {
         double inches = driveSystem.getDistanceInches();
-        SmartDashboard.putString("DB/String 2", "Gyro: "     + Double.toString(gyroPID.getMeasurement()));
+        SmartDashboard.putNumber("Gyro Angle", gyroPID.getMeasurement());
         if (Math.abs(targetDistance - inches) > Constants.DISTANCE_TOLERANCE) 
         {
             angleMotorAdjust = gyroPID.getOutput();     // Get gyro value
-            System.out.println(angleMotorAdjust);
-            left  = powerLevel - angleMotorAdjust;           // Adjust motor level to keep robot moving straight
-            right = powerLevel + angleMotorAdjust;
+            //            System.out.println(angleMotorAdjust);
+            left             = powerLevel - angleMotorAdjust;           // Adjust motor level to keep robot moving straight
+            right            = powerLevel + angleMotorAdjust;
             
             if (segmentDriveTimer.get() < Constants.RAMP_UP_TIME)               // Handle gradual ramp down
             {
                 percentage = segmentDriveTimer.get() / Constants.RAMP_UP_TIME;
-                left = percentage * left;
-                right = percentage * right;
+                left       = percentage * left;
+                right      = percentage * right;
             } 
             else if (targetDistance - inches <= Constants.RAMP_DOWN_DIST)       // Handle gradual ramp down
             {
                 percentage = (targetDistance - inches) / Constants.RAMP_DOWN_DIST;
-                left = percentage * left;
-                right = percentage * right;
+                left       = percentage * left;
+                right      = percentage * right;
             } 
         }
     }
@@ -91,7 +88,7 @@ public class DriveSegment extends CommandBase
     public boolean isFinished() 
     {
         // Continue driving until encoder measure terminates action 
-        if ( driveSystem.getDistanceInches() < targetDistance-5) 
+        if (driveSystem.getDistanceInches() < targetDistance - 5) 
         {
             driveSystem.drive(left, right);  // Set drive motors to target level
             return false;
@@ -103,6 +100,5 @@ public class DriveSegment extends CommandBase
             return true;
         }
     }
-
 }
 

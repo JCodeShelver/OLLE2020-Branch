@@ -1,6 +1,12 @@
+// FRC Team 3770 - BlitzCreek - OLLE 2020
+// Queue Manager Command
+// Manages the Shooter and Loader subsystems
+// to control what triggers when.
+
 package frc.robot.commands;
 
 import frc.robot.subsystems.Loader;
+import frc.robot.subsystems.Shooter;
 import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -8,15 +14,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class QueueManager extends CommandBase 
 {
     private Loader loader;
+    private Shooter shooter;
 
     boolean ballInQueue = false, ballComingIn = false, ballAtBack = false, ballReady = false;
 
   // ----------------------------------------------------------------------------
-  public QueueManager(Loader l) 
+  public QueueManager(Loader l, Shooter s) 
   {
-      loader = l;
-
-      addRequirements(loader);
+    loader = l;
+    shooter = s;
+    addRequirements(loader, shooter);
   }
 
   // ----------------------------------------------------------------------------
@@ -32,40 +39,40 @@ public class QueueManager extends CommandBase
   @Override
   public void execute() 
   {
-    if(loader.ballAtIntake())
+    if (loader.ballAtIntake())
         ballComingIn = true;
     else
         ballComingIn = false;
-    
-    if(loader.ballInSystem())
+
+    if (loader.ballInSystem())
         ballInQueue = true;
     else
         ballInQueue = false;
 
-    if(loader.ballAtBack())
+    if (loader.ballAtBack())
         ballAtBack = true;
     else
         ballAtBack = false;
 
 
-        // logic for the moving of the belts
-    if(ballAtBack)
+    // Logic for belt movement
+    if (ballAtBack)
     {
         loader.MovingMotorOff();
     }
-    else if(ballComingIn)
+    else if (ballComingIn)
         loader.MovingMotorOn();
 
-    else if(ballInQueue)
+    else if (ballInQueue)
         loader.MovingMotorOff();
     
 
-    // load a ball if you can
-    if(ballAtBack && Constants.BallInShooter== false)
+    // Load a ball if vacant
+    if (ballAtBack && Constants.BallInShooter== false)
         loader.LoadBallMotorOn();
         loader.MovingMotorOn();
     
-    if(Constants.BallInShooter == true)
+    if (Constants.BallInShooter == true)
         loader.MovingMotorOff();
 
 
@@ -77,5 +84,4 @@ public class QueueManager extends CommandBase
   {
     return false;
   }
-
 }
