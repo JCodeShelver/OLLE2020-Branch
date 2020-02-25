@@ -59,11 +59,10 @@ public class RobotContainer
   {
     configureButtonBindings();
 
-    driveSystem.setDefaultCommand(
-       new DriveHuman(driveSystem,
-                      () -> rightStick.getY(),
-                      () -> leftStick.getY(),
-                      frontIntake));
+    driveSystem.setDefaultCommand(new DriveHuman(
+      driveSystem,
+      () -> rightStick.getY(),
+      () -> leftStick.getY()));
 
     shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID));
     loader.setDefaultCommand(new QueueManager(loader, shooter));
