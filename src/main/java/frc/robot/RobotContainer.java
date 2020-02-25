@@ -72,10 +72,11 @@ public class RobotContainer
   // Define drive button interface control bindings
   private void configureButtonBindings() 
   {
-    new JoystickButton(rightStick, 3).whenPressed(new SpinToColor(spinner));
-    new JoystickButton(leftStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
     new JoystickButton(leftStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
-    new JoystickButton(rightStick, 1).whileHeld(new ShootBall(shooter, visionPID, loader));
+    new JoystickButton(leftStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
+
+    new JoystickButton(rightStick, 1).whileHeld(new ShootBall(shooter, visionPID));
+    new JoystickButton(rightStick, 3).whenPressed(new SpinToColor(spinner));
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
 
     //Toggling pneumatics
