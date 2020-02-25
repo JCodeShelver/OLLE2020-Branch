@@ -26,15 +26,13 @@ public class DriveHuman extends CommandBase
   private DoubleSupplier rightStickValue;
   private XboxController controller;
 
-  public DriveHuman(DriveSystem d, DoubleSupplier left, DoubleSupplier right, FrontIntake f)
+  public DriveHuman(DriveSystem d, DoubleSupplier right, DoubleSupplier left)
   {
     driveSystem = d;
-    frontIntake = f;
     controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
     leftStickValue  = left;
     rightStickValue = right;
 
-    addRequirements(frontIntake);
     addRequirements(driveSystem);
 
   }
@@ -44,19 +42,7 @@ public class DriveHuman extends CommandBase
   public void execute()
   {
       SmartDashboard.updateValues();
-      driveSystem.drive(leftStickValue.getAsDouble(),rightStickValue.getAsDouble());
-
-      if(frontIntake.isOut() == true)
-        frontIntake.driveIntakeMotors(0.75);
-      else
-        frontIntake.driveIntakeMotors(0.0);
-
-      if(controller.getTriggerAxis(Hand.kRight) > .5)
-        frontIntake.driveIntakeMotors(controller.getTriggerAxis(Hand.kRight));
-
-      if(controller.getBumper(Hand.kRight))
-        frontIntake.driveIntakeMotors(0.0);
-
+      driveSystem.Quadraticdrive(leftStickValue.getAsDouble(),rightStickValue.getAsDouble());
   }
 
 }

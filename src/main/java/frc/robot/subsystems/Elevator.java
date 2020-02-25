@@ -11,68 +11,64 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class Elevator extends SubsystemBase 
 { 
-  private DoubleSolenoid bottomCylinders;
-  private DoubleSolenoid top2Cylinders;
+  private final DoubleSolenoid bottomCylinders;
+  private final DoubleSolenoid top2Cylinders;
   private boolean isDeployed1 = false, isDeployed2 = false;
-  private TalonSRX elevatorDriveMotor;
+  private final TalonSRX elevatorDriveMotor, WinchDriveMotor;
 
   // -----------------------------------------------------
   // Constructor
-  public Elevator() 
-  {
-    bottomCylinders = new DoubleSolenoid(Constants.PCM_MODULE_1,Constants.ELEVATOR_BOTTOM_CYLINDERS_OUTPORT,Constants.ELEVATOR_BOTTOM_CYLINDERS_INPORT);
-    top2Cylinders  = new DoubleSolenoid(Constants.PCM_MODULE_1,Constants.ELEVATOR_TOP2_CYLINDERS_OUTPORT,Constants.ELEVATOR_TOP2_CYLINDERS_INPORT);
+  public Elevator() {
+    bottomCylinders = new DoubleSolenoid(Constants.PCM_MODULE_1, Constants.ELEVATOR_BOTTOM_CYLINDERS_OUTPORT,
+        Constants.ELEVATOR_BOTTOM_CYLINDERS_INPORT);
+    top2Cylinders = new DoubleSolenoid(Constants.PCM_MODULE_1, Constants.ELEVATOR_TOP2_CYLINDERS_OUTPORT,
+        Constants.ELEVATOR_TOP2_CYLINDERS_INPORT);
 
-    elevatorDriveMotor = new TalonSRX(Constants.ELEVATOR_DRIVE_MOTOR_CAN_ID); 
+    elevatorDriveMotor = new TalonSRX(Constants.ELEVATOR_DRIVE_MOTOR_CAN_ID);
+    WinchDriveMotor = new TalonSRX(Constants.WINCH_MOTOR_CAN_ID);
   }
-  
+
   // -----------------------------------------------------
   // Manage bottom double pneumatic cyliders synchronously
-  public void extendBottomCylinders() 
-  {
+  public void extendBottomCylinders() {
     bottomCylinders.set(DoubleSolenoid.Value.kForward);
     isDeployed1 = true;
   }
-  
-  public void retractBottomCylinders() 
-  {
+
+  public void retractBottomCylinders() {
     bottomCylinders.set(DoubleSolenoid.Value.kReverse);
     isDeployed1 = false;
   }
-    
+
   // -----------------------------------------------------
   // Manage middle and top solenoids
-  public void extendTop2Cylinders() 
-  {
+  public void extendTop2Cylinders() {
     top2Cylinders.set(DoubleSolenoid.Value.kForward);
     isDeployed2 = true;
   }
-      
-  public void retractTop2Cylinders() 
-  {
+
+  public void retractTop2Cylinders() {
     top2Cylinders.set(DoubleSolenoid.Value.kReverse);
     isDeployed2 = false;
   }
 
-  public void stopTop2Cylinders()
-  {
-    top2Cylinders.set(DoubleSolenoid.Value.kOff);
-  }
-
-  public boolean TopDeployed()
-  {
+  public boolean TopDeployed() {
     return isDeployed2;
   }
 
-  public boolean BottomDeployed()
-  {
+  public boolean BottomDeployed() {
     return isDeployed1;
   }
+
   // -----------------------------------------------------
   // Elevator rail drive motor
-  public void driveElevator(double motorLevel)
+  public void driveElevator(final double motorLevel) {
+    elevatorDriveMotor.set(ControlMode.PercentOutput, motorLevel);
+  }
+
+  public void driveWinch(final double winchInput)
   {
-    elevatorDriveMotor.set(ControlMode.PercentOutput,motorLevel); 
+    WinchDriveMotor.set(ControlMode.PercentOutput, winchInput);
   }
  
 }

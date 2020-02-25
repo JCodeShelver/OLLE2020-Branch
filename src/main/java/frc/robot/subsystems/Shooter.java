@@ -18,6 +18,7 @@ public class Shooter extends SubsystemBase
 
   TalonSRX shooterMotor;
   PIDController ShooterPID;
+  boolean shooterPistonDown;
   double currentSetPoint;
   int TPM;
   DoubleSolenoid ShootingPiston;
@@ -29,12 +30,13 @@ public class Shooter extends SubsystemBase
   // Constructor - (Do nothing)
   public Shooter() 
   {
-    BallInShooter = new DigitalInput(Constants.LOADER_SWITCH_4_DIGITAL_PORT);
+    BallInShooter = new DigitalInput(3);
     ShootingPiston = new DoubleSolenoid(Constants.PCM_MODULE_1,Constants.SHOOTER_FIRE_CYLINDER_INPORT,Constants.SHOOTER_FIRE_CYLINDER_OUTPORT);
     shooterMotor = new TalonSRX(Constants.SHOOTER_MOTOR_CAN_ID);
     shooterMotor.setInverted(true);
     ShooterPID = new PIDController(Constants.SHOOTER_PID_P, Constants.SHOOTER_PID_I, Constants.SHOOTER_PID_D);
     TPM = 0;
+    shooterPistonDown = true;
   }
 
   // ----------------------------------------------------------------------------
@@ -52,16 +54,22 @@ public class Shooter extends SubsystemBase
 
     System.out.println("Motor: " + pidOutput);
 
-    shooterMotor.set(ControlMode.PercentOutput, -pidOutput);
+    shooterMotor.set(ControlMode.PercentOutput, pidOutput);
   }
   
   public void shootBall()
   {
     ShootingPiston.set(DoubleSolenoid.Value.kForward);
+    shooterPistonDown = false;
   }
   public void lowerShootingPiston()
   {
     ShootingPiston.set(DoubleSolenoid.Value.kReverse);
+    shooterPistonDown = true;
+  }
+  public boolean isShooterPistonDown()
+  {
+    return shooterPistonDown;
   }
   // ----------------------------------------------------------------------------
   // Turn motor off
@@ -86,9 +94,9 @@ public class Shooter extends SubsystemBase
     shooterMotor.set(ControlMode.PercentOutput, 1.0);
   }
 
-  public boolean isBallInShooter()
+  public void updateBallInShooter()
   {
-    return BallInShooter.get();
+    Constants.isBallInShooter = !BallInShooter.get();
   }
 
   // ----------------------------------------------------------------------------

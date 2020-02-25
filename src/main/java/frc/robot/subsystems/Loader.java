@@ -22,9 +22,9 @@ public class Loader extends SubsystemBase
   {
     movingMotor    = new TalonSRX(Constants.MOVING_MOTOR_CAN_ID); 
     loadingMotor  = new TalonSRX(Constants.LOADING_MOTOR_CAN_ID);
-    closeSwitch =  new DigitalInput(Constants.LOADER_SWITCH_2_DIGITAL_PORT);
-    backSwitch =  new DigitalInput(Constants.LOADER_SWITCH_4_DIGITAL_PORT);
-    intakeSwitch =  new DigitalInput(Constants.LOADER_SWITCH_1_DIGITAL_PORT); 
+    closeSwitch =  new DigitalInput(1);
+    backSwitch =  new DigitalInput(2);
+    intakeSwitch =  new DigitalInput(0); 
 
   }
 
@@ -57,17 +57,18 @@ public class Loader extends SubsystemBase
 
   public boolean ballAtIntake()
   {
-    return intakeSwitch.get();
+    System.out.println("AT INTAKE: " + intakeSwitch.get());
+    return !intakeSwitch.get();
   }
 
   public boolean ballInSystem()
   {
-    return closeSwitch.get();
+    return !closeSwitch.get();
   }
 
   public boolean ballAtBack()
   {
-    return backSwitch.get();
+    return !backSwitch.get();
   }
  
 }

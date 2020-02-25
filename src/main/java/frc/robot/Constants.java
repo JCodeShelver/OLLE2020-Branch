@@ -9,8 +9,8 @@ import com.revrobotics.ColorMatch;
 public final class Constants 
 {
     // Declare constant values for ports
-    public static  final int LEFT_STICK_USB_PORT            = 0;
-    public static  final int RIGHT_STICK_USB_PORT           = 1;
+    public static  final int LEFT_STICK_USB_PORT            = 1;
+    public static  final int RIGHT_STICK_USB_PORT           = 0;
     public static  final int XBOX_CONTROLLER_USB_PORT       = 2;
     
 
@@ -27,11 +27,12 @@ public final class Constants
     public static final int LOADING_MOTOR_CAN_ID            = 16;
 
     public static final int ELEVATOR_DRIVE_MOTOR_CAN_ID     = 22;
+    public static final int WINCH_MOTOR_CAN_ID              = 20;
 
     public static final int SHOOTER_MOTOR_CAN_ID            = 10;
 
 
-    
+
     public static  final Color COLOR_BLUE   = ColorMatch.makeColor(0.143, 0.427, 0.429);
     public static  final Color COLOR_GREEN  = ColorMatch.makeColor(0.197, 0.561, 0.240);
     public static  final Color COLOR_RED    = ColorMatch.makeColor(0.561, 0.232, 0.114);
@@ -63,15 +64,16 @@ public final class Constants
 
     public static  final int COLOR_SAMPLE_NUMBER            = 5;   // Number samples taken for color sampling
     
-    public static  final int SPINER_MOTOR_CAN_ID           = 5;
+    public static  final int SPINER_MOTOR_CAN_ID           = 14;
     public static  final double SPINNER_MOTOR_LEVEL        = 0.50; 
 
-    public static  final int PCM_MODULE_0                  = 0;
-    public static  final int PCM_MODULE_1                  = 1;
+    public static  final int PCM_MODULE_0                  = 1;
+    public static  final int PCM_MODULE_1                  = 2;
 
     //Enumerated type for toggling pneumatics
     //public static enum ballMovementActions {TOGGLE_LOADER_FEEDER, TOGGLE_SHOOTER_SHOT};
-    public static enum IntakeMovementActions {TOGGLE_INTAKE_UP_DOWN, WOF_UP_DOWN, WOF_CONTACT_DISENGAGE, ELEVATOR_BOTTOM_CYLINDERS, ELEVATOR_TOP_CYLINDERS};
+    public static enum IntakeMovementActions {TOGGLE_INTAKE_UP_DOWN, WOF_UP_DOWN, WOF_CONTACT_DISENGAGE,
+         ELEVATOR_BOTTOM_CYLINDERS, ELEVATOR_TOP_CYLINDERS, SHOOTER_FIRE_PISTON};
 
 
     // PCM 0 Ports
@@ -96,15 +98,9 @@ public final class Constants
     // Motor CAN IDs
 
 
-
-    public static final int LOADER_SWITCH_1_DIGITAL_PORT    = 1;
-    public static final int LOADER_SWITCH_2_DIGITAL_PORT    = 2;
-    public static final int LOADER_SWITCH_3_DIGITAL_PORT    = 3;
-    public static final int LOADER_SWITCH_4_DIGITAL_PORT    = 4;
-
-
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     
     public static boolean shooterSystemActive;
     public static boolean manualMode;
+    public static boolean isBallInShooter;
 }

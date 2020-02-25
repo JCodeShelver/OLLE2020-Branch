@@ -19,6 +19,8 @@ public class FrontIntakeDriver extends CommandBase
   public FrontIntakeDriver(FrontIntake i) 
   {
     frontIntake = i;
+    addRequirements(frontIntake);
+
     controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
   }
 
@@ -35,13 +37,16 @@ public class FrontIntakeDriver extends CommandBase
   @Override
   public void execute()
   {
+    
     if(frontIntake.isOut())
     {
       input = controller.getTriggerAxis(Hand.kRight);
+      System.out.println(input);
       frontIntake.driveIntakeMotors(input);
     }
     else
       frontIntake.driveIntakeMotors(0.0);
+
 
   }
 

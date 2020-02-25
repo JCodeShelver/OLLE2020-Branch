@@ -3,17 +3,21 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.Elevator;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveElevator extends CommandBase 
 {
   private final Elevator elevator;   
+  XboxController controller;
 
   // ----------------------------------------------------------------------------
   public DriveElevator(Elevator e) 
   {
     elevator = e;
+    controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
   }
 
   // ----------------------------------------------------------------------------
@@ -29,16 +33,22 @@ public class DriveElevator extends CommandBase
   @Override
   public void execute() 
   {
-    elevator.extendBottomCylinders();
-    elevator.extendTop2Cylinders();
+    double crawlerInput = controller.getAxisType(1);
+    elevator.driveElevator(crawlerInput);
+
+    double winchInput = Math.abs(controller.getAxisType(5));
+    elevator.driveWinch(winchInput);
+    
   }
+
+
 
   // ----------------------------------------------------------------------------
   // 
   @Override
   public boolean isFinished() 
   {
-    return true;
+    return false;
   }
 
 }

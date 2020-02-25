@@ -33,6 +33,7 @@ public class ShootDefaultActions extends CommandBase
     // Called repeatedly when this Command is scheduled to run
     public void execute() 
     {
+        shooter.updateBallInShooter();
         shooter.stop();
         visionPID.LEDoff();
     }

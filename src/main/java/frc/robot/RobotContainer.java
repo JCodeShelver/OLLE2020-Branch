@@ -5,7 +5,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.Command; 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.Elevator;
@@ -16,14 +16,15 @@ import frc.robot.subsystems.GyroPID;
 import frc.robot.subsystems.VisionPID;
 import frc.robot.subsystems.Loader;
 
-
 import frc.robot.commands.DriveHuman;
+import frc.robot.commands.FrontIntakeDriver;
 import frc.robot.commands.PrepareToShoot;
 import frc.robot.commands.ShootBall;
 import frc.robot.commands.SpinToColor;
 import frc.robot.commands.AutonSimple;
 import frc.robot.commands.AutonStages;
 import frc.robot.commands.DriveAlignToTarget;
+import frc.robot.commands.DriveElevator;
 import frc.robot.commands.ShootDefaultActions;
 import frc.robot.commands.GetColorData;
 import frc.robot.commands.PneumaticManager;
@@ -61,11 +62,12 @@ public class RobotContainer
     driveSystem.setDefaultCommand(
        new DriveHuman(driveSystem,
                       () -> rightStick.getY(),
-                      () -> leftStick.getY(),
-                      frontIntake));
+                      () -> leftStick.getY()
+                      ));
 
     shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID));
-    loader.setDefaultCommand(new QueueManager(loader, shooter));
+    loader.setDefaultCommand(new QueueManager(loader));
+    frontIntake.setDefaultCommand(new FrontIntakeDriver(frontIntake));
   }
 
   // -----------------------------------------------
@@ -75,16 +77,17 @@ public class RobotContainer
     new JoystickButton(rightStick, 3).whenPressed(new SpinToColor(spinner));
     new JoystickButton(leftStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
     new JoystickButton(leftStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
-    new JoystickButton(rightStick, 1).whileHeld(new ShootBall(shooter, visionPID, loader));
+    new JoystickButton(controller, 6).whileHeld(new ShootBall(shooter, visionPID, loader));
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
+    new JoystickButton(controller, 5).toggleWhenPressed(new DriveElevator(elevator));
 
     
     //Toggling pneumatics
-    new JoystickButton(controller, 5).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
-    new JoystickButton(controller, 6).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
-    new JoystickButton(controller, 7).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));
-    new JoystickButton(controller, 8).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE));    
-    new JoystickButton(controller, 9).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.WOF_UP_DOWN));
+    new JoystickButton(controller, 1).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
+    new JoystickButton(controller, 9).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
+    new JoystickButton(controller, 10).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));
+    new JoystickButton(controller, 3).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE));    
+    new JoystickButton(controller, 2).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_UP_DOWN));
   }
 
   // Determine choice for auton from Smart Dashboard checkbox.  Set choice

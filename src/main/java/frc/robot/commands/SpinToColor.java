@@ -34,6 +34,7 @@ public class SpinToColor extends CommandBase {
   @Override
   public void execute() 
   {
+    
     spinner.sampleRecentColors();      // Build sample set of most recent colors sensed
     spinner.motorOn();
 
