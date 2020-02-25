@@ -7,6 +7,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command; 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.FrontIntake;
@@ -16,8 +20,8 @@ import frc.robot.subsystems.GyroPID;
 import frc.robot.subsystems.VisionPID;
 import frc.robot.subsystems.Loader;
 
-
 import frc.robot.commands.DriveHuman;
+import frc.robot.commands.FrontIntakeDriver;
 import frc.robot.commands.PrepareToShoot;
 import frc.robot.commands.ShootBall;
 import frc.robot.commands.SpinToColor;
@@ -29,9 +33,6 @@ import frc.robot.commands.GetColorData;
 import frc.robot.commands.PneumaticManager;
 import frc.robot.commands.QueueManager;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer 
 {
@@ -66,12 +67,25 @@ public class RobotContainer
 
     shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID));
     loader.setDefaultCommand(new QueueManager(loader, shooter));
+    frontIntake.setDefaultCommand(new FrontIntakeDriver(frontIntake, controller));
   }
 
   // -----------------------------------------------
   // Define drive button interface control bindings
   private void configureButtonBindings() 
   {
+    /*
+    kA              1
+    kB              2
+    kX              3
+    kY              4
+    kBumperLeft     5
+    kBumperRight    6
+    kBack           7
+    kStart          8
+    kStickLeft      9  
+    kStickRight     10
+    */
     new JoystickButton(leftStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
     new JoystickButton(leftStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
 
@@ -80,23 +94,20 @@ public class RobotContainer
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
 
     //Toggling pneumatics
-    new JoystickButton(controller, 5).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
-    new JoystickButton(controller, 6).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
-    new JoystickButton(controller, 7).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));
-    new JoystickButton(controller, 8).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE));    
-    new JoystickButton(controller, 9).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.WOF_UP_DOWN));
+    new JoystickButton(controller, XboxController.Button.kBumperLeft.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
+    new JoystickButton(controller, XboxController.Button.kBumperRight.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
+    new JoystickButton(controller, XboxController.Button.kBack.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));
+    new JoystickButton(controller, XboxController.Button.kStart.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE));    
+    new JoystickButton(controller, XboxController.Button.kStickLeft.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.WOF_UP_DOWN));
   }
 
-  // Determine choice for auton from basic dashboard buttons.  Set choice
-  // and return.
   public Command getAutonomousCommand() 
   {
     // Set simple auton routine as default
     Command autonCommandChoice = new AutonSimple(driveSystem);
 
-    if (SmartDashboard.getBoolean("Auton Stages",false))
+    if (SmartDashboard.getBoolean("Auton Stages",true))
         autonCommandChoice = new AutonStages(driveSystem,gyroPID);
-
     return autonCommandChoice;
   }
 }

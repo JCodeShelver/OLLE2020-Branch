@@ -44,16 +44,5 @@ public class DriveHuman extends CommandBase
   {
       SmartDashboard.updateValues();
       driveSystem.drive(leftStickValue.getAsDouble(),rightStickValue.getAsDouble());
-
-      if (frontIntake.isOut() == true)
-        frontIntake.driveIntakeMotors(0.75);
-      else
-        frontIntake.driveIntakeMotors(0.0);
-
-      if (controller.getTriggerAxis(Hand.kRight) > .5)
-        frontIntake.driveIntakeMotors(controller.getTriggerAxis(Hand.kRight));
-
-      if (controller.getBumper(Hand.kRight))
-        frontIntake.driveIntakeMotors(0.0);
   }
 }

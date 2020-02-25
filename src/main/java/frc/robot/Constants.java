@@ -13,10 +13,12 @@ public final class Constants
     public static  final int RIGHT_STICK_USB_PORT      = 1;
     public static  final int XBOX_CONTROLLER_USB_PORT  = 2;
     
-    public static  final int RIGHT_MOTOR1_CAN_ID       = 4;
-    public static  final int RIGHT_MOTOR2_CAN_ID       = 1;
-    public static  final int LEFT_MOTOR1_CAN_ID        = 2;
-    public static  final int LEFT_MOTOR2_CAN_ID        = 3;
+    // Motor CAN IDs
+    public static  final int RIGHT_MOTOR2_CAN_ID            = 1;
+    public static  final int LEFT_MOTOR1_CAN_ID             = 2;
+    public static  final int LEFT_MOTOR2_CAN_ID             = 3;
+    public static  final int RIGHT_MOTOR1_CAN_ID            = 4;
+    public static  final int SPINNER_MOTOR_CAN_ID           = 5;
     
     public static final int INTAKE_SIDE_MOTOR_CAN_ID        = 99;
     public static final int INTAKE_FRONTBACK_MOTOR_CAN_ID   = 55;
@@ -59,7 +61,6 @@ public final class Constants
 
     public static  final int COLOR_SAMPLE_NUMBER            = 5;   // Number samples taken for color sampling
     
-    public static  final int SPINER_MOTOR_CAN_ID           = 5;
     public static  final double SPINNER_MOTOR_LEVEL        = 0.50; 
 
     public static  final int PCM0                  = 0;

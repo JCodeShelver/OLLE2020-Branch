@@ -34,7 +34,7 @@ public class Spinner extends SubsystemBase
   // Constructor
   public Spinner() 
   {
-    spinnerMotor = new TalonSRX(Constants.SPINER_MOTOR_CAN_ID); 
+    spinnerMotor = new TalonSRX(Constants.SPINNER_MOTOR_CAN_ID); 
 
     assemblyCylinder   = new DoubleSolenoid(Constants.PCM0, Constants.SPINNER_ASSEMBLY_CYLINDER_OUTPORT,Constants.SPINNER_ASSEMBLY_CYLINDER_INPORT);
     wheelCylinder      = new DoubleSolenoid(Constants.PCM0, Constants.SPINNER_WHEEL_CYLINDER_OUTPORT,Constants.SPINNER_WHEEL_CYLINDER_INPORT);

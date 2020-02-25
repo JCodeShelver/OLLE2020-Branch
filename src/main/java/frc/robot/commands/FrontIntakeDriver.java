@@ -15,13 +15,12 @@ public class FrontIntakeDriver extends CommandBase
 {
     private XboxController controller;
     private final FrontIntake frontIntake;   
-    private double input;
 
   // ----------------------------------------------------------------------------
-  public FrontIntakeDriver(FrontIntake i) 
+  public FrontIntakeDriver(FrontIntake i, XboxController c)
   {
     frontIntake = i;
-    controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
+    controller = c;
   }
 
   // ----------------------------------------------------------------------------
@@ -36,13 +35,16 @@ public class FrontIntakeDriver extends CommandBase
   //  
   @Override
   public void execute()
-  {
-    if (frontIntake.isOut())
-    {
-      input = controller.getTriggerAxis(Hand.kRight);
-      frontIntake.driveIntakeMotors(input);
-    }
+  {    
+    if (frontIntake.isOut()) // Default Speed
+      frontIntake.driveIntakeMotors(0.75);
     else
+      frontIntake.driveIntakeMotors(0.0);
+
+    if (controller.getTriggerAxis(Hand.kRight) > .5) // Set speed to RT if > halfway 
+      frontIntake.driveIntakeMotors(controller.getTriggerAxis(Hand.kRight));
+
+    if (controller.getBumper(Hand.kRight)) // Kill Button
       frontIntake.driveIntakeMotors(0.0);
   }
 
