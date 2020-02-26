@@ -32,7 +32,7 @@ public class Loader extends SubsystemBase
   // Manage top motor
   public void MovingMotorOn() 
   {
-    movingMotor.set(ControlMode.PercentOutput,1.0); 
+    movingMotor.set(ControlMode.PercentOutput,1); 
   }
 
   public void MovingMotorOff() 
@@ -57,7 +57,6 @@ public class Loader extends SubsystemBase
 
   public boolean ballAtIntake()
   {
-    System.out.println("AT INTAKE: " + intakeSwitch.get());
     return !intakeSwitch.get();
   }
 

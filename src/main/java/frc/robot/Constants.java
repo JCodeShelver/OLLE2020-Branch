@@ -25,6 +25,7 @@ public final class Constants
 
     public static final int MOVING_MOTOR_CAN_ID             = 15;
     public static final int LOADING_MOTOR_CAN_ID            = 16;
+    public static  final int SPINER_MOTOR_CAN_ID            = 14;
 
     public static final int ELEVATOR_DRIVE_MOTOR_CAN_ID     = 22;
     public static final int WINCH_MOTOR_CAN_ID              = 20;
@@ -57,18 +58,17 @@ public final class Constants
     public static  final double VISION_PID_D           = 0.0025;
 
     //PID_P = .0025, PID_I = 0.01, PID_D = 0.000175;
-    public static  final double SHOOTER_PID_P               = 0.003;
+    public static  final double SHOOTER_PID_P               = 0.001;
     public static  final double SHOOTER_PID_I               = 0.01;
     public static  final double SHOOTER_PID_D               = 0.000175;
     public static  final double SHOOTER_TICKS_PER_RPM       = 6.837;
 
     public static  final int COLOR_SAMPLE_NUMBER            = 5;   // Number samples taken for color sampling
     
-    public static  final int SPINER_MOTOR_CAN_ID           = 14;
-    public static  final double SPINNER_MOTOR_LEVEL        = 0.50; 
+    public static  final double SPINNER_MOTOR_LEVEL        = 1; 
 
-    public static  final int PCM_MODULE_0                  = 1;
-    public static  final int PCM_MODULE_1                  = 2;
+    public static  final int PCM_MODULE_0                  = 2;
+    public static  final int PCM_MODULE_1                  = 1;
 
     //Enumerated type for toggling pneumatics
     //public static enum ballMovementActions {TOGGLE_LOADER_FEEDER, TOGGLE_SHOOTER_SHOT};
@@ -102,5 +102,7 @@ public final class Constants
     
     public static boolean shooterSystemActive;
     public static boolean manualMode;
+    public static boolean EndgameEnabled;
+    public static boolean OShitMode;
     public static boolean isBallInShooter;
 }

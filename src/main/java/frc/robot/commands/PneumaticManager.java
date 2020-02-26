@@ -48,6 +48,7 @@ public class PneumaticManager extends CommandBase
             frontIntake.pushDown();
         SmartDashboard.putBoolean("Intake Pneumatic", frontIntake.isOut());
       }
+      
       if(actionCode == Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE)
       {
         if(spinner.engaged())

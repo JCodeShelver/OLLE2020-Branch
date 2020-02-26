@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class Elevator extends SubsystemBase 
 { 
-  private final DoubleSolenoid bottomCylinders;
-  private final DoubleSolenoid top2Cylinders;
+  private  DoubleSolenoid bottomCylinders;
+  private  DoubleSolenoid top2Cylinders;
   private boolean isDeployed1 = false, isDeployed2 = false;
   private final TalonSRX elevatorDriveMotor, WinchDriveMotor;
 

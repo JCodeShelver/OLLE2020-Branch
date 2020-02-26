@@ -18,6 +18,7 @@ public class SpinToColor extends CommandBase {
   public SpinToColor(Spinner s) 
   {
     spinner = s;
+    addRequirements(spinner);
     onColorCount = 0;
   }
 
@@ -34,27 +35,28 @@ public class SpinToColor extends CommandBase {
   @Override
   public void execute() 
   {
-    
-    spinner.sampleRecentColors();      // Build sample set of most recent colors sensed
+
+    // spinner.sampleRecentColors();      // Build sample set of most recent colors sensed
+
     spinner.motorOn();
 
 
     
 
     // Manage boolean value used for counting
-    if (spinner.isSensorOnTargetColor())
-    {
-      if (onTargetColor == false)
-          onTargetColor = true;   
-    }
-    else
-    {
-      if (onTargetColor == true)
-      {
-          onTargetColor = false;
-          onColorCount++;           // If on color and now off, count one visit
-      }
-    }
+    // if (spinner.isSensorOnTargetColor())
+    // {
+    //   if (onTargetColor == false)
+    //       onTargetColor = true;   
+    // }
+    // else
+    // {
+    //   if (onTargetColor == true)
+    //   {
+    //       onTargetColor = false;
+    //       onColorCount++;           // If on color and now off, count one visit
+    //   }
+    // }
 
     System.out.println("Count: " + onColorCount);
   }
@@ -71,7 +73,10 @@ public class SpinToColor extends CommandBase {
     }
     else
         return false;
-    
+  }
+  public void isInterupted()
+  {
+    spinner.motorOff();
   }
 
 }

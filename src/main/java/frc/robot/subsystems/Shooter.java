@@ -31,7 +31,7 @@ public class Shooter extends SubsystemBase
   public Shooter() 
   {
     BallInShooter = new DigitalInput(3);
-    ShootingPiston = new DoubleSolenoid(Constants.PCM_MODULE_1,Constants.SHOOTER_FIRE_CYLINDER_INPORT,Constants.SHOOTER_FIRE_CYLINDER_OUTPORT);
+    ShootingPiston = new DoubleSolenoid(Constants.PCM_MODULE_0,Constants.SHOOTER_FIRE_CYLINDER_INPORT,Constants.SHOOTER_FIRE_CYLINDER_OUTPORT);
     shooterMotor = new TalonSRX(Constants.SHOOTER_MOTOR_CAN_ID);
     shooterMotor.setInverted(true);
     ShooterPID = new PIDController(Constants.SHOOTER_PID_P, Constants.SHOOTER_PID_I, Constants.SHOOTER_PID_D);

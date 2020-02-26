@@ -41,7 +41,6 @@ public class QueueManager extends CommandBase
     if(loader.ballInSystem())
         ballInQueue = true;
     else
-
         ballInQueue = false;
 
     if(loader.ballAtBack())
@@ -60,15 +59,18 @@ public class QueueManager extends CommandBase
         loader.LoadBallMotorOn();
         loader.MovingMotorOn();
     }
-    else if(ballAtBack && Constants.isBallInShooter)
-    {
-        loader.LoadBallMotorOff();
+    else if(ballAtBack)
         loader.MovingMotorOff();
-    }
     else if(ballComingIn)
         loader.MovingMotorOn();
-    else if(ballInQueue)
+    else if(!ballComingIn)
         loader.MovingMotorOff();
+
+
+     if(Constants.isBallInShooter)
+    {
+        loader.LoadBallMotorOff();
+    }
 
 
 
