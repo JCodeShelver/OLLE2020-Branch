@@ -8,6 +8,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.FrontIntake;
 import frc.robot.subsystems.Spinner;
+import frc.robot.subsystems.Shooter;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -17,15 +18,17 @@ public class PneumaticManager extends CommandBase
   private final FrontIntake frontIntake;   
   private final Spinner spinner;
   private final Elevator elevator;
+  private final Shooter shooter;
   private Constants.IntakeMovementActions actionCode;
 
   // ----------------------------------------------------------------------------
-  public PneumaticManager(FrontIntake i, Spinner s, Elevator e, Constants.IntakeMovementActions code) 
+  public PneumaticManager(FrontIntake i, Spinner s, Elevator e, Shooter sh, Constants.IntakeMovementActions code) 
   {
     frontIntake = i;
     spinner     = s;
     elevator    = e;
-    actionCode = code;
+    shooter     = sh;
+    actionCode  = code;
   }
 
   // ----------------------------------------------------------------------------
@@ -80,6 +83,15 @@ public class PneumaticManager extends CommandBase
         else
             elevator.extendBottomCylinders();
         SmartDashboard.putBoolean("Elevator Stage 1", elevator.BottomDeployed());
+      }
+      if(actionCode == Constants.IntakeMovementActions.SHOOTER_FIRE_PISTON)
+      {
+        if(shooter.isShooterPistonDown())
+            shooter.shootBall();
+        else
+            shooter.lowerShootingPiston();
+
+        //SmartDashboard.putBoolean("Shooter Piston Down", elevator.BottomDeployed());
       }
   }
   // ----------------------------------------------------------------------------

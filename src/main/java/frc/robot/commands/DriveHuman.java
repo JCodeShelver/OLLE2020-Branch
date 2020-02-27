@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveHuman extends CommandBase 
 {
-
   private final DriveSystem driveSystem;   // Reference to drive system object 
   private DoubleSupplier leftStickValue;
   private DoubleSupplier rightStickValue;
@@ -25,7 +24,6 @@ public class DriveHuman extends CommandBase
     driveSystem     = d;
     leftStickValue  = left;
     rightStickValue = right;
-
     addRequirements(driveSystem);
   }
 
@@ -34,6 +32,6 @@ public class DriveHuman extends CommandBase
   public void execute()
   {
       SmartDashboard.updateValues();
-      driveSystem.drive(leftStickValue.getAsDouble(),rightStickValue.getAsDouble());
+      driveSystem.Quadraticdrive(leftStickValue.getAsDouble(), rightStickValue.getAsDouble());
   }
 }

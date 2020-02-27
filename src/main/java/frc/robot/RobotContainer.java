@@ -6,7 +6,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
@@ -29,6 +28,7 @@ import frc.robot.commands.SpinnerControl;
 import frc.robot.commands.AutonSimple;
 import frc.robot.commands.AutonStages;
 import frc.robot.commands.DriveAlignToTarget;
+import frc.robot.commands.DriveElevator;
 import frc.robot.commands.ShootDefaultActions;
 import frc.robot.commands.GetColorData;
 import frc.robot.commands.PneumaticManager;
@@ -64,7 +64,7 @@ public class RobotContainer
       () -> rightStick.getY(),
       () -> leftStick.getY()));
 
-    shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID));
+    shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID, elevator, spinner));
     loader.setDefaultCommand(new QueueManager(loader, shooter));
     frontIntake.setDefaultCommand(new FrontIntakeDriver(frontIntake, controller));
   }
@@ -90,14 +90,19 @@ public class RobotContainer
 
     new JoystickButton(rightStick, 1).whileHeld(new ShootBall(shooter, visionPID));
     new JoystickButton(rightStick, 3).whenPressed(new SpinnerControl(spinner));
+    new JoystickButton(rightStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
+    new JoystickButton(rightStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
-
+    
+    new JoystickButton(controller, 2).whenPressed(new SpinnerControl(spinner));
+    new JoystickButton(controller, 6).whileHeld(new ShootBall(shooter, visionPID));
+    new JoystickButton(controller, 5).toggleWhenPressed(new DriveElevator(elevator));
     //Toggling pneumatics
-    new JoystickButton(controller, XboxController.Button.kBumperLeft.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
-    new JoystickButton(controller, XboxController.Button.kBumperRight.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
-    new JoystickButton(controller, XboxController.Button.kBack.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));
-    new JoystickButton(controller, XboxController.Button.kStart.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE));    
-    new JoystickButton(controller, XboxController.Button.kStickLeft.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.WOF_UP_DOWN));
+    new JoystickButton(controller, XboxController.Button.kBumperLeft.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
+    new JoystickButton(controller, XboxController.Button.kBumperRight.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
+    new JoystickButton(controller, XboxController.Button.kBack.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));
+    new JoystickButton(controller, XboxController.Button.kStart.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE));    
+    new JoystickButton(controller, XboxController.Button.kStickLeft.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_UP_DOWN));
   }
 
   public Command getAutonomousCommand() 

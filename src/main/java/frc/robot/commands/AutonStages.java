@@ -15,6 +15,7 @@ public class AutonStages extends SequentialCommandGroup
     public AutonStages(DriveSystem driveSystem, GyroPID gyroPID)
     {
         gyroPID.resetGyro();
+        
         addCommands(
            new DriveSegment(driveSystem,gyroPID,0.5,80,0.0),
            new DriveTurn(driveSystem,gyroPID,45.0)

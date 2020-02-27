@@ -46,6 +46,7 @@ public class PrepareToShoot extends CommandBase
         shooterSystem.setSetPoint(RPM);
         shooterSystem.spinToSetPoint();
         visionPID.LEDon();
+
     }
     
     //-------------------------------------------------

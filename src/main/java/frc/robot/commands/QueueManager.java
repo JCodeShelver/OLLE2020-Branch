@@ -16,14 +16,13 @@ public class QueueManager extends CommandBase
     private Loader loader;
     private Shooter shooter;
 
-    boolean ballInQueue = false, ballComingIn = false, ballAtBack = false, ballReady = false;
+    boolean ballInQueue = false, ballComingIn = false, ballAtBack = false;
 
   // ----------------------------------------------------------------------------
   public QueueManager(Loader l, Shooter s) 
   {
-    loader = l;
-    shooter = s;
-    addRequirements(loader, shooter);
+      loader = l;
+      addRequirements(loader);
   }
 
   // ----------------------------------------------------------------------------
@@ -38,7 +37,7 @@ public class QueueManager extends CommandBase
   //  
   @Override
   public void execute() 
-  {
+  {    
     if (loader.ballAtIntake())
         ballComingIn = true;
     else
@@ -54,31 +53,25 @@ public class QueueManager extends CommandBase
     else
         ballAtBack = false;
 
+    // Logic for Belt Movement
 
-    // Logic for belt movement
-    if (ballAtBack)
+    if (ballAtBack && !Constants.isBallInShooter)
     {
-        loader.MovingMotorOff();
-    }
-    else if (ballComingIn)
-        loader.MovingMotorOn();
-
-    else if (ballInQueue)
-        loader.MovingMotorOff();
-    
-
-    // Load a ball if vacant
-    if (ballAtBack && Constants.BallInShooter== false)
         loader.LoadBallMotorOn();
         loader.MovingMotorOn();
-    
-    if (Constants.BallInShooter == true)
+    }
+    else if (ballAtBack)
+        loader.MovingMotorOff();
+    else if (ballComingIn)
+        loader.MovingMotorOn();
+    else if (!ballComingIn)
         loader.MovingMotorOff();
 
-
+    if (Constants.isBallInShooter)
+        loader.LoadBallMotorOff();
 }
+
   // ----------------------------------------------------------------------------
-  // 
   @Override
   public boolean isFinished() 
   {

@@ -3,7 +3,9 @@
 // Manage controls ball shooter system.  Utilizes PID controller for motor speed.
 
 package frc.robot.subsystems;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.Constants;
@@ -16,20 +18,25 @@ public class Shooter extends SubsystemBase
 
   TalonSRX shooterMotor;
   PIDController ShooterPID;
+  boolean shooterPistonDown;
   double currentSetPoint;
   int TPM;
   DoubleSolenoid ShootingPiston;
+  DigitalInput BallInShooter;
+
 
   // ----------------------------------------------------------------------------
   // Constructor - (Do nothing)
   public Shooter() 
   {
-    ShootingPiston = new DoubleSolenoid(Constants.PCM1,Constants.SHOOTER_FIRE_CYLINDER_INPORT,Constants.SHOOTER_FIRE_CYLINDER_OUTPORT);
+    BallInShooter  = new DigitalInput(3);
     shooterMotor   = new TalonSRX(Constants.SHOOTER_MOTOR_CAN_ID);
+    ShootingPiston = new DoubleSolenoid(Constants.PCM0, Constants.SHOOTER_FIRE_CYLINDER_INPORT, Constants.SHOOTER_FIRE_CYLINDER_OUTPORT);
     ShooterPID     = new PIDController(Constants.SHOOTER_PID_P, Constants.SHOOTER_PID_I, Constants.SHOOTER_PID_D);
     TPM            = 0;
 
     shooterMotor.setInverted(true);
+    shooterPistonDown = true;
   }
 
   // ----------------------------------------------------------------------------
@@ -47,18 +54,23 @@ public class Shooter extends SubsystemBase
 
     //System.out.println("Motor: " + pidOutput);
 
-    shooterMotor.set(ControlMode.PercentOutput, -pidOutput);
+    shooterMotor.set(ControlMode.PercentOutput, pidOutput);
   }
   
   public void shootBall()
   {
     ShootingPiston.set(DoubleSolenoid.Value.kForward);
+    shooterPistonDown = false;
   }
 
   public void lowerShootingPiston()
   {
     ShootingPiston.set(DoubleSolenoid.Value.kReverse);
-    Constants.BallInShooter = false;
+    shooterPistonDown = true;
+  }
+  public boolean isShooterPistonDown()
+  {
+    return shooterPistonDown;
   }
   // ----------------------------------------------------------------------------
   // Turn motor off
@@ -81,6 +93,11 @@ public class Shooter extends SubsystemBase
   public void motorOnFull()
   {
     shooterMotor.set(ControlMode.PercentOutput, 1.0);
+  }
+
+  public void updateBallInShooter()
+  {
+    Constants.isBallInShooter = !BallInShooter.get();
   }
 
   // ----------------------------------------------------------------------------

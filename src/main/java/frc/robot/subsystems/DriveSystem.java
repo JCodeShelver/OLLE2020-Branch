@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.*;  
-import com.ctre.phoenix.motorcontrol.*;
 import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -14,11 +13,11 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class DriveSystem extends SubsystemBase 
 {
     // Declare/instantiate robot objects by calling constructors
-    //private TalonSRX leftMotor1,  leftMotor2;
-    //private TalonSRX rightMotor1, rightMotor2;
+
     private TalonSRX encoderReading;
     private CANSparkMax leftMotor1, leftMotor2;
     private CANSparkMax rightMotor1, rightMotor2;
+    double adjustedL, adjustedR;
 
     public DriveSystem() 
     {
@@ -27,13 +26,14 @@ public class DriveSystem extends SubsystemBase
         leftMotor2  = new CANSparkMax(Constants.LEFT_MOTOR2_CAN_ID, MotorType.kBrushless);    
         rightMotor1 = new CANSparkMax(Constants.RIGHT_MOTOR1_CAN_ID, MotorType.kBrushless);
         rightMotor2 = new CANSparkMax(Constants.RIGHT_MOTOR2_CAN_ID, MotorType.kBrushless);
+
+        //encoder reading motor
         encoderReading = new TalonSRX(Constants.MOVING_MOTOR_CAN_ID);
 
-        // Instantiate encoders as simple counters
-        // leftEncoder  = new Counter(Constants.LT_ENCODER_DIGITAL_PORT);
-        // rightEncoder = new Counter(Constants.RT_ENCODER_DIGITAL_PORT);
 
         // Reverse rotation (polarity) of left motor set
+        rightMotor1.setInverted(false);
+        rightMotor2.setInverted(false);
         leftMotor1.setInverted(true);
         leftMotor2.setInverted(true);
     }
@@ -41,13 +41,31 @@ public class DriveSystem extends SubsystemBase
     // ----------------------------------------------------------------------------
     // Manage left and right drive wheels
     // Reversed drive allows backwards driving from a forward reference.
-    public void drive(double inputL, double inputR)
+    public void Quadraticdrive(double inputL, double inputR)
     {
-        leftMotor1.set(inputL);
-        leftMotor2.set(inputL);
-        rightMotor1.set(inputR);
-        rightMotor2.set(inputR); 
+        if (inputL<0)
+            adjustedL = -inputL * inputL;
+        else
+            adjustedL = inputL*inputL;
+
+        if (inputR <0)
+            adjustedR = -inputR*inputR;
+        else
+            adjustedR = inputR*inputR;
+
+        leftMotor1.set(adjustedL);
+        leftMotor2.set(adjustedL);
+        rightMotor1.set(adjustedR);
+        rightMotor2.set(adjustedR); 
      } 
+
+     public void drive(double inL, double inR)
+     {
+        leftMotor1.set(inL);
+        leftMotor2.set(inL);
+        rightMotor1.set(inR);
+        rightMotor2.set(inR); 
+    } 
      
     // ----------------------------------------------------------------------------
     // Reset encoders to zero

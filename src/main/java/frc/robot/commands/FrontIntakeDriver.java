@@ -20,6 +20,7 @@ public class FrontIntakeDriver extends CommandBase
   {
     frontIntake = i;
     controller = c;
+    addRequirements(frontIntake);
   }
 
   // ----------------------------------------------------------------------------

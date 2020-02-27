@@ -21,7 +21,7 @@ public class FrontIntake extends SubsystemBase
   {
     sideToSideMotor = new TalonSRX(Constants.INTAKE_SIDE_MOTOR_CAN_ID);
     intakeMotor     = new TalonSRX(Constants.INTAKE_FRONTBACK_MOTOR_CAN_ID); 
-    deployCylinder  = new DoubleSolenoid(Constants.PCM1,Constants.INTAKE_CYLINDER_INPORT,Constants.INTAKE_CYLINDER_OUTPORT);
+    deployCylinder  = new DoubleSolenoid(Constants.PCM0, Constants.INTAKE_CYLINDER_INPORT, Constants.INTAKE_CYLINDER_OUTPORT);
   }
   
   // -----------------------------------------------------

@@ -43,6 +43,8 @@ public class ShootBall extends CommandBase
   @Override
   public void execute()
   {
+    shooter.updateBallInShooter();
+
     if (Math.abs(visionPID.getOutput()) <= .05)
       XGood = true;
     else
@@ -53,7 +55,7 @@ public class ShootBall extends CommandBase
     else
       RPMGood = false;
 
-    if (RPMGood && XGood && Constants.BallInShooter && controller.getBumper(Hand.kLeft))
+    if (RPMGood && XGood && Constants.isBallInShooter && controller.getBumper(Hand.kRight))
       shooter.shootBall();
     else
       shooter.lowerShootingPiston();
