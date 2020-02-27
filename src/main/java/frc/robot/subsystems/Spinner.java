@@ -3,13 +3,13 @@
 // Manage spinner motor and color sensor
 
 package frc.robot.subsystems;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -26,10 +26,12 @@ public class Spinner extends SubsystemBase
 
   private DoubleSolenoid assemblyCylinder;
   private DoubleSolenoid wheelCylinder;
-
+  
   private String recentColorSequence;
-
+  
   private boolean systemUp = false, engaged = false;
+  
+  public int index, adjustedindex;
   // -----------------------------------------------------
   // Constructor
   public Spinner() 
@@ -49,17 +51,81 @@ public class Spinner extends SubsystemBase
     m_colorMatcher.addColorMatch(Constants.COLOR_GREEN);
     m_colorMatcher.addColorMatch(Constants.COLOR_RED);
     m_colorMatcher.addColorMatch(Constants.COLOR_YELLOW); 
+
   }
   
   
   // -----------------------------------------------------
   // Take one sample from color sensor and return raw color code
-  public void getSensorColor() 
+  
+  // -----------------------------------------------------
+  // Manage spinner motor - basic on and off
+  public void motorOn()
+  {
+    spinnerMotor.set(ControlMode.PercentOutput,Constants.SPINNER_MOTOR_LEVEL); 
+  }
+  
+  public void motorOff()
+  {
+    spinnerMotor.set(ControlMode.PercentOutput,0.0); 
+  }
+  
+  // -----------------------------------------------------
+  // Manage wheel pneumatic unit
+  public void wheelCylinderExtend() 
+  {
+    wheelCylinder.set(DoubleSolenoid.Value.kForward);
+    engaged = false;
+  }
+  
+  public void wheelCylinderRetract() 
+  {
+    wheelCylinder.set(DoubleSolenoid.Value.kReverse);
+    engaged = true;
+  }
+  
+  public boolean engaged()
+  {
+    return engaged;
+  }
+  
+  // -----------------------------------------------------
+  // Manage assembly pneumatic unit
+  public void assemblyCylinderExtend() 
+  {
+    assemblyCylinder.set(DoubleSolenoid.Value.kForward);
+    systemUp = true;
+  }
+  
+  public void assemblyCylinderRetract() 
+  {
+    assemblyCylinder.set(DoubleSolenoid.Value.kReverse);
+    systemUp = false;
+  }
+  
+  public boolean systemUp()
+  {
+    return systemUp;
+  }
+  
+  public void getSensorColorRGB() 
   {
     Color detectedColor = m_colorSensor.getColor();
     SmartDashboard.putNumber("Red" , detectedColor.red); 
     SmartDashboard.putNumber("Green" , detectedColor.green); 
     SmartDashboard.putNumber("Blue" , detectedColor.blue); 
+  }
+  
+  // -----------------------------------------------------  
+  // Build initial color sampling string with all 'X' values
+  // to designate no color yet found.
+  public void initiateColorSampler()
+  {
+    recentColorSequence = new String("");
+    for (int i = 0; i < Constants.COLOR_SAMPLE_NUMBER; i++)
+    {
+      recentColorSequence += 'X';
+    }
   }
   
   // -----------------------------------------------------
@@ -87,69 +153,6 @@ public class Spinner extends SubsystemBase
   }
   
   // -----------------------------------------------------
-  // Manage spinner motor - basic on and off
-  public void motorOn()
-  {
-    spinnerMotor.set(ControlMode.PercentOutput,Constants.SPINNER_MOTOR_LEVEL); 
-  }
-
-  public void motorOff()
-  {
-    spinnerMotor.set(ControlMode.PercentOutput,0.0); 
-  }
-
-  // -----------------------------------------------------
-  // Manage wheel pneumatic unit
-  public void wheelCylinderExtend() 
-  {
-    wheelCylinder.set(DoubleSolenoid.Value.kForward);
-    engaged = false;
-  }
-
-  public void wheelCylinderRetract() 
-  {
-    wheelCylinder.set(DoubleSolenoid.Value.kReverse);
-    engaged = true;
-  }
-
-  public boolean engaged()
-  {
-    return engaged;
-  }
-
-  // -----------------------------------------------------
-  // Manage assembly pneumatic unit
-  public void assemblyCylinderExtend() 
-  {
-    assemblyCylinder.set(DoubleSolenoid.Value.kForward);
-    systemUp = true;
-  }
-
-  public void assemblyCylinderRetract() 
-  {
-    assemblyCylinder.set(DoubleSolenoid.Value.kReverse);
-    systemUp = false;
-  }
-
-  public boolean systemUp()
-  {
-    return systemUp;
-  }
-
-  
-  // -----------------------------------------------------  
-  // Build initial color sampling string with all 'X' values
-  // to designate no color yet found.
-  public void initiateColorSampler()
-  {
-    recentColorSequence = new String("");
-    for (int i = 0; i < Constants.COLOR_SAMPLE_NUMBER; i++)
-    {
-      recentColorSequence += 'X';
-    }
-  }
-  
-  // -----------------------------------------------------
   // Method builds a substring containing the most recent n colors
   // detected by color sensor.  Colors are stored in a string with
   // the newest color added to "Front" (index zero) and the least recent
@@ -162,7 +165,7 @@ public class Spinner extends SubsystemBase
     // If String exceeds desired length, let last char fall off
     if (recentColorSequence.length() > Constants.COLOR_SAMPLE_NUMBER)
     {
-       recentColorSequence = recentColorSequence.substring(0,Constants.COLOR_SAMPLE_NUMBER);
+       recentColorSequence = recentColorSequence.substring(0, Constants.COLOR_SAMPLE_NUMBER);
     }    
   }
  
@@ -194,7 +197,7 @@ public class Spinner extends SubsystemBase
   
   // -----------------------------------------------------
   // Retrieve current color from field system
-  // If field system string exists (length > 0):  'B', 'G', 'R', 'Y'
+  // If field system char exists (length > 0):  'B', 'G', 'R', 'Y'
   // Otherwise:  return 'X'
   public char getGameDataColor()
   { 
@@ -205,19 +208,45 @@ public class Spinner extends SubsystemBase
         return 'X';
   }
   
+  // -----------------------------------------------------
+  // Take FMS color and target color 2 places behind (like on field)
+  public char getTargetColor()
+  {
+    adjustedindex = -1;
+    char[] colorArray = {'B', 'G', 'R', 'Y'};
+    for (index = 0; index < colorArray.length; index++)
+    {
+      if (colorArray[index] == getGameDataColor())
+      {
+        adjustedindex = ((index - 2) % 4);
+        break;
+      }
+    }
+    if (adjustedindex == -1)
+      return 'X';
+    else
+      return colorArray[adjustedindex];
+  }
+
   // ----------------------------------------------------------------------------
   // Return true when current color matches target color
-  public boolean isSensorOnTargetColor(char mode)
+  public boolean isSensorOnTargetColor(String mode)
   {
     switch (mode) 
     {
-      case 'R':
-        if (getCurrentSampledColor() == getGameDataColor() && getCurrentSampledColor() != 'X')
+      case "RtnCtrl":
+        if (getCurrentSampledColor() == 'B')
           return true;
         else
           return false;
+      case "PosCtrl":
+        if (getCurrentSampledColor() == getTargetColor() && getCurrentSampledColor() != 'X')
+          return true;
+        else
+          return false;
+
       default:
-        if (getCurrentSampledColor() == mode && getCurrentSampledColor() != 'X')
+        if (getCurrentSampledColor() == mode.toUpperCase().charAt(0) && getCurrentSampledColor() != 'X')
           return true;
         else
           return false;

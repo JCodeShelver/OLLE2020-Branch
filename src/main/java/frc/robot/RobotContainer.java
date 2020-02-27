@@ -5,7 +5,8 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.Command; 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
@@ -24,7 +25,7 @@ import frc.robot.commands.DriveHuman;
 import frc.robot.commands.FrontIntakeDriver;
 import frc.robot.commands.PrepareToShoot;
 import frc.robot.commands.ShootBall;
-import frc.robot.commands.SpinToColor;
+import frc.robot.commands.SpinnerControl;
 import frc.robot.commands.AutonSimple;
 import frc.robot.commands.AutonStages;
 import frc.robot.commands.DriveAlignToTarget;
@@ -32,7 +33,6 @@ import frc.robot.commands.ShootDefaultActions;
 import frc.robot.commands.GetColorData;
 import frc.robot.commands.PneumaticManager;
 import frc.robot.commands.QueueManager;
-
 
 public class RobotContainer 
 {
@@ -89,7 +89,7 @@ public class RobotContainer
     new JoystickButton(leftStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
 
     new JoystickButton(rightStick, 1).whileHeld(new ShootBall(shooter, visionPID));
-    new JoystickButton(rightStick, 3).whenPressed(new SpinToColor(spinner));
+    new JoystickButton(rightStick, 3).whenPressed(new SpinnerControl(spinner));
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
 
     //Toggling pneumatics

@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot 
@@ -25,12 +24,8 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit() 
   {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
-    robotContainer = new RobotContainer();
-
     // Declare Smart Dashboard entrys on startup
-      // Priority Variables
+    // Priority Variables
     SmartDashboard.putNumber("Gyro Angle", 0.0);
     SmartDashboard.putNumber("Shooter RPM", 0.0);
     SmartDashboard.putNumber("Distance from Target", 0.0);
@@ -41,21 +36,28 @@ public class Robot extends TimedRobot
     SmartDashboard.putBoolean("Intake Pneumatic", false);
     SmartDashboard.putBoolean("Winch Inverted", false);
     
-      // Lower Priority Variables
+     // Lower Priority Variables
+    SmartDashboard.putBoolean("Rotation Control", false);
+    SmartDashboard.putBoolean("Position Control", false);
     SmartDashboard.putBoolean("Auton Stages", true);
     SmartDashboard.putBoolean("Assembly Pneumatic", false);
     SmartDashboard.putBoolean("Wheel Pneumatic", false);
+    SmartDashboard.putNumber("Spin Count", 0.0);
     SmartDashboard.putNumber("Red", 0.0);
     SmartDashboard.putNumber("Green", 0.0);
     SmartDashboard.putNumber("Blue", 0.0);
     SmartDashboard.putNumber("Vision X", 0.0);
     SmartDashboard.putNumber("Vision Y", 0.0);
     SmartDashboard.putNumber("Vision Area", 0.0);
-
-
+  
     // Initiate USB Cameras 1 and 2
     CameraServer.getInstance().startAutomaticCapture();
     CameraServer.getInstance().startAutomaticCapture();
+    
+    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // autonomous chooser on the dashboard.
+    robotContainer = new RobotContainer();
+
   }
 
   @Override
