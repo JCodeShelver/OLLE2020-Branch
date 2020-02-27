@@ -18,7 +18,7 @@ public class DriveElevator extends CommandBase
   public DriveElevator(Elevator e) 
   {
     elevator = e;
-    addRequirements(elevator);
+    //addRequirements(elevator);
     controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
   }
 

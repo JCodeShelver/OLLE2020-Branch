@@ -74,26 +74,22 @@ public class RobotContainer
   // Define drive button interface control bindings
   private void configureButtonBindings() 
   {
-    new JoystickButton(leftStick, 3).whenPressed(new SpinToColor(spinner));
-    new JoystickButton(leftStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
+    new JoystickButton(controller, 2).whenPressed(new SpinToColor(spinner));
+    new JoystickButton(rightStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
     new JoystickButton(rightStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
     new JoystickButton(controller, 6).whileHeld(new ShootBall(shooter, visionPID, loader));
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
     new JoystickButton(controller, 5).toggleWhenPressed(new DriveElevator(elevator));
 
-    
     //Toggling pneumatics
     new JoystickButton(rightStick, 1).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
+
+    new JoystickButton(controller, 7).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
+    new JoystickButton(controller, 8).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));  
+
     new JoystickButton(controller, 3).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE));    
     new JoystickButton(controller, 4).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_UP_DOWN));
- 
-    if(Constants.EndgameEnabled)
-    {
-      new JoystickButton(controller, 3).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
-      new JoystickButton(controller, 4).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));  
-    }
-
-   }
+  }
 
   // Determine choice for auton from Smart Dashboard checkbox.  Set choice
   // and return.

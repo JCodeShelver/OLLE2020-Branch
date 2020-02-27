@@ -66,13 +66,16 @@ public class SpinToColor extends CommandBase {
   @Override
   public boolean isFinished() 
   {
-    if (spinner.isSensorOnTargetColor() && onColorCount >= 7)
-    {
-       spinner.motorOff();
-       return true;
-    }
-    else
-        return false;
+
+    return false;
+
+    // if (spinner.isSensorOnTargetColor() && onColorCount >= 7)
+    // {
+    //    spinner.motorOff();
+    //    return true;
+    // }
+    // else
+    //     return false;
   }
   public void isInterupted()
   {

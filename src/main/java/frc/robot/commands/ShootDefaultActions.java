@@ -18,7 +18,6 @@ public class ShootDefaultActions extends CommandBase
     public double Distance, RPM;
 
     //-------------------------------------------------
-    // Constructor:  Capture time and motor level for straight drive
     public ShootDefaultActions( Shooter s, VisionPID v, Elevator e, Spinner sp)
     {
         // Capture references to existing robot subsystems.  Define them as requirements.
@@ -49,6 +48,8 @@ public class ShootDefaultActions extends CommandBase
         shooter.stop();
         visionPID.LEDoff();
         spinner.motorOff();
+        elevator.driveWinch(0.0);
+        elevator.driveElevator(0.0);
     }
     
     //-------------------------------------------------
