@@ -19,11 +19,11 @@ public class Elevator extends SubsystemBase
   // Constructor
   public Elevator()
   {
-    bottomCylinders = new DoubleSolenoid(Constants.PCM1, Constants.ELEVATOR_BOTTOM_CYLINDERS_OUTPORT, Constants.ELEVATOR_BOTTOM_CYLINDERS_INPORT);
-    top2Cylinders = new DoubleSolenoid(Constants.PCM1, Constants.ELEVATOR_TOP2_CYLINDERS_OUTPORT, Constants.ELEVATOR_TOP2_CYLINDERS_INPORT);
+    bottomCylinders    = new DoubleSolenoid(Constants.PCM1, Constants.ELEVATOR_BOTTOM_CYLINDERS_OUTPORT, Constants.ELEVATOR_BOTTOM_CYLINDERS_INPORT);
+    top2Cylinders      = new DoubleSolenoid(Constants.PCM1, Constants.ELEVATOR_TOP2_CYLINDERS_OUTPORT, Constants.ELEVATOR_TOP2_CYLINDERS_INPORT);
 
     elevatorDriveMotor = new TalonSRX(Constants.ELEVATOR_DRIVE_MOTOR_CAN_ID);
-    WinchDriveMotor = new TalonSRX(Constants.WINCH_MOTOR_CAN_ID);
+    WinchDriveMotor    = new TalonSRX(Constants.WINCH_MOTOR_CAN_ID);
   }
 
   // -----------------------------------------------------

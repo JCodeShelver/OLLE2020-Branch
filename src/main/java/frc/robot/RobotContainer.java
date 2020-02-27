@@ -85,24 +85,21 @@ public class RobotContainer
     kStickLeft      9  
     kStickRight     10
     */
-    new JoystickButton(leftStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
-    new JoystickButton(leftStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
-
-    new JoystickButton(rightStick, 1).whileHeld(new ShootBall(shooter, visionPID));
-    new JoystickButton(rightStick, 3).whenPressed(new SpinnerControl(spinner));
     new JoystickButton(rightStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
     new JoystickButton(rightStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
-    
-    new JoystickButton(controller, 2).whenPressed(new SpinnerControl(spinner));
-    new JoystickButton(controller, 6).whileHeld(new ShootBall(shooter, visionPID));
-    new JoystickButton(controller, 5).toggleWhenPressed(new DriveElevator(elevator));
+
+    new JoystickButton(controller, XboxController.Button.kB.value).whenPressed(new SpinnerControl(spinner));
+    new JoystickButton(controller, XboxController.Button.kBumperLeft.value).toggleWhenPressed(new DriveElevator(elevator));
+    new JoystickButton(controller, XboxController.Button.kBumperRight.value).whileHeld(new ShootBall(shooter, visionPID));
+
     //Toggling pneumatics
-    new JoystickButton(controller, XboxController.Button.kBumperLeft.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
-    new JoystickButton(controller, XboxController.Button.kBumperRight.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
-    new JoystickButton(controller, XboxController.Button.kBack.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));
-    new JoystickButton(controller, XboxController.Button.kStart.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE));    
-    new JoystickButton(controller, XboxController.Button.kStickLeft.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_UP_DOWN));
+    new JoystickButton(rightStick, 1).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
+
+    new JoystickButton(controller, XboxController.Button.kX.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE));    
+    new JoystickButton(controller, XboxController.Button.kY.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_UP_DOWN));
+    new JoystickButton(controller, XboxController.Button.kBack.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
+    new JoystickButton(controller, XboxController.Button.kStart.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));  
   }
 
   public Command getAutonomousCommand() 
