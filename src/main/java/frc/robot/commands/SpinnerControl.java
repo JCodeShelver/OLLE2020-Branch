@@ -15,22 +15,27 @@ public class SpinnerControl extends CommandBase
 
   private int onColorCount;
   private boolean onTargetColor;
+  private boolean isRotationControlDone;
+  private boolean isPositionControlDone;
 
   // ----------------------------------------------------------------------------
   public SpinnerControl(Spinner s) 
   {
     spinner = s;
     onColorCount = 0;
+    isRotationControlDone = SmartDashboard.getBoolean("Rotation Control", false);
+    isPositionControlDone = SmartDashboard.getBoolean("Position Control", false);
   }
 
   // ----------------------------------------------------------------------------
   // Initialization
+  // If Position control is not done
   @Override
   public void initialize() 
   {
-    if (!SmartDashboard.getBoolean("Rotation Control", false) || !SmartDashboard.getBoolean("Position Control", false))
+    if (!isRotationControlDone)
     {
-      spinner.initiateColorSampler();  // Start (sampling colors
+      spinner.initiateColorSampler();  // Start sampling colors
       onTargetColor = false;
     }
   }
@@ -40,11 +45,11 @@ public class SpinnerControl extends CommandBase
   @Override
   public void execute() 
   {
-    if (!SmartDashboard.getBoolean("Position Control", false))
+    if (!isPositionControlDone)
     { 
       spinner.sampleRecentColors();      // Build sample set of most recent colors sensed
       spinner.motorOn();
-      if (!SmartDashboard.getBoolean("Rotation Control", false))
+      if (!isRotationControlDone)
       {
         // Manage boolean value used for counting
         if (spinner.isSensorOnTargetColor("RtnCtrl")) // If spinner is on blue (easy to count)
@@ -65,12 +70,12 @@ public class SpinnerControl extends CommandBase
     }
   }
   // ----------------------------------------------------------------------------
-  // Return true when color reaches input color
+  // Return true when color reaches input color / when 
   @Override
   public boolean isFinished() 
   {
     // If Rotation Control is done and Position Control is not:
-    if (SmartDashboard.getBoolean("Rotation Control", false) && !SmartDashboard.getBoolean("Position Control", false))
+    if (isRotationControlDone && !isPositionControlDone)
     {
       if (spinner.isSensorOnTargetColor("PosCtrl")) // If sensor is on the target color, end
       {
@@ -81,7 +86,7 @@ public class SpinnerControl extends CommandBase
       else                                          // Otherwise continue.
         return false;
     }
-    else if (!SmartDashboard.getBoolean("Rotation Control", false)) // If Rotation Control is not done:
+    else if (!isRotationControlDone) // If Rotation Control is not done:
     {
       if (spinner.isSensorOnTargetColor("RtnCtrl") && onColorCount >= 7) // If >= 3 rotations done, end 
       {

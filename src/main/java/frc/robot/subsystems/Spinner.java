@@ -210,22 +210,25 @@ public class Spinner extends SubsystemBase
   
   // -----------------------------------------------------
   // Take FMS color and target color 2 places behind (like on field)
+  // G R Y
+  // B   B
+  // Y R G
   public char getTargetColor()
   {
-    adjustedindex = -1;
-    char[] colorArray = {'B', 'G', 'R', 'Y'};
-    for (index = 0; index < colorArray.length; index++)
+    char FMSColor = getGameDataColor();
+    switch (FMSColor)
     {
-      if (colorArray[index] == getGameDataColor())
-      {
-        adjustedindex = ((index - 2) % 4);
-        break;
-      }
+      case 'B':
+        return 'R';
+      case 'G':
+        return 'Y';
+      case 'R':
+        return 'B';
+      case 'Y':
+        return 'G';
+      default:
+        return 'X';
     }
-    if (adjustedindex == -1)
-      return 'X';
-    else
-      return colorArray[adjustedindex];
   }
 
   // ----------------------------------------------------------------------------

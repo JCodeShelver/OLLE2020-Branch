@@ -24,7 +24,7 @@ public class VisionPID extends PIDSubsystem
 
 	public VisionPID() 
 	{
-		super(new PIDController(Constants.VISION_PID_P, Constants.VISION_PID_I, Constants.VISION_PID_D) );   
+		super(new PIDController(Constants.VISION_PID_P, Constants.VISION_PID_I, Constants.VISION_PID_D));   
 
 		tableData = NetworkTableInstance.getDefault();
         table = tableData.getTable("limelight");
@@ -93,6 +93,12 @@ public class VisionPID extends PIDSubsystem
 	public void LEDoff()
 	{
 		table.getEntry("ledMode").setNumber(1);
+	}
+
+	// Sets Limelight mode from 1 to 0 and 0 to 1.
+	public void cameraModeSwitch()
+	{
+		table.getEntry("camMode").setNumber(1 - (table.getEntry("camMode").getDouble(1)));
 	}
 
 	public void getVisionData()

@@ -20,7 +20,7 @@ public class DriveAlignToTarget extends CommandBase
     private final VisionPID     visionPID;
     boolean doneTurning; 
     
-    Joystick leftStick  = new Joystick(Constants.LEFT_STICK_USB_PORT);
+    Joystick leftStick = new Joystick(Constants.LEFT_STICK_USB_PORT);
 
     double angleRotateMotorAdjust;          // For adjusting left/right motors for angle correction
     
@@ -30,7 +30,7 @@ public class DriveAlignToTarget extends CommandBase
     
     //-------------------------------------------------
     // Constructor:  Capture time and motor level for straight drive
-    public DriveAlignToTarget(DriveSystem d, VisionPID v ) 
+    public DriveAlignToTarget(DriveSystem d, VisionPID v) 
     {
         // Capture references to existing robot subsystems.  Define them as requirements.
         driveSystem   = d;   
@@ -55,16 +55,13 @@ public class DriveAlignToTarget extends CommandBase
         visionPID.LEDon();
         double xVisionTarget = visionPID.getMeasurement();
 
-        if (xVisionTarget != 0 && doneTuring == false)
+        if (xVisionTarget != 0 && !doneTuring)
             doneTurning = true;
         else
             doneTuring = false;
 
-
-        if (doneTurning == false)
-        {
+        if (!doneTurning)
             driveSystem.drive(-idleTurnSpeed, idleTurnSpeed);
-        }
         else
         {
             angleRotateMotorAdjust = visionPID.getOutput();

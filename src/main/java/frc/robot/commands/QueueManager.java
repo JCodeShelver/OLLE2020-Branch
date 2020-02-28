@@ -6,7 +6,6 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Loader;
-import frc.robot.subsystems.Shooter;
 import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -14,12 +13,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class QueueManager extends CommandBase 
 {
     private Loader loader;
-    private Shooter shooter;
 
     boolean ballInQueue = false, ballComingIn = false, ballAtBack = false;
 
   // ----------------------------------------------------------------------------
-  public QueueManager(Loader l, Shooter s) 
+  public QueueManager(Loader l) 
   {
       loader = l;
       addRequirements(loader);

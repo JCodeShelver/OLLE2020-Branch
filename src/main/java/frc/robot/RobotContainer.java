@@ -65,7 +65,7 @@ public class RobotContainer
       () -> leftStick.getY()));
 
     shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID, elevator, spinner));
-    loader.setDefaultCommand(new QueueManager(loader, shooter));
+    loader.setDefaultCommand(new QueueManager(loader));
     frontIntake.setDefaultCommand(new FrontIntakeDriver(frontIntake, controller));
   }
 
@@ -107,8 +107,8 @@ public class RobotContainer
     // Set simple auton routine as default
     Command autonCommandChoice = new AutonSimple(driveSystem);
 
-    if (SmartDashboard.getBoolean("Auton Stages",true))
-        autonCommandChoice = new AutonStages(driveSystem,gyroPID);
+    if (SmartDashboard.getBoolean("Auton Stages", true))
+        autonCommandChoice = new AutonStages(driveSystem, gyroPID);
     return autonCommandChoice;
   }
 }

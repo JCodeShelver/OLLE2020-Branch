@@ -18,7 +18,7 @@ public class PrepareToShoot extends CommandBase
 
     //-------------------------------------------------
     // Constructor:  Capture time and motor level for straight drive
-    public PrepareToShoot( Shooter s, VisionPID v)
+    public PrepareToShoot(Shooter s, VisionPID v)
     {
         // Capture references to existing robot subsystems.  Define them as requirements.
         shooterSystem   = s;

@@ -50,7 +50,7 @@ public class ShootBall extends CommandBase
     else
       XGood = false;
 
-    if (Math.abs(shooter.getSetPoint()-shooter.getRPM()) <= 100)
+    if (Math.abs(shooter.getSetPoint() - shooter.getRPM()) <= 100)
       RPMGood = true;
     else
       RPMGood = false;
