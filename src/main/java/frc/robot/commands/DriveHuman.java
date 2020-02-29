@@ -23,15 +23,17 @@ public class DriveHuman extends CommandBase
   private final DriveSystem driveSystem;   // Reference to drive system object 
   private FrontIntake frontIntake;
   private DoubleSupplier leftStickValue;
-  private DoubleSupplier rightStickValue;
+  private DoubleSupplier rightStickYValue;
+  private DoubleSupplier rightStickXValue;
   private XboxController controller;
 
-  public DriveHuman(DriveSystem d, DoubleSupplier right, DoubleSupplier left)
+  public DriveHuman(DriveSystem d, DoubleSupplier righty, DoubleSupplier left, DoubleSupplier rightx)
   {
     driveSystem = d;
     controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
     leftStickValue  = left;
-    rightStickValue = right;
+    rightStickYValue = righty;
+    rightStickXValue = rightx;
 
     addRequirements(driveSystem);
 
@@ -42,7 +44,8 @@ public class DriveHuman extends CommandBase
   public void execute()
   {
       SmartDashboard.updateValues();
-      driveSystem.Quadraticdrive(leftStickValue.getAsDouble(),rightStickValue.getAsDouble());
+      //driveSystem.Quadraticdrive(leftStickValue.getAsDouble(),rightStickYValue.getAsDouble());
+      driveSystem.ArcadeDrive(rightStickYValue.getAsDouble(), rightStickXValue.getAsDouble());
   }
 
 }

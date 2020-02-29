@@ -1,11 +1,5 @@
-// FRC Team 3770 - BlitzCreek - OLLE 20
-// PrepareToShoot command
-// Prepares shooter motor for shooting.  Motor speed set using vision feedback.
-
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
@@ -13,7 +7,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.VisionPID;
 
 
-public class PrepareToShoot extends CommandBase
+public class AutonShooting extends CommandBase
 {
 
 
@@ -21,17 +15,18 @@ public class PrepareToShoot extends CommandBase
     private final Shooter   shooterSystem;
     private final VisionPID visionPID;
     public double Distance, RPM;
+    public int BallsShot, BallsToShoot;
     public boolean RPMGood;
     public boolean XGood, ballInPlace;
-    public XboxController controller;
 
     //-------------------------------------------------
     // Constructor:  Capture time and motor level for straight drive
-    public PrepareToShoot( Shooter s, VisionPID v)
+    public AutonShooting( Shooter s, VisionPID v, int BallsToShootIn)
     {
         // Capture references to existing robot subsystems.  Define them as requirements.
         shooterSystem   = s;
         visionPID       = v;
+        BallsToShoot = BallsToShootIn;
         addRequirements(shooterSystem);
     }
 
@@ -44,7 +39,7 @@ public class PrepareToShoot extends CommandBase
         RPM = 0;
         RPMGood = false;
         XGood = false;
-        controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
+        BallsShot = 0;
     }
     
     //-------------------------------------------------
@@ -71,11 +66,19 @@ public class PrepareToShoot extends CommandBase
         RPMGood = false;
   
       //if (RPMGood == true && XGood == false && Constants.ballInShooter == true && controller.getBumper(Hand.kRight))
-  
-      if(controller.getBumper(Hand.kRight))
+
+
+      //shooting booleans
+      if(RPMGood == true && XGood == true && Constants.ballInShooter == true)
       {
         System.out.println("Firing");
         shooterSystem.shootBall();
+      }
+      else if(!shooterSystem.isShooterPistonDown())
+      {
+          BallsShot ++;
+          System.out.println("Balls Shot: " + BallsShot);
+          shooterSystem.lowerShootingPiston();
       }
       else
       {
@@ -88,14 +91,14 @@ public class PrepareToShoot extends CommandBase
     // Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() 
     {
-        return false;
+        if(BallsShot >= BallsToShoot)
+            return true;
+        else
+            return false;
     }
 
     private double yToDistanceFormula(double y)
     {
-        //Bar in robo Room
-        //return 128-5.96*(y)+0.172*(y*y);
-
         //Actual target on test frame
         return 90.2 - 1.33*y + .213*y*y;
     }

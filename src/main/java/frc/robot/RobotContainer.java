@@ -19,7 +19,6 @@ import frc.robot.subsystems.Loader;
 import frc.robot.commands.DriveHuman;
 import frc.robot.commands.FrontIntakeDriver;
 import frc.robot.commands.PrepareToShoot;
-import frc.robot.commands.ShootBall;
 import frc.robot.commands.SpinToColor;
 import frc.robot.commands.AutonSimple;
 import frc.robot.commands.AutonStages;
@@ -62,7 +61,8 @@ public class RobotContainer
     driveSystem.setDefaultCommand(
        new DriveHuman(driveSystem,
                       () -> rightStick.getY(),
-                      () -> leftStick.getY()
+                      () -> leftStick.getY(),
+                      () -> rightStick.getX()
                       ));
 
     shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID, elevator, spinner));
@@ -77,7 +77,6 @@ public class RobotContainer
     new JoystickButton(controller, 2).whenPressed(new SpinToColor(spinner));
     new JoystickButton(rightStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
     new JoystickButton(rightStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
-    new JoystickButton(controller, 6).whileHeld(new ShootBall(shooter, visionPID, loader));
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
     new JoystickButton(controller, 5).toggleWhenPressed(new DriveElevator(elevator));
 
@@ -99,7 +98,7 @@ public class RobotContainer
     Command autonCommandChoice =  new AutonSimple(driveSystem);
 
     if (SmartDashboard.getBoolean("Auton Stages",true))
-        autonCommandChoice = new AutonStages(driveSystem,gyroPID);
+        autonCommandChoice = new AutonStages(driveSystem, gyroPID, frontIntake, shooter, visionPID);
 
     return autonCommandChoice;
   }

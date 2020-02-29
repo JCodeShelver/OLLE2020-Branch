@@ -30,9 +30,9 @@ public class Loader extends SubsystemBase
 
   // -----------------------------------------------------
   // Manage top motor
-  public void MovingMotorOn() 
+  public void MovingMotorOn(double in) 
   {
-    movingMotor.set(ControlMode.PercentOutput,1); 
+    movingMotor.set(ControlMode.PercentOutput, in); 
   }
 
   public void MovingMotorOff() 

@@ -2,12 +2,14 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Loader;
 import frc.robot.Constants;
-
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class QueueManager extends CommandBase 
 {
     private Loader loader;
+    private XboxController controller;
 
     boolean ballInQueue = false, ballComingIn = false, ballAtBack = false;
 
@@ -15,6 +17,7 @@ public class QueueManager extends CommandBase
   public QueueManager(Loader l) 
   {
       loader = l;
+      controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
       addRequirements(loader);
   }
 
@@ -54,32 +57,36 @@ public class QueueManager extends CommandBase
         // logic for the moving of the belts
 
 
+        if(controller.getRawButton(10))
+            loader.MovingMotorOn(.75);
+        else   
+            loader.MovingMotorOff();
 
-    if(ballAtBack && !Constants.ballInShooter)
-    {
+    // if(ballAtBack && !Constants.ballInShooter)
+    // {
 
-        loader.LoadBallMotorOn();
-        loader.MovingMotorOn();
-    }
-    else if(ballAtBack)
-    {
-        loader.MovingMotorOff();
-    }
-    else if(Constants.shooterSystemActive)
-    {
-        loader.MovingMotorOn();
-    }
-    else if(ballComingIn)
-        loader.MovingMotorOn();
-    else if(!ballComingIn)
-        loader.MovingMotorOff();
+    //     loader.LoadBallMotorOn();
+    //     loader.MovingMotorOn(.25);
+    // }
+    // else if(ballAtBack)
+    // {
+    //     loader.MovingMotorOff();
+    // }
+    // else if(Constants.shooterSystemActive)
+    // {
+    //     loader.MovingMotorOn(.5);
+    // }
+    // else if(ballComingIn)
+    //     loader.MovingMotorOn(.5);
+    // else if(!ballComingIn)
+    //     loader.MovingMotorOff();
 
 
-     if(Constants.ballInShooter)
-    {
-        //loader.MovingMotorOff();
-        loader.LoadBallMotorOff();
-    }
+    //  if(Constants.ballInShooter)
+    // {
+    //     //loader.MovingMotorOff();
+    //     loader.LoadBallMotorOff();
+    // }
 
 
 
