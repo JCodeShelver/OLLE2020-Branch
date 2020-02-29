@@ -17,7 +17,7 @@ public class DriveSystem extends SubsystemBase
     private TalonSRX encoderReading;
     private CANSparkMax leftMotor1, leftMotor2;
     private CANSparkMax rightMotor1, rightMotor2;
-    double adjustedL, adjustedR;
+    double adjustedL, adjustedR, adjustedY, adjustedX;
 
     public DriveSystem() 
     {
@@ -58,6 +58,24 @@ public class DriveSystem extends SubsystemBase
         rightMotor1.set(adjustedR);
         rightMotor2.set(adjustedR); 
      } 
+
+     public void ArcadeDrive(double rightY, double rightX)
+     {
+    if(rightY<0)
+        adjustedY = -rightY * rightY;
+    else
+        adjustedY = rightY*rightY;        
+
+    if(rightX<0)
+        adjustedX = -rightX * rightX;
+    else
+        adjustedX = rightX*rightX;
+
+        leftMotor1.set(adjustedY + adjustedX);
+        leftMotor2.set(adjustedY + adjustedX);
+        rightMotor1.set(adjustedY - adjustedX);
+        rightMotor2.set(adjustedY - adjustedX);
+     }
 
      public void drive(double inL, double inR)
      {

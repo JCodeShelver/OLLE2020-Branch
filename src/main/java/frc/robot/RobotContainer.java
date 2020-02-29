@@ -23,7 +23,6 @@ import frc.robot.subsystems.Loader;
 import frc.robot.commands.DriveHuman;
 import frc.robot.commands.FrontIntakeDriver;
 import frc.robot.commands.PrepareToShoot;
-import frc.robot.commands.ShootBall;
 import frc.robot.commands.SpinnerControl;
 import frc.robot.commands.AutonSimple;
 import frc.robot.commands.AutonStages;
@@ -59,10 +58,12 @@ public class RobotContainer
   {
     configureButtonBindings();
 
-    driveSystem.setDefaultCommand(new DriveHuman(
-      driveSystem,
-      () -> rightStick.getY(),
-      () -> leftStick.getY()));
+    driveSystem.setDefaultCommand(
+       new DriveHuman(driveSystem,
+                      () -> rightStick.getY(),
+                      () -> leftStick.getY(),
+                      () -> rightStick.getX()
+                      ));
 
     shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID, elevator, spinner));
     loader.setDefaultCommand(new QueueManager(loader));
@@ -86,12 +87,10 @@ public class RobotContainer
     kStickRight     10
     */
     new JoystickButton(rightStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
-    new JoystickButton(rightStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
 
     new JoystickButton(controller, XboxController.Button.kB.value).whenPressed(new SpinnerControl(spinner));
     new JoystickButton(controller, XboxController.Button.kBumperLeft.value).toggleWhenPressed(new DriveElevator(elevator));
-    new JoystickButton(controller, XboxController.Button.kBumperRight.value).whileHeld(new ShootBall(shooter, visionPID));
 
     //Toggling pneumatics
     new JoystickButton(rightStick, 1).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
@@ -107,8 +106,9 @@ public class RobotContainer
     // Set simple auton routine as default
     Command autonCommandChoice = new AutonSimple(driveSystem);
 
-    if (SmartDashboard.getBoolean("Auton Stages", true))
-        autonCommandChoice = new AutonStages(driveSystem, gyroPID);
+    if (SmartDashboard.getBoolean("Auton Stages",true))
+        autonCommandChoice = new AutonStages(driveSystem, gyroPID, frontIntake, shooter, visionPID);
+        
     return autonCommandChoice;
   }
 }
