@@ -36,6 +36,6 @@ public class DriveHuman extends CommandBase
   {
       SmartDashboard.updateValues();
       //driveSystem.Quadraticdrive(leftStickValue.getAsDouble(),rightStickYValue.getAsDouble());
-      driveSystem.ArcadeDrive(rightStickYValue.getAsDouble(), rightStickXValue.getAsDouble());
+      driveSystem.ArcadeDrive(rightStickYValue.getAsDouble(), -rightStickXValue.getAsDouble());
   }
 }

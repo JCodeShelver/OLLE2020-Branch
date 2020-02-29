@@ -14,6 +14,7 @@ public class FrontIntakeDriver extends CommandBase
 {
     private XboxController controller;
     private final FrontIntake frontIntake;   
+    private double input;
 
   // ----------------------------------------------------------------------------
   public FrontIntakeDriver(FrontIntake i, XboxController c)
@@ -35,9 +36,19 @@ public class FrontIntakeDriver extends CommandBase
   //  
   @Override
   public void execute()
-  {    
-    if (frontIntake.isOut()) // Default Speed
-      frontIntake.driveIntakeMotors(0.75);
+  {
+    
+    if(frontIntake.isOut())
+    {
+      if(controller.getTriggerAxis(Hand.kRight) > 0.0)
+        input = controller.getTriggerAxis(Hand.kRight);
+      else if(controller.getTriggerAxis(Hand.kLeft) > 0.0)
+        input = -controller.getTriggerAxis(Hand.kLeft);
+      else
+        input = 0;
+
+      frontIntake.driveIntakeMotors(input);
+    }
     else
       frontIntake.driveIntakeMotors(0.0);
 

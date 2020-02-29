@@ -62,7 +62,7 @@ public class RobotContainer
        new DriveHuman(driveSystem,
                       () -> rightStick.getY(),
                       () -> leftStick.getY(),
-                      () -> rightStick.getX()
+                      () -> rightStick.getZ()
                       ));
 
     shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID, elevator, spinner));

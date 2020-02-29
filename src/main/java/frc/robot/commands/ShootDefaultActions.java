@@ -46,6 +46,7 @@ public class ShootDefaultActions extends CommandBase
         Constants.shooterSystemActive = false;
         shooter.updateBallInShooter();
         shooter.stop();
+        shooter.shootBall();
         visionPID.LEDoff();
         spinner.motorOff();
         elevator.driveWinch(0.0);
