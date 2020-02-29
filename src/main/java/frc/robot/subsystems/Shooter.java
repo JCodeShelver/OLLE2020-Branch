@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.*;
@@ -44,11 +45,13 @@ public class Shooter extends SubsystemBase
   // Precondition:  SetPoint has been set!
   public void spinToSetPoint()
   {
-    currentSetPoint = 3000;
+    currentSetPoint = -3000;
     TPM = -shooterMotor.getSelectedSensorVelocity();
 
     System.out.println("Current Set point for RPM: " + currentSetPoint);
     System.out.println("Current RPM: " + TPM/Constants.SHOOTER_TICKS_PER_RPM);
+    SmartDashboard.putNumber("Shooter RPM", TPM/Constants.SHOOTER_TICKS_PER_RPM);
+
     
     double pidOutput = ShooterPID.calculate(TPM/Constants.SHOOTER_TICKS_PER_RPM, currentSetPoint);
 
@@ -96,7 +99,8 @@ public class Shooter extends SubsystemBase
 
   public void updateBallInShooter()
   {
-    Constants.isBallInShooter = !BallInShooter.get();
+    Constants.ballInShooter = !BallInShooter.get();
+    SmartDashboard.putBoolean("Ball In Shooter", Constants.ballInShooter);
   }
 
   // ----------------------------------------------------------------------------
