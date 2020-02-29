@@ -55,10 +55,14 @@ public class ShootBall extends CommandBase
     else
       RPMGood = false;
 
-    if (RPMGood && XGood && Constants.isBallInShooter && controller.getBumper(Hand.kRight))
+    if (RPMGood && XGood && Constants.ballInShooter && controller.getBumper(Hand.kRight))
       shooter.shootBall();
     else
+    {
+      System.out.println("Lowering");
       shooter.lowerShootingPiston();
+    }
+
   }
 
   // ----------------------------------------------------------------------------

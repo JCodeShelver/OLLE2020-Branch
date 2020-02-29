@@ -53,7 +53,7 @@ public class QueueManager extends CommandBase
 
     // Logic for Belt Movement
 
-    if (ballAtBack && !Constants.isBallInShooter)
+    if (ballAtBack && !Constants.ballInShooter)
     {
         loader.LoadBallMotorOn();
         loader.MovingMotorOn();
@@ -65,7 +65,7 @@ public class QueueManager extends CommandBase
     else if (!ballComingIn)
         loader.MovingMotorOff();
 
-    if (Constants.isBallInShooter)
+    if (Constants.ballInShooter)
         loader.LoadBallMotorOff();
 }
 
