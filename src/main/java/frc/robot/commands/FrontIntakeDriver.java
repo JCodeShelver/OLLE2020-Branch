@@ -40,8 +40,13 @@ public class FrontIntakeDriver extends CommandBase
     
     if(frontIntake.isOut())
     {
-      input = controller.getTriggerAxis(Hand.kRight);
-      System.out.println(input);
+      if(controller.getTriggerAxis(Hand.kRight) > 0.0)
+        input = controller.getTriggerAxis(Hand.kRight);
+      else if(controller.getTriggerAxis(Hand.kLeft) > 0.0)
+        input = -controller.getTriggerAxis(Hand.kLeft);
+      else
+        input = 0;
+
       frontIntake.driveIntakeMotors(input);
     }
     else

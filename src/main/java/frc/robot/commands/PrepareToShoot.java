@@ -75,12 +75,12 @@ public class PrepareToShoot extends CommandBase
       if(controller.getBumper(Hand.kRight))
       {
         System.out.println("Firing");
-        shooterSystem.shootBall();
+        shooterSystem.lowerShootingPiston();
       }
       else
       {
         System.out.println("Lowering");
-        shooterSystem.lowerShootingPiston();
+        shooterSystem.shootBall();
       }
     }
     

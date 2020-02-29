@@ -57,36 +57,37 @@ public class QueueManager extends CommandBase
         // logic for the moving of the belts
 
 
-        if(controller.getRawButton(10))
-            loader.MovingMotorOn(.75);
-        else   
-            loader.MovingMotorOff();
 
-    // if(ballAtBack && !Constants.ballInShooter)
-    // {
+    if(ballAtBack && !Constants.ballInShooter)
+    {
 
-    //     loader.LoadBallMotorOn();
-    //     loader.MovingMotorOn(.25);
-    // }
-    // else if(ballAtBack)
-    // {
-    //     loader.MovingMotorOff();
-    // }
-    // else if(Constants.shooterSystemActive)
-    // {
-    //     loader.MovingMotorOn(.5);
-    // }
-    // else if(ballComingIn)
-    //     loader.MovingMotorOn(.5);
-    // else if(!ballComingIn)
-    //     loader.MovingMotorOff();
+        loader.LoadBallMotorOn();
+        loader.MovingMotorOn(.25);
+    }
+    else if(ballAtBack)
+    {
+        loader.MovingMotorOff();
+    }
+    else if(Constants.shooterSystemActive)
+    {
+        loader.MovingMotorOn(.5);
+    }
+    else if(ballComingIn)
+        loader.MovingMotorOn(.5);
+    else if(!ballComingIn)
+        loader.MovingMotorOff();
 
 
-    //  if(Constants.ballInShooter)
-    // {
-    //     //loader.MovingMotorOff();
-    //     loader.LoadBallMotorOff();
-    // }
+     if(Constants.ballInShooter)
+    {
+        //loader.MovingMotorOff();
+        loader.LoadBallMotorOff();
+    }
+
+    if(controller.getRawButton(10))
+    loader.MovingMotorOn(.5);
+else   
+    loader.MovingMotorOff();
 
 
 
