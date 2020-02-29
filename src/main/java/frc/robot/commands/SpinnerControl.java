@@ -33,7 +33,7 @@ public class SpinnerControl extends CommandBase
   @Override
   public void initialize() 
   {
-    if (!isRotationControlDone)
+    if (!isPositionControlDone)
     {
       spinner.initiateColorSampler();  // Start sampling colors
       onTargetColor = false;
