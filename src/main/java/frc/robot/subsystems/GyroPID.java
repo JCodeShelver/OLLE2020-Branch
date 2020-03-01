@@ -1,6 +1,7 @@
 // FRC Team 3770 - BlitzCreek - OLLE 2020
-// GyroPID subsystem
-// Manages gyro mechanism and PID control with gyro.
+// GyroPID Subsystem
+// Manages gyroscope mechanism and PID 
+// control with gyroscope.
 
 package frc.robot.subsystems;
 
@@ -14,14 +15,17 @@ import frc.robot.Constants;
 
 public class GyroPID extends PIDSubsystem 
 { 
-	private AHRS gyro;     
-	private double pidOutput, currentSetpoint;
+	private AHRS gyro;
 
+	private double currentSetpoint, pidOutput;
+
+	// --------------------------------------------------------------------------
+	// Constructor
 	public GyroPID() 
 	{
 		super(new PIDController(Constants.GYRO_PID_P, Constants.GYRO_PID_I, Constants.GYRO_PID_D));   
 
-        // Initialize gyro
+        // Initialize gyroscope
         try {
 			gyro = new AHRS(SPI.Port.kMXP);
 			resetGyro();
@@ -33,45 +37,49 @@ public class GyroPID extends PIDSubsystem
 		getController().setTolerance(Constants.GYRO_PID_TOLERANCE);   // Degree tolerance for set point
 	}
 
-	// Primary action to get current gyro angle measure.  Defined as abstract and there
-	// mandated.  Automatically called periodically.
+	// --------------------------------------------------------------------------
+	// Returns Yaw measurement of Gyroscope in degrees.
 	@Override
 	public double getMeasurement() 
 	{
-    	return gyro.getAngle(); 
+		return gyro.getAngle(); 
 	}
-
-	// Consumes output of PID controller using current set point.  Automatically called
-	// periodically.
-	@Override
-	public void useOutput(double output, double setpoint)
-	{
-		pidOutput        = output;
-		currentSetpoint  = setpoint;
-	}
-
-	// Getter action to retrieve calculated PID output.
+	
+	// --------------------------------------------------------------------------
+	// Retrieves the calculated PID output.
 	public double getOutput()
 	{
 		return pidOutput;
 	}
-
-	// Getter action to retrieve current setpoint
+	
+	// --------------------------------------------------------------------------
+	// Retrieves the current setpoint.
 	public double getSetpoint()
 	{
 		return currentSetpoint;
 	}		
-
-	// Zero gyro reading
+	
+	// --------------------------------------------------------------------------
+	// Sets the Gyroscope's Yaw reading to 0 degrees.
 	public void resetGyro()
 	{	
 		gyro.reset();
 		gyro.zeroYaw();
 	}
-
-	// Adjust "P" value
+	
+	// --------------------------------------------------------------------------
+	// Adjusts the Proportion value of the PID controller.
 	public void setPvalue(double newP)
 	{
 		getController().setP(newP);
 	}
-}
+
+	// --------------------------------------------------------------------------
+	// Consumes output of PID controller using current set point.
+	@Override
+	public void useOutput(double output, double setpoint)
+	{
+		currentSetpoint  = setpoint;
+		pidOutput        = output;
+	}
+}	

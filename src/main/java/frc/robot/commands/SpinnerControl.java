@@ -1,27 +1,29 @@
 // FRC Team 3770 - BlitzCreek - OLLE 2020
 // Spin To Color Command
 // Command to spin spinner until given color
-// Requires access to spinner system.  Performs 7 spin cycles.
+// Requires access to spinner system.
+// Performs 7 spin cycles.
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Spinner;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.subsystems.Spinner;
 
 public class SpinnerControl extends CommandBase
 {
   private final Spinner spinner;   // Reference to spinner system object 
 
+  private boolean isRotationControlDone, isPositionControlDone, onTargetColor;
+
   private int onColorCount;
-  private boolean onTargetColor;
-  private boolean isRotationControlDone;
-  private boolean isPositionControlDone;
 
   // ----------------------------------------------------------------------------
+  // Constructor
   public SpinnerControl(Spinner s) 
   {
-    spinner = s;
+    spinner      = s;    
     onColorCount = 0;
     isRotationControlDone = SmartDashboard.getBoolean("Rotation Control", false);
     isPositionControlDone = SmartDashboard.getBoolean("Position Control", false);
@@ -29,10 +31,10 @@ public class SpinnerControl extends CommandBase
 
   // ----------------------------------------------------------------------------
   // Initialization
-  // If Position control is not done
   @Override
   public void initialize() 
   {
+    // If Position control is not done
     if (!isPositionControlDone)
     {
       spinner.initiateColorSampler();  // Start sampling colors
@@ -41,7 +43,7 @@ public class SpinnerControl extends CommandBase
   }
 
   // ----------------------------------------------------------------------------
-  // Called every time the scheduler runs while the command is scheduled.
+  // 
   @Override
   public void execute() 
   {
@@ -49,6 +51,7 @@ public class SpinnerControl extends CommandBase
     { 
       spinner.sampleRecentColors();      // Build sample set of most recent colors sensed
       spinner.motorOn();
+   
       if (!isRotationControlDone)
       {
         // Manage boolean value used for counting
@@ -69,8 +72,9 @@ public class SpinnerControl extends CommandBase
       }
     }
   }
+
   // ----------------------------------------------------------------------------
-  // Return true when color reaches input color / when 
+  // 
   @Override
   public boolean isFinished() 
   {
@@ -88,13 +92,15 @@ public class SpinnerControl extends CommandBase
     }
     else if (!isRotationControlDone) // If Rotation Control is not done:
     {
-      if (spinner.isSensorOnTargetColor("RtnCtrl") && onColorCount >= 7) // If >= 3 rotations done, end 
+      if (spinner.isSensorOnTargetColor("RtnCtrl") && onColorCount >= 7)
+      // If >= 3 rotations (2 counts/rotation, + 1 more) have been done, end. 
       {
         spinner.motorOff();
         SmartDashboard.putBoolean("RotationControl", true);
         return true;
       }
-      else                                                               // Otherwise continue.
+      else
+      // Otherwise continue.
         return false;                                                   
     }
     else // If command was accidentally run:

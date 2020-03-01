@@ -9,33 +9,38 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
-import frc.robot.subsystems.DriveSystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.subsystems.DriveSystem;
 
 public class DriveHuman extends CommandBase 
 {
   private final DriveSystem driveSystem;   // Reference to drive system object 
+  
   private DoubleSupplier leftStickValue;
   private DoubleSupplier rightStickYValue;
   private DoubleSupplier rightStickXValue;
 
+  // ----------------------------------------------------------------------------
+  // Constructor
   public DriveHuman(DriveSystem d, DoubleSupplier righty, DoubleSupplier left, DoubleSupplier rightx)
   {
-    driveSystem     = d;
-    leftStickValue  = left;
-    rightStickYValue = righty;
+    driveSystem      = d;
+    leftStickValue   = left;
     rightStickXValue = rightx;
+    rightStickYValue = righty;
 
     addRequirements(driveSystem);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  // ----------------------------------------------------------------------------
+  // Initialization
   @Override
   public void execute()
   {
-      SmartDashboard.updateValues();
-      //driveSystem.Quadraticdrive(leftStickValue.getAsDouble(),rightStickYValue.getAsDouble());
-      driveSystem.ArcadeDrive(rightStickYValue.getAsDouble(), -rightStickXValue.getAsDouble());
+    SmartDashboard.updateValues();
+    //driveSystem.Quadraticdrive(leftStickValue.getAsDouble(),rightStickYValue.getAsDouble());
+    driveSystem.ArcadeDrive(rightStickYValue.getAsDouble(), -rightStickXValue.getAsDouble());
   }
 }

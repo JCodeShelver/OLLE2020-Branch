@@ -7,39 +7,39 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
+
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.GyroPID;
+
 import frc.robot.Constants;
 
 public class DriveTurn extends CommandBase
 {
-    // Class member variables
-    private double targetAngle;
-    private Timer segmentDriveTimer;
-    
-    double angleRotateMotorAdjust;      // For adjusting left/right motors for angle correction
-    double zValue;                      // Parameter for mecanum axis managed by PID
-    private double left, right;
-
     // Robot object referencess required for this action
     private final DriveSystem   driveSystem;  
     private final GyroPID       gyroPID; 
 
-    //-------------------------------------------------
+    private Timer segmentDriveTimer;
+    
+    private double angleRotateMotorAdjust, left, right, targetAngle;      
+    // For adjusting left/right motors for angle correction
+
+    // --------------------------------------------------------------------------
     // Constructor:  Capture time and motor level for straight drive
     public DriveTurn(DriveSystem d, GyroPID g, double angle) 
     {
         // Capture references to existing robot subsystems.  Define them as requirements.
         driveSystem   = d;   
         gyroPID       = g;  
+    
         addRequirements(driveSystem, gyroPID);
         
         targetAngle       = angle;   
         segmentDriveTimer = new Timer();
     }
 
-    //-------------------------------------------------
-    // Called just before this Command runs the first time
+    // --------------------------------------------------------------------------
+    // Initialization
     public void initialize() 
     {
         // Start clock for this action
@@ -51,7 +51,7 @@ public class DriveTurn extends CommandBase
         gyroPID.setPvalue(0.009);
     }
     
-    //-------------------------------------------------
+    // --------------------------------------------------------------------------
     // Called repeatedly when this Command is scheduled to run
     public void execute() 
     {
@@ -63,7 +63,7 @@ public class DriveTurn extends CommandBase
         right = +angleRotateMotorAdjust;
     }
     
-    //-------------------------------------------------
+    // --------------------------------------------------------------------------
     // Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() 
     {
@@ -82,15 +82,17 @@ public class DriveTurn extends CommandBase
         }
     }
 
-    //-------------------------------------------------
+    // --------------------------------------------------------------------------
+    //
     protected void end()
     {
 
     }
 
-    public void interrupted()
+    // --------------------------------------------------------------------------
+    //
+    protected void interrupted()
     {
 
     }
 }
-

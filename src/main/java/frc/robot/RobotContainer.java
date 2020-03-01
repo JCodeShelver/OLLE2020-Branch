@@ -6,54 +6,55 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
+import frc.robot.commands.AutonIntakeDriver;
+import frc.robot.commands.AutonShooting;
+import frc.robot.commands.AutonSimple;
+import frc.robot.commands.AutonStages;
+import frc.robot.commands.AutoPickUpBalls;
+import frc.robot.commands.DriveAlignToTarget;
+import frc.robot.commands.DriveElevator;
+import frc.robot.commands.DriveHuman;
+import frc.robot.commands.FrontIntakeDriver;
+import frc.robot.commands.GetColorData;
+import frc.robot.commands.PneumaticManager;
+import frc.robot.commands.PrepareToShoot;
+import frc.robot.commands.QueueManager;
+import frc.robot.commands.ShootDefaultActions;
+import frc.robot.commands.SpinnerControl;
 
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.FrontIntake;
+import frc.robot.subsystems.GyroPID;
+import frc.robot.subsystems.Loader;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Spinner;
-import frc.robot.subsystems.GyroPID;
 import frc.robot.subsystems.VisionPID;
-import frc.robot.subsystems.Loader;
-
-import frc.robot.commands.DriveHuman;
-import frc.robot.commands.FrontIntakeDriver;
-import frc.robot.commands.PrepareToShoot;
-import frc.robot.commands.SpinnerControl;
-import frc.robot.commands.AutonSimple;
-import frc.robot.commands.AutonStages;
-import frc.robot.commands.DriveAlignToTarget;
-import frc.robot.commands.DriveElevator;
-import frc.robot.commands.ShootDefaultActions;
-import frc.robot.commands.GetColorData;
-import frc.robot.commands.PneumaticManager;
-import frc.robot.commands.QueueManager;
 
 public class RobotContainer 
-{
-  
+{  
   // Instantiate joystick objects
-  Joystick leftStick  = new Joystick(Constants.LEFT_STICK_USB_PORT);
-  Joystick rightStick = new Joystick(Constants.RIGHT_STICK_USB_PORT);
-  XboxController controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
+  private final Joystick leftStick  = new Joystick(Constants.LEFT_STICK_USB_PORT);
+  private final Joystick rightStick = new Joystick(Constants.RIGHT_STICK_USB_PORT);
+  private final XboxController controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
 
   // Instantiate all robot subsystems
   private final DriveSystem   driveSystem   = new DriveSystem();
+  private final Elevator      elevator      = new Elevator();
+  private final FrontIntake   frontIntake   = new FrontIntake();
+  private final GyroPID       gyroPID       = new GyroPID();
+  private final Loader        loader        = new Loader();
   private final Shooter       shooter       = new Shooter();
   private final Spinner       spinner       = new Spinner();
-  private final GyroPID       gyroPID       = new GyroPID();
   private final VisionPID     visionPID     = new VisionPID();
-  private final Loader        loader        = new Loader();
-  private final FrontIntake   frontIntake   = new FrontIntake();
-  private final Elevator      elevator      = new Elevator();
 
-  // -----------------------------------------------
-  // Class constructor.  Call method to define joystick buttons.  
-  // Define default drive action.
+  // ----------------------------------------------------------------------------
+  // Constructor
   public RobotContainer()
   {
     configureButtonBindings();
@@ -64,13 +65,12 @@ public class RobotContainer
                       () -> leftStick.getY(),
                       () -> rightStick.getZ()
                       ));
-
     shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID, elevator, spinner));
     loader.setDefaultCommand(new QueueManager(loader));
     frontIntake.setDefaultCommand(new FrontIntakeDriver(frontIntake, controller));
   }
 
-  // -----------------------------------------------
+  // ----------------------------------------------------------------------------
   // Define drive button interface control bindings
   private void configureButtonBindings() 
   {
@@ -101,6 +101,8 @@ public class RobotContainer
     new JoystickButton(controller, XboxController.Button.kStart.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));  
   }
 
+  // ----------------------------------------------------------------------------
+  // Set Autonomous routine based on Smart Dashboard choice.
   public Command getAutonomousCommand() 
   {
     // Set simple auton routine as default

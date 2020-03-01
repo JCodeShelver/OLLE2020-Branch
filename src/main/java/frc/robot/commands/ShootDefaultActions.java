@@ -1,15 +1,19 @@
 // FRC Team 3770 - BlitzCreek - OLLE 2020
-// ShootDefaultActions Command
-// Manages shooter mechanism when not explicitly used
+// Shooter (Default Actions) Command
+// Manages shooter mechanism when not
+// explicitly used.
 
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Spinner;
 import frc.robot.subsystems.VisionPID;
+
+import frc.robot.Constants;
+
 public class ShootDefaultActions extends CommandBase
 {
     // Robot object referencess required for this action
@@ -17,9 +21,11 @@ public class ShootDefaultActions extends CommandBase
     private final VisionPID  visionPID;
     private final Elevator   elevator;
     private final Spinner    spinner;
+
     public double            Distance, RPM;
 
-    //-------------------------------------------------
+    // --------------------------------------------------------------------------
+    // Constructor
     public ShootDefaultActions(Shooter s, VisionPID v, Elevator e, Spinner sp)
     {
         // Capture references to existing robot subsystems.  Define them as requirements.
@@ -31,30 +37,34 @@ public class ShootDefaultActions extends CommandBase
         addRequirements(spinner, elevator, shooter, visionPID);
     }
 
-    //-------------------------------------------------
-    // Called just before this Command runs the first time
+    // --------------------------------------------------------------------------
+    // Initialization
     public void initialize() 
     {
         
     }
     
-    //-------------------------------------------------
-    // Called repeatedly when this Command is scheduled to run
+    // --------------------------------------------------------------------------
+    // 
     public void execute() 
     {
-        Constants.EndgameEnabled = false;
+        Constants.EndgameEnabled      = false;
         Constants.shooterSystemActive = false;
+
+        elevator.driveWinch(0.0);
+        elevator.driveElevator(0.0);
+
         shooter.updateBallInShooter();
         shooter.stop();
         shooter.shootBall();
-        visionPID.LEDoff();
+        
         spinner.motorOff();
-        elevator.driveWinch(0.0);
-        elevator.driveElevator(0.0);
+        
+        visionPID.LEDoff();
     }
     
-    //-------------------------------------------------
-    // Make this return true when this Command no longer needs to run execute()
+    // --------------------------------------------------------------------------
+    // 
     public boolean isFinished() 
     {
         return false;

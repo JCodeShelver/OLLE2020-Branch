@@ -5,27 +5,32 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.FrontIntake;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.XboxController;
+
+import frc.robot.subsystems.FrontIntake;
 
 public class FrontIntakeDriver extends CommandBase 
 {
-    private XboxController controller;
-    private final FrontIntake frontIntake;   
-    private double input;
+  private final FrontIntake frontIntake;   
+  
+  private XboxController controller;
+  
+  private double input;
 
   // ----------------------------------------------------------------------------
+  // Constructor
   public FrontIntakeDriver(FrontIntake i, XboxController c)
   {
     frontIntake = i;
     controller = c;
+  
     addRequirements(frontIntake);
   }
 
   // ----------------------------------------------------------------------------
-  // Initization
+  // Initialization
   @Override
   public void initialize() 
   { 
@@ -36,13 +41,12 @@ public class FrontIntakeDriver extends CommandBase
   //  
   @Override
   public void execute()
-  {
-    
-    if(frontIntake.isOut())
+  { 
+    if (frontIntake.isOut())
     {
-      if(controller.getTriggerAxis(Hand.kRight) > 0.0)
+      if (controller.getTriggerAxis(Hand.kRight) > 0.0)
         input = controller.getTriggerAxis(Hand.kRight);
-      else if(controller.getTriggerAxis(Hand.kLeft) > 0.0)
+      else if (controller.getTriggerAxis(Hand.kLeft) > 0.0)
         input = -controller.getTriggerAxis(Hand.kLeft);
       else
         input = 0;

@@ -5,77 +5,83 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Loader;
-import frc.robot.Constants;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.XboxController;
+
+import frc.robot.subsystems.Loader;
+
+import frc.robot.Constants;
 
 public class QueueManager extends CommandBase 
 {
     private Loader loader;
+
     private XboxController controller;
 
-    boolean ballInQueue = false, ballComingIn = false, ballAtBack = false;
+    private boolean ballInQueue = false, ballComingIn = false, ballAtBack = false;
 
-  // ----------------------------------------------------------------------------
-  public QueueManager(Loader l) 
-  {
-      loader = l;
-      controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
-      addRequirements(loader);
-  }
-
-  // ----------------------------------------------------------------------------
-  // Initization
-  @Override
-  public void initialize() 
-  {
-
-  }
-
-  // ----------------------------------------------------------------------------
-  //  
-  @Override
-  public void execute() 
-  {    
-    if (loader.ballAtIntake())
-        ballComingIn = true;
-    else
-        ballComingIn = false;
-
-    if (loader.ballInSystem())
-        ballInQueue = true;
-    else
-        ballInQueue = false;
-
-    if (loader.ballAtBack())
-        ballAtBack = true;
-    else
-        ballAtBack = false;
-
-    // Logic for Belt Movement
-
-    if (ballAtBack && !Constants.ballInShooter)
+    // ----------------------------------------------------------------------------
+    // Constructor
+    public QueueManager(Loader l) 
     {
-        loader.LoadBallMotorOn();
-        loader.MovingMotorOn(.5);
+        loader     = l;
+        controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
+
+        addRequirements(loader);
     }
-    else if (ballAtBack)
-        loader.MovingMotorOff();
-    else if (ballComingIn)
-        loader.MovingMotorOn(.5);
-    else if (!ballComingIn)
-        loader.MovingMotorOff();
 
-    if (Constants.ballInShooter)
-        loader.LoadBallMotorOff();
-}
+    // ----------------------------------------------------------------------------
+    // Initialization
+    @Override
+    public void initialize() 
+    {
 
-  // ----------------------------------------------------------------------------
-  @Override
-  public boolean isFinished() 
-  {
-    return false;
-  }
+    }
+
+    // ----------------------------------------------------------------------------
+    //  
+    @Override
+    public void execute() 
+    {    
+        if (loader.ballAtIntake())
+            ballComingIn = true;
+        else
+            ballComingIn = false;
+
+        if (loader.ballInSystem())
+            ballInQueue = true;
+        else
+            ballInQueue = false;
+
+        if (loader.ballAtBack())
+            ballAtBack = true;
+        else
+            ballAtBack = false;
+
+        // Logic for Belt Movement
+
+        if (ballAtBack && !Constants.ballInShooter)
+        {
+            loader.LoadBallMotorOn();
+            loader.MovingMotorOn(.5);
+        }
+        else if (ballAtBack)
+            loader.MovingMotorOff();
+        else if (ballComingIn)
+            loader.MovingMotorOn(.5);
+        else if (!ballComingIn)
+            loader.MovingMotorOff();
+
+        if (Constants.ballInShooter)
+            loader.LoadBallMotorOff();
+    }
+
+    // ----------------------------------------------------------------------------
+    //
+    @Override
+    public boolean isFinished() 
+    {
+        return false;
+    }
 }

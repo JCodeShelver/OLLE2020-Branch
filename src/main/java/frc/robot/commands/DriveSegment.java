@@ -7,10 +7,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
+
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.GyroPID;
+
 import frc.robot.Constants;
 
 
@@ -20,23 +22,19 @@ public class DriveSegment extends CommandBase
     private final DriveSystem   driveSystem;  
     private final GyroPID       gyroPID; 
 
-    // Class member variables
-    private double targetDistance;
-    private double powerLevel;
     private Timer segmentDriveTimer;
- 
-    private double angleMotorAdjust;  // For adjusting left/right motors for angle correction
-    
-    // Utility variables
-    private double left, right, percentage, targetAngle;   
 
-    //-------------------------------------------------
+    // For adjusting left/right motors for angle correction
+    private double angleMotorAdjust, left, powerLevel, percentage, right, targetAngle, targetDistance;   
+
+    // --------------------------------------------------------------------------
     // Constructor:  Capture time and motor level for straight drive
-    public DriveSegment( DriveSystem d, GyroPID g, double power, double distance, double angle) 
+    public DriveSegment(DriveSystem d, GyroPID g, double power, double distance, double angle) 
     {
         // Capture references to existing robot subsystems.  Define them as requirements.
         driveSystem   = d;   
-        gyroPID       = g;  
+        gyroPID       = g;
+
         addRequirements(driveSystem, gyroPID);
         
         targetDistance    = distance;   
@@ -54,18 +52,20 @@ public class DriveSegment extends CommandBase
         gyroPID.setSetpoint(targetAngle);
     }
     
-    //-------------------------------------------------
+    // --------------------------------------------------------------------------
     // Periodic action.  Initial angle set.  Motors ramp up, drive, ramp down.  
     // Distance managed by encoder PID and gyro maintains straight drive.  
     public void execute() 
     {
         double inches = driveSystem.getDistanceInches();
         SmartDashboard.putNumber("Gyro Angle", gyroPID.getMeasurement());
+
         if (Math.abs(targetDistance - inches) > Constants.DISTANCE_TOLERANCE) 
         {
             angleMotorAdjust = gyroPID.getOutput();     // Get gyro value
-            //            System.out.println(angleMotorAdjust);
-            left             = powerLevel - angleMotorAdjust;           // Adjust motor level to keep robot moving straight
+
+            // Adjust motor level to keep robot moving straight
+            left             = powerLevel - angleMotorAdjust;
             right            = powerLevel + angleMotorAdjust;
             
             if (segmentDriveTimer.get() < Constants.RAMP_UP_TIME)               // Handle gradual ramp down
@@ -83,7 +83,7 @@ public class DriveSegment extends CommandBase
         }
     }
     
-    //-------------------------------------------------
+    // --------------------------------------------------------------------------
     // Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() 
     {
@@ -101,4 +101,3 @@ public class DriveSegment extends CommandBase
         }
     }
 }
-

@@ -1,71 +1,82 @@
 // FRC Team 3770 - BlitzCreek - OLLE 2020
-// Ball loader manager
+// Loader Subsystem
+// Controlls the conveyor mechanism and
+// ball detection sensors.
 
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DigitalInput;
-import frc.robot.Constants;
-import com.ctre.phoenix.motorcontrol.can.*;  
+
 import com.ctre.phoenix.motorcontrol.*;
+import com.ctre.phoenix.motorcontrol.can.*;  
+
+import frc.robot.Constants;
 
 public class Loader extends SubsystemBase 
 { 
-  private TalonSRX movingMotor, loadingMotor;
+  private final DigitalInput backSwitch, closeSwitch, intakeSwitch;
 
-  private DigitalInput closeSwitch, backSwitch, intakeSwitch;
+  private final TalonSRX loadingMotor, movingMotor;
 
-  // -----------------------------------------------------
+  // ----------------------------------------------------------------------------
   // Constructor
   public Loader() 
   {
+    loadingMotor   = new TalonSRX(Constants.LOADING_MOTOR_CAN_ID);
     movingMotor    = new TalonSRX(Constants.MOVING_MOTOR_CAN_ID); 
-    loadingMotor  = new TalonSRX(Constants.LOADING_MOTOR_CAN_ID);
-    closeSwitch =  new DigitalInput(1);
-    backSwitch =  new DigitalInput(2);
-    intakeSwitch =  new DigitalInput(0); 
-
+    
+    backSwitch     = new DigitalInput(2);
+    closeSwitch    = new DigitalInput(1);
+    intakeSwitch   = new DigitalInput(0);   
   }
 
-  // -----------------------------------------------------
-  // Manage top motor
-  public void MovingMotorOn(double in) 
+  // ----------------------------------------------------------------------------
+  // Returns the state of the back sensor.
+  public boolean ballAtBack()
   {
-    movingMotor.set(ControlMode.PercentOutput, in); 
+    return !backSwitch.get();
   }
 
-  public void MovingMotorOff() 
-  {
-    movingMotor.set(ControlMode.PercentOutput,0.0); 
-  }
-
-  public void LoadBallMotorOn()
-  {
-    loadingMotor.set(ControlMode.PercentOutput, 1.0);
-  }
-
-  public void LoadBallMotorOff()
-  {
-    loadingMotor.set(ControlMode.PercentOutput, 0.0);
-  }
-
-
-  // -----------------------------------------------------
-  // Receive a switch number as integer and returns true
-  // if indicated switch is engaged
-
+  // ----------------------------------------------------------------------------
+  // Returns the state of the intake sensor.
   public boolean ballAtIntake()
   {
     return !intakeSwitch.get();
   }
 
+  // ----------------------------------------------------------------------------
+  // Returns the state of the close sensor.
   public boolean ballInSystem()
   {
     return !closeSwitch.get();
   }
 
-  public boolean ballAtBack()
+  // ----------------------------------------------------------------------------
+  // Turn the loading motor of the Loader mechanism off.
+  public void LoadBallMotorOff()
   {
-    return !backSwitch.get();
+    loadingMotor.set(ControlMode.PercentOutput, 0.0);
   }
+
+  // ----------------------------------------------------------------------------
+  // Turn the loading motor  of the Loader mechanism on.
+  public void LoadBallMotorOn()
+  {
+    loadingMotor.set(ControlMode.PercentOutput, 1.0);
+  }  
+
+  // ----------------------------------------------------------------------------
+  // Turn the moving motor of the Loader mechanism off.
+  public void MovingMotorOff() 
+  {
+    movingMotor.set(ControlMode.PercentOutput,0.0); 
+  }  
+
+  // ----------------------------------------------------------------------------
+  // Turn the moving motor of the Loader mechanism on.
+  public void MovingMotorOn(double in) 
+  {
+    movingMotor.set(ControlMode.PercentOutput, in); 
+  }  
 }

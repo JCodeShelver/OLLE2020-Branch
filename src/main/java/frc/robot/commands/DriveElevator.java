@@ -5,18 +5,22 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants;
-import frc.robot.subsystems.Elevator;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+
+import frc.robot.subsystems.Elevator;
+
+import frc.robot.Constants;
 
 public class DriveElevator extends CommandBase 
 {
   private final Elevator elevator;   
-  XboxController controller;
+  
+  private final XboxController controller;
 
   // ----------------------------------------------------------------------------
+  // Constructor
   public DriveElevator(Elevator e) 
   {
     elevator = e;
@@ -25,7 +29,7 @@ public class DriveElevator extends CommandBase
   }
 
   // ----------------------------------------------------------------------------
-  // Initization
+  // Initialization
   @Override
   public void initialize() 
   { 
@@ -45,8 +49,6 @@ public class DriveElevator extends CommandBase
 
     Constants.EndgameEnabled = true;
   }
-
-
 
   // ----------------------------------------------------------------------------
   // 
