@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.subsystems.Shooter;
+import frc.robot.Constants;
 import frc.robot.subsystems.VisionPID;
 
 import frc.robot.Constants;
@@ -114,7 +115,7 @@ public class PrepareToShoot extends CommandBase
     //Actual target on test frame
     return 90.2 - 1.33*y + .213*y*y;
   }
-  
+
   // --------------------------------------------------------------------------
   // 
   protected void end()      

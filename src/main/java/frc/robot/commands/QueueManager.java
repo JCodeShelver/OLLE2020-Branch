@@ -16,7 +16,6 @@ import frc.robot.Constants;
 public class QueueManager extends CommandBase 
 {
     private Loader loader;
-
     private XboxController controller;
 
     private boolean ballInQueue = false, ballComingIn = false, ballAtBack = false;
@@ -30,13 +29,13 @@ public class QueueManager extends CommandBase
 
         addRequirements(loader);
     }
-
+    
     // ----------------------------------------------------------------------------
     // Initialization
     @Override
     public void initialize() 
     {
-
+        
     }
 
     // ----------------------------------------------------------------------------
@@ -64,10 +63,12 @@ public class QueueManager extends CommandBase
         if (ballAtBack && !Constants.ballInShooter)
         {
             loader.LoadBallMotorOn();
-            loader.MovingMotorOn(.5);
+            loader.MovingMotorOn(.25);
         }
         else if (ballAtBack)
             loader.MovingMotorOff();
+        else if(Constants.shooterSystemActive)
+            loader.MovingMotorOn(.5);
         else if (ballComingIn)
             loader.MovingMotorOn(.5);
         else if (!ballComingIn)
@@ -75,10 +76,14 @@ public class QueueManager extends CommandBase
 
         if (Constants.ballInShooter)
             loader.LoadBallMotorOff();
-    }
 
+        if(controller.getRawButton(10))
+            loader.MovingMotorOn(.5);
+        else   
+            loader.MovingMotorOff();
+    }
     // ----------------------------------------------------------------------------
-    //
+    // 
     @Override
     public boolean isFinished() 
     {

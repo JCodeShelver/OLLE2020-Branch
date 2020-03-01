@@ -77,12 +77,12 @@ public class RobotContainer
     /*
     kA              1
     kB              2
-    kX              3
-    kY              4
-    kBumperLeft     5
+    kX              3 WOF_CONTACT_DISENGAGE
+    kY              4 WOF_UP_DOWN
+    kBumperLeft     5 
     kBumperRight    6
-    kBack           7
-    kStart          8
+    kBack           7 ELEVATOR_BOTTOM_CYLINDERS
+    kStart          8 ELEVATOR_TOP2_CYLINDERS
     kStickLeft      9  
     kStickRight     10
     */
