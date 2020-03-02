@@ -77,7 +77,7 @@ public class QueueManager extends CommandBase
         if (Constants.ballInShooter)
             loader.LoadBallMotorOff();
 
-        if(controller.getRawButton(10))
+        if(controller.getRawButton(XboxController.Button.kStickRight.value))
             loader.MovingMotorOn(.5);
         else   
             loader.MovingMotorOff();
