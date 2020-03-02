@@ -103,6 +103,6 @@ public final class Constants
     public static boolean ballInShooter;
     public static boolean EndgameEnabled;
     public static boolean manualMode;
-    public static boolean OShitMode;
+    public static boolean OShitMode; // Max..............*deep sigh*
     public static boolean shooterSystemActive;
 }
