@@ -88,7 +88,7 @@ public class RobotContainer
     |   /_____//\  |-------------------+-----------------------+----------------------------+--------------------------------------------+
     |  |/     \//| |2       /        B | NOT BOUND             | NOT BOUND                  | Spinner Control                          OP|
     |  |       |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
-    |  |   B   |/| |3       /        X | NOT BOUND             | NOT BOUND                  | Spinner Contact Toggle                   OP|
+    |  |   B   |/| |3       /        X | NOT BOUND             | Switch Camera Mode       OP| Spinner Contact Toggle                   OP|
     |  |       |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
     |  |       |/| |4       /        Y | NOT BOUND             | Prepare To Shoot        TOP| Spinner Assembly Toggle                  OP|
     |  |   U   |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
@@ -124,6 +124,7 @@ public class RobotContainer
     |    ``````    |6  /  Hat Y  /  D-Pad      | NOT BOUND             | NOT BOUND                 | NOT BOUND                                |
     |-----------------------------------------------------------------------------------------------------------------------------------------+
     */
+    new JoystickButton(rightStick, 3).whenPressed(() -> visionPID.cameraModeSwitch());
     new JoystickButton(rightStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
 
