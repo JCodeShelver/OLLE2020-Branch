@@ -97,10 +97,7 @@ public class AutonShooting extends CommandBase
   // Make this return true when this Command no longer needs to run execute()
   public boolean isFinished() 
   {
-    if (BallsShot >= BallsToShoot)
-      return true;
-    else
-      return false;
+    return (BallsShot >= BallsToShoot);
   }
 
   // ----------------------------------------------------------------------------

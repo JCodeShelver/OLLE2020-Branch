@@ -44,9 +44,9 @@ public class FrontIntakeDriver extends CommandBase
   { 
     if (frontIntake.isOut())
     {
-      if (controller.getTriggerAxis(Hand.kRight) > 0.0)
+      if (controller.getTriggerAxis(Hand.kRight) > 0.5)
         input = controller.getTriggerAxis(Hand.kRight);
-      else if (controller.getTriggerAxis(Hand.kLeft) > 0.0)
+      else if (controller.getTriggerAxis(Hand.kLeft) > 0.5)
         input = -controller.getTriggerAxis(Hand.kLeft);
       else
         input = 0;
@@ -55,9 +55,6 @@ public class FrontIntakeDriver extends CommandBase
     }
     else
       frontIntake.driveIntakeMotors(0.0);
-
-    if (controller.getTriggerAxis(Hand.kRight) > .5) // Set speed to RT if > halfway 
-      frontIntake.driveIntakeMotors(controller.getTriggerAxis(Hand.kRight));
 
     if (controller.getBumper(Hand.kRight)) // Kill Button
       frontIntake.driveIntakeMotors(0.0);
