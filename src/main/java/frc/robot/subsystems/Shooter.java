@@ -45,7 +45,7 @@ public class Shooter extends SubsystemBase
   // Precondition:  SetPoint has been set!
   public void spinToSetPoint()
   {
-    currentSetPoint = -4200;
+    //currentSetPoint = -4200;
     TPM = -shooterMotor.getSelectedSensorVelocity();
 
     System.out.println("Current Set point for RPM: " + currentSetPoint);
@@ -62,12 +62,12 @@ public class Shooter extends SubsystemBase
   
   public void shootBall()
   {
-    ShootingPiston.set(DoubleSolenoid.Value.kForward);
+    ShootingPiston.set(DoubleSolenoid.Value.kReverse);
     shooterPistonDown = false;
   }
   public void lowerShootingPiston()
   {
-    ShootingPiston.set(DoubleSolenoid.Value.kReverse);
+    ShootingPiston.set(DoubleSolenoid.Value.kForward);
     shooterPistonDown = true;
   }
   public boolean isShooterPistonDown()

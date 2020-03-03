@@ -81,6 +81,8 @@ public class PneumaticManager extends CommandBase
       //       elevator.extendBottomCylinders();
       //   SmartDashboard.putBoolean("Elevator Stage 1", elevator.BottomDeployed());
       // }
+
+      /*
       if(actionCode == Constants.IntakeMovementActions.SHOOTER_FIRE_PISTON)
       {
         if(shooter.isShooterPistonDown())
@@ -90,6 +92,7 @@ public class PneumaticManager extends CommandBase
 
         //SmartDashboard.putBoolean("Shooter Piston Down", elevator.BottomDeployed());
       }
+      */
   }
   // ----------------------------------------------------------------------------
   // 

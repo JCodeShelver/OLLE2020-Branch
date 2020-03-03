@@ -48,8 +48,9 @@ public class AutonShooting extends CommandBase
     {
         Distance = yToDistanceFormula(visionPID.getYValue());
         SmartDashboard.putNumber("Distance from Target", Distance);
-        RPM = distanceToRPMFormula(Distance);
-        shooterSystem.setSetPoint(RPM);
+        //RPM = distanceToRPMFormula(Distance);
+        //shooterSystem.setSetPoint(RPM);
+        shooterSystem.setSetPoint(3000);
         shooterSystem.spinToSetPoint();
         visionPID.LEDon();
         Constants.shooterSystemActive = true;
@@ -60,11 +61,14 @@ public class AutonShooting extends CommandBase
       else
         XGood = false;
   
-      if(Math.abs(shooterSystem.getSetPoint()-shooterSystem.getRPM())<= 100)
+      if(Math.abs(shooterSystem.getSetPoint()+shooterSystem.getRPM())<= 100)
         RPMGood = true;
       else
         RPMGood = false;
-  
+
+        System.out.println("XGood: " + XGood);
+        System.out.println("RPMGood: " + RPMGood);
+
       //if (RPMGood == true && XGood == false && Constants.ballInShooter == true && controller.getBumper(Hand.kRight))
 
 
@@ -77,7 +81,6 @@ public class AutonShooting extends CommandBase
       else if(!shooterSystem.isShooterPistonDown())
       {
           BallsShot ++;
-          System.out.println("Balls Shot: " + BallsShot);
           shooterSystem.lowerShootingPiston();
       }
       else
@@ -85,6 +88,8 @@ public class AutonShooting extends CommandBase
         System.out.println("Lowering");
         shooterSystem.lowerShootingPiston();
       }
+      System.out.println("Balls Shot: " + BallsShot);
+
     }
     
     //-------------------------------------------------

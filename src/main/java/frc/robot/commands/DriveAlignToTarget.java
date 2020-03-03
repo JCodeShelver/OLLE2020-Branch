@@ -73,8 +73,8 @@ public class DriveAlignToTarget extends CommandBase
 
             // Adjust left/right motor sets to PID output.  Rotate
             // as needed toward target angle
-            double left  = (+angleRotateMotorAdjust * 0.4) + leftStick.getY();
-            double right = (-angleRotateMotorAdjust * 0.4) + leftStick.getY();
+            double left  = (+angleRotateMotorAdjust * 0.4);// + leftStick.getY();
+            double right = (-angleRotateMotorAdjust * 0.4);// + leftStick.getY();
 
             driveSystem.drive(left, right);
         }
@@ -97,12 +97,6 @@ public class DriveAlignToTarget extends CommandBase
     public boolean isFinished() 
     {
         return false;
-        /*
-        if(Constants.shooterSystemActive == false)
-            return true;
-        else
-            return false;
-            */
     }
 
 }

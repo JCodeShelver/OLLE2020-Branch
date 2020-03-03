@@ -96,7 +96,7 @@ public class RobotContainer
     Command autonCommandChoice =  new AutonSimple(driveSystem);
 
     if (SmartDashboard.getBoolean("Auton Stages",true))
-        autonCommandChoice = new AutonStages(driveSystem, gyroPID, frontIntake, shooter, visionPID);
+        autonCommandChoice = new AutonStages(driveSystem, gyroPID, frontIntake, shooter, visionPID, spinner, elevator);
 
     return autonCommandChoice;
   }

@@ -62,7 +62,7 @@ public class QueueManager extends CommandBase
     {
 
         loader.LoadBallMotorOn();
-        loader.MovingMotorOn(.25);
+        loader.MovingMotorOn(.5);
     }
     else if(ballAtBack)
     {
@@ -84,10 +84,12 @@ public class QueueManager extends CommandBase
         loader.LoadBallMotorOff();
     }
 
-    if(controller.getRawButton(10))
-    loader.MovingMotorOn(.5);
-else   
-    loader.MovingMotorOff();
+    // if(controller.getRawButton(10))
+    //     loader.MovingMotorOn(.5);
+    // else if(controller.getRawButton(9))
+    //     loader.MovingMotorOn(-.5);
+    // else
+    //     loader.MovingMotorOff();
 
 
 
