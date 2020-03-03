@@ -52,8 +52,8 @@ public final class Constants
     public static  final double RAMP_UP_TIME           = 1.0;    // Time to ramp up speed in auton
     public static  final double RAMP_DOWN_DIST         = 24.0;   // Distance (inches) to target to decelerate
 
-    public static  final double VISION_X_PID_TOLERANCE = 3.0;    // Absolute vision distance angle range
-    public static  final double VISION_PID_P           = 0.06;
+    public static  final double VISION_X_PID_TOLERANCE = 1.0;    // Absolute vision distance angle range
+    public static  final double VISION_PID_P           = 0.03;
     public static  final double VISION_PID_I           = 0.03;
     public static  final double VISION_PID_D           = 0.0025;
 

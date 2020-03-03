@@ -73,14 +73,14 @@ public class PneumaticManager extends CommandBase
             elevator.extendTop2Cylinders();
         SmartDashboard.putBoolean("Elevator Stages 2-3", elevator.TopDeployed());
       }
-      if(actionCode == Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS)
-      {
-        if(elevator.BottomDeployed())
-            elevator.retractBottomCylinders();
-        else
-            elevator.extendBottomCylinders();
-        SmartDashboard.putBoolean("Elevator Stage 1", elevator.BottomDeployed());
-      }
+      // if(actionCode == Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS)
+      // {
+      //   if(elevator.BottomDeployed())
+      //       elevator.retractBottomCylinders();
+      //   else
+      //       elevator.extendBottomCylinders();
+      //   SmartDashboard.putBoolean("Elevator Stage 1", elevator.BottomDeployed());
+      // }
       if(actionCode == Constants.IntakeMovementActions.SHOOTER_FIRE_PISTON)
       {
         if(shooter.isShooterPistonDown())

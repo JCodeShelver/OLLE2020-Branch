@@ -45,7 +45,7 @@ public class Shooter extends SubsystemBase
   // Precondition:  SetPoint has been set!
   public void spinToSetPoint()
   {
-    currentSetPoint = -3700;
+    currentSetPoint = -4200;
     TPM = -shooterMotor.getSelectedSensorVelocity();
 
     System.out.println("Current Set point for RPM: " + currentSetPoint);

@@ -18,7 +18,8 @@ public class Elevator extends SubsystemBase
 
   // -----------------------------------------------------
   // Constructor
-  public Elevator() {
+  public Elevator() 
+  {
     bottomCylinders = new DoubleSolenoid(Constants.PCM_MODULE_1, Constants.ELEVATOR_BOTTOM_CYLINDERS_OUTPORT,
         Constants.ELEVATOR_BOTTOM_CYLINDERS_INPORT);
     top2Cylinders = new DoubleSolenoid(Constants.PCM_MODULE_1, Constants.ELEVATOR_TOP2_CYLINDERS_OUTPORT,
@@ -30,24 +31,31 @@ public class Elevator extends SubsystemBase
 
   // -----------------------------------------------------
   // Manage bottom double pneumatic cyliders synchronously
-  public void extendBottomCylinders() {
+  public void extendBottomCylinders() 
+  {
     bottomCylinders.set(DoubleSolenoid.Value.kForward);
-    isDeployed1 = true;
   }
 
-  public void retractBottomCylinders() {
+  public void stopBottomCylinders()
+  {
+    bottomCylinders.set(DoubleSolenoid.Value.kOff);
+  }
+
+  public void retractBottomCylinders() 
+  {
     bottomCylinders.set(DoubleSolenoid.Value.kReverse);
-    isDeployed1 = false;
   }
 
   // -----------------------------------------------------
   // Manage middle and top solenoids
-  public void extendTop2Cylinders() {
+  public void extendTop2Cylinders() 
+  {
     top2Cylinders.set(DoubleSolenoid.Value.kForward);
     isDeployed2 = true;
   }
 
-  public void retractTop2Cylinders() {
+  public void retractTop2Cylinders() 
+  {
     top2Cylinders.set(DoubleSolenoid.Value.kReverse);
     isDeployed2 = false;
   }
