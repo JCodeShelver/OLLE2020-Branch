@@ -63,7 +63,7 @@ public class RobotContainer
        new DriveHuman(driveSystem,
                       () -> rightStick.getY(),
                       () -> leftStick.getY(),
-                      () -> rightStick.getX()
+                      () -> rightStick.getZ()
                       ));
     shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID, elevator, spinner));
     loader.setDefaultCommand(new QueueManager(loader));
@@ -111,11 +111,11 @@ public class RobotContainer
     |==============+===========================+=======================+===========================+==========================================+
     |    _______   |           Axes            |       Continued       |         Continued         |         Continued                        |
     |   /_____//\  |---------------------------+-----------------------+---------------------------+------------------------------------------+
-    |  |/  T  \//| |1  /  X  /   Left X        | NOT BOUND             | D.Human                   | NOT BOUND                                |    
+    |  |/  T  \//| |1  /  X  /   Left X        | NOT BOUND             | NOT BOUND                 | NOT BOUND                                |    
     |  |   R   |/| |---------------------------+-----------------------+---------------------------+------------------------------------------+
     |  |   I   |/| |2  /  Y  /   Left Y        | D.Human, D.Target     | D.Human                   | NOT BOUND                                |
     |  |   G   |/| |---------------------------+-----------------------+---------------------------+------------------------------------------+
-    |  |   G   |/| |3  /  Z  /  LT & RT        | NOT BOUND             | NOT BOUND                 | Front Intake motors                      |
+    |  |   G   |/| |3  /  Z  /  LT & RT        | NOT BOUND             | D.Human                   | Front Intake motors                      |
     |  |   E   |/| |---------------------------+-----------------------+---------------------------+------------------------------------------+
     |  |   R   |/| |4  /  Throttle  /  Right X | NOT BOUND             | NOT BOUND                 | NOT BOUND                                |
     |  |   S   |/| |---------------------------+-----------------------+---------------------------+------------------------------------------+
