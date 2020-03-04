@@ -29,7 +29,6 @@ public class AutoPickUpBalls extends ParallelDeadlineGroup
     DriveSystem driveSystem;
     GyroPID gyroPID;
 
-
     public AutoPickUpBalls(DriveSystem d, GyroPID g, FrontIntake i, double power, double distance, double angle)
     {
         super(new DriveSegment(d, g, power, distance, angle), new AutonIntakeDriver(i, 0.75));           

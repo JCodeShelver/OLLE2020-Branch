@@ -17,7 +17,6 @@ public class QueueManager extends CommandBase
 {
     private Loader loader;
     private XboxController controller;
-
     private boolean ballInQueue = false, ballComingIn = false, ballAtBack = false;
 
     // ----------------------------------------------------------------------------

@@ -22,7 +22,6 @@ public class PneumaticManager extends CommandBase
   private final Elevator elevator;
   private final Spinner spinner;
   private final Shooter shooter;
-
   private Constants.IntakeMovementActions actionCode;
 
   // ----------------------------------------------------------------------------

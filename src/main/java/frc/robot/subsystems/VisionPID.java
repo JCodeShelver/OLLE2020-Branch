@@ -17,11 +17,8 @@ import frc.robot.Constants;
 public class VisionPID extends PIDSubsystem 
 { 
 	private NetworkTable table;
-
 	private NetworkTableEntry tx, ty, ta;
-
 	private NetworkTableInstance tableData;
-
 	private double pidOutput, currentSetpoint;
 
 	// --------------------------------------------------------------------------

@@ -21,9 +21,7 @@ public class DriveSegment extends CommandBase
     // Robot object referencess required for this action
     private final DriveSystem   driveSystem;  
     private final GyroPID       gyroPID; 
-
     private Timer segmentDriveTimer;
-
     // For adjusting left/right motors for angle correction
     private double angleMotorAdjust, left, powerLevel, percentage, right, targetAngle, targetDistance;   
 

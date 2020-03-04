@@ -19,17 +19,11 @@ import frc.robot.Constants;
 public class Shooter extends SubsystemBase 
 {
   private final DoubleSolenoid ShootingPiston;
-
   private final DigitalInput   BallInShooter;
-  
   private final PIDController  ShooterPID;
-  
   private final TalonSRX       shooterMotor;
-
   private boolean shooterPistonDown;
-  
   private double  currentSetPoint;
-  
   private int     TPM;
 
   // ----------------------------------------------------------------------------
@@ -37,13 +31,9 @@ public class Shooter extends SubsystemBase
   public Shooter() 
   {
     BallInShooter  = new DigitalInput(3);
-
     shooterMotor   = new TalonSRX(Constants.SHOOTER_MOTOR_CAN_ID);
-    
     ShooterPID     = new PIDController(Constants.SHOOTER_PID_P, Constants.SHOOTER_PID_I, Constants.SHOOTER_PID_D);
-    
     ShootingPiston = new DoubleSolenoid(Constants.PCM0, Constants.SHOOTER_FIRE_CYLINDER_INPORT, Constants.SHOOTER_FIRE_CYLINDER_OUTPORT);
-    
     TPM            = 0;
 
     shooterMotor.setInverted(true);

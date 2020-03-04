@@ -15,9 +15,7 @@ import frc.robot.Constants;
 public class FrontIntake extends SubsystemBase 
 { 
   private final DoubleSolenoid deployCylinder;
-  
   private final TalonSRX intakeMotor, sideToSideMotor;
-  
   private boolean isOut = false;
 
   // ----------------------------------------------------------------------------
@@ -25,7 +23,7 @@ public class FrontIntake extends SubsystemBase
   public FrontIntake() 
   {
     deployCylinder  = new DoubleSolenoid(Constants.PCM0, Constants.INTAKE_CYLINDER_INPORT, Constants.INTAKE_CYLINDER_OUTPORT);
-
+    
     intakeMotor     = new TalonSRX(Constants.INTAKE_FRONTBACK_MOTOR_CAN_ID); 
     sideToSideMotor = new TalonSRX(Constants.INTAKE_SIDE_MOTOR_CAN_ID);
     

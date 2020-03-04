@@ -14,9 +14,7 @@ import frc.robot.subsystems.Spinner;
 public class SpinnerControl extends CommandBase
 {
   private final Spinner spinner;   // Reference to spinner system object 
-
   private boolean isRotationControlDone, isPositionControlDone, onTargetColor;
-
   private int onColorCount;
 
   // ----------------------------------------------------------------------------

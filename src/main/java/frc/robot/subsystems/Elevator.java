@@ -15,9 +15,7 @@ import frc.robot.Constants;
 public class Elevator extends SubsystemBase 
 { 
   private final DoubleSolenoid bottomCylinders, top2Cylinders;
-
   private final TalonSRX elevatorDriveMotor, winchDriveMotor;
-  
   private boolean isDeployed1 = false, isDeployed2 = false;
 
   // ----------------------------------------------------------------------------

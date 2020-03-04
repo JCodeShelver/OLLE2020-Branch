@@ -18,9 +18,8 @@ import frc.robot.Constants;
 public class DriveElevator extends CommandBase 
 {
   private final Elevator elevator;   
-  
   private final XboxController controller;
-
+  
   // ----------------------------------------------------------------------------
   // Constructor
   public DriveElevator(Elevator e) 

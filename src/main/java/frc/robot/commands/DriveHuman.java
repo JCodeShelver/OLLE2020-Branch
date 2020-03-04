@@ -17,10 +17,7 @@ import frc.robot.subsystems.DriveSystem;
 public class DriveHuman extends CommandBase 
 {
   private final DriveSystem driveSystem;   // Reference to drive system object 
-  
-  private DoubleSupplier leftStickValue;
-  private DoubleSupplier rightStickYValue;
-  private DoubleSupplier rightStickXValue;
+  private DoubleSupplier leftStickValue, rightStickXValue, rightStickYValue;
 
   // ----------------------------------------------------------------------------
   // Constructor

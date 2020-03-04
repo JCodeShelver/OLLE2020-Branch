@@ -21,7 +21,6 @@ public class ShootDefaultActions extends CommandBase
     private final VisionPID  visionPID;
     private final Elevator   elevator;
     private final Spinner    spinner;
-
     public double            Distance, RPM;
 
     // --------------------------------------------------------------------------

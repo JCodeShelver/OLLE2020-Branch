@@ -16,7 +16,6 @@ import frc.robot.Constants;
 public class GyroPID extends PIDSubsystem 
 { 
 	private AHRS gyro;
-
 	private double currentSetpoint, pidOutput;
 
 	// --------------------------------------------------------------------------

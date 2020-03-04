@@ -18,9 +18,7 @@ public class DriveTurn extends CommandBase
     // Robot object referencess required for this action
     private final DriveSystem   driveSystem;  
     private final GyroPID       gyroPID; 
-
     private Timer segmentDriveTimer;
-    
     private double angleRotateMotorAdjust, left, right, targetAngle;      
     // For adjusting left/right motors for angle correction
 

@@ -18,11 +18,8 @@ public class AutonShooting extends CommandBase
   // Robot object referencess required for this action
   private final Shooter   shooterSystem;
   private final VisionPID visionPID;
-
   public boolean RPMGood, XGood, ballInPlace;
-
   public double Distance, RPM;
-
   public int BallsShot, BallsToShoot;
 
   // ----------------------------------------------------------------------------

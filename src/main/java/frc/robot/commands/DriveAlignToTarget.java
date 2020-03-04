@@ -19,9 +19,7 @@ public class DriveAlignToTarget extends CommandBase
     // Robot object referencess required for this action
     private final VisionPID     visionPID;
     private final DriveSystem   driveSystem;  
-
     private final Joystick leftStick = new Joystick(Constants.LEFT_STICK_USB_PORT);
-
     private boolean doneTuring, doneTurning;
     
     // For adjusting left/right motors for angle correction

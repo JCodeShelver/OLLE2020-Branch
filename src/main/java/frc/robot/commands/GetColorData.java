@@ -13,7 +13,6 @@ import frc.robot.subsystems.Spinner;
 public class GetColorData extends CommandBase {
 
   private final Spinner spinner;   // Reference to spinner system object 
-
   private final int MAX_CYCLES_TO_COUNT = 20;
   private int cycleCount;
 

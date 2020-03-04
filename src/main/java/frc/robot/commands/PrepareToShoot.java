@@ -21,11 +21,8 @@ public class PrepareToShoot extends CommandBase
   // Robot object referencess required for this action
   private final Shooter   shooterSystem;
   private final VisionPID visionPID;
-
   public XboxController controller;
-
   public boolean ballInPlace, RPMGood, XGood;
-
   public double Distance, RPM;
 
   // --------------------------------------------------------------------------
