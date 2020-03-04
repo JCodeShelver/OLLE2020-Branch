@@ -96,7 +96,7 @@ public class RobotContainer
     |  |       |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
     |  |   T   |/| |6       /       RB | NOT BOUND             | NOT BOUND                  | Stop Front Intake motors, Shoot Ball  OH/OH|
     |  |       |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
-    |  |       |/| |7       /     Back | NOT BOUND             | NOT BOUND                  | Elevator Bottom Toggle                   OP|
+    |  |       |/| |7       /     Back | NOT BOUND             | NOT BOUND                  | NOT BOUND                                  |
     |  |   T   |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
     |  |       |/| |8       /    Start | NOT BOUND             | NOT BOUND                  | Elevator Top Toggle                      OP|
     |  |       |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
@@ -136,7 +136,7 @@ public class RobotContainer
 
     new JoystickButton(controller, XboxController.Button.kX.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE));    
     new JoystickButton(controller, XboxController.Button.kY.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_UP_DOWN));
-    new JoystickButton(controller, XboxController.Button.kBack.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
+    // new JoystickButton(controller, XboxController.Button.kBack.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
     new JoystickButton(controller, XboxController.Button.kStart.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));  
   }
 
@@ -148,8 +148,8 @@ public class RobotContainer
     Command autonCommandChoice = new AutonSimple(driveSystem);
 
     if (SmartDashboard.getBoolean("Auton Stages",true))
-        autonCommandChoice = new AutonStages(driveSystem, gyroPID, frontIntake, shooter, visionPID);
-        
+        autonCommandChoice = new AutonStages(driveSystem, gyroPID, frontIntake, shooter, visionPID, spinner, elevator);
+
     return autonCommandChoice;
   }
 }

@@ -11,23 +11,26 @@ import frc.robot.commands.DriveSegment;
 import frc.robot.commands.DriveTurn;
 
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.FrontIntake;
 import frc.robot.subsystems.GyroPID;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Spinner;
 import frc.robot.subsystems.VisionPID;
+
+import frc.robot.Constants;
 
 public class AutonStages extends SequentialCommandGroup 
 {
-    // --------------------------------------------------------------------------
-    // Constuctor
-    public AutonStages(DriveSystem driveSystem, GyroPID gyroPID, FrontIntake intake, Shooter shooter, VisionPID visionPID)
+    public AutonStages(DriveSystem driveSystem, GyroPID gyroPID, FrontIntake intake, Shooter shooter, VisionPID visionPID, Spinner spinner, Elevator elevator)
     {
         gyroPID.resetGyro();
         
         addCommands(
-            new AutonShooting(shooter, visionPID, 3),
-            new DriveSegment(driveSystem, gyroPID, -0.5, 40, 0.0),
-            new AutoPickUpBalls(driveSystem, gyroPID, intake),
+            new AutonTargetAndShootSystem(driveSystem, shooter, visionPID, 3),
+            new DriveSegment(driveSystem, gyroPID, 0.5, 20, 0.0),
+            new PneumaticManager(intake, spinner, elevator, shooter, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN),
+            new AutoPickUpBalls(driveSystem, gyroPID, intake, .25, 20, 0),
             new DriveTurn(driveSystem, gyroPID, 45.0),
             new AutonShooting(shooter, visionPID, 3)
         );

@@ -5,6 +5,8 @@
 
 package frc.robot.commands;
 
+import javax.lang.model.util.ElementScanner6;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -41,9 +43,18 @@ public class DriveElevator extends CommandBase
   @Override
   public void execute() 
   {
-    double crawlerInput = controller.getY(Hand.kLeft);
-    elevator.driveElevator(crawlerInput);
+    // double crawlerInput = controller.getY(Hand.kLeft);
+    // elevator.driveElevator(crawlerInput);
 
+    double elevatorInput = controller.getY(Hand.kLeft);
+
+    if (elevatorInput > 0.05)
+      elevator.retractBottomCylinders();
+    else if (elevatorInput < -0.05)
+      elevator.extendBottomCylinders();
+    else 
+      elevator.stopBottomCylinders();
+    
     double winchInput = Math.abs(controller.getY(Hand.kRight));
     elevator.driveWinch(winchInput);
 

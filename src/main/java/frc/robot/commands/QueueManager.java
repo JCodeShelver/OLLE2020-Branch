@@ -28,6 +28,9 @@ public class QueueManager extends CommandBase
         controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
 
         addRequirements(loader);
+        
+        loader.LoadBallMotorOn();
+        loader.MovingMotorOn(.5);
     }
     
     // ----------------------------------------------------------------------------

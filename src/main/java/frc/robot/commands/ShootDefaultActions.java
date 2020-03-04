@@ -56,11 +56,8 @@ public class ShootDefaultActions extends CommandBase
 
         shooter.updateBallInShooter();
         shooter.stop();
-        shooter.shootBall();
-        
-        spinner.motorOff();
-        
         visionPID.LEDoff();
+        spinner.motorOff();
     }
     
     // --------------------------------------------------------------------------

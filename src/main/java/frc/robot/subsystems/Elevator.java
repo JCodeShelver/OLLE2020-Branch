@@ -32,11 +32,31 @@ public class Elevator extends SubsystemBase
   }
 
   // ----------------------------------------------------------------------------
+  // Return the state of the pneumatics for stage 1 of the Elevator mechanism.
+  public boolean BottomDeployed() 
+  {
+    return isDeployed1;
+  }
+
+  // ----------------------------------------------------------------------------
+  // Bar Crawler mechanism motor control.
+  public void driveElevator(final double motorLevel)
+  {
+    elevatorDriveMotor.set(ControlMode.PercentOutput, motorLevel);
+  }
+
+  // ----------------------------------------------------------------------------
+  // Winch mechanism motor control.
+  public void driveWinch(final double winchInput)
+  {
+    winchDriveMotor.set(ControlMode.PercentOutput, winchInput);
+  }
+
+  // ----------------------------------------------------------------------------
   // Extend Stage 1 of the Elevator mechanism.
   public void extendBottomCylinders()
   {
     bottomCylinders.set(DoubleSolenoid.Value.kForward);
-    isDeployed1 = true;
   }
   
   // ----------------------------------------------------------------------------
@@ -64,10 +84,10 @@ public class Elevator extends SubsystemBase
   }
 
   // ----------------------------------------------------------------------------
-  // Return the state of the pneumatics for stage 1 of the Elevator mechanism.
-  public boolean BottomDeployed() 
+  // Stop stage 1 of the Elevator mechanism
+  public void stopBottomCylinders()
   {
-    return isDeployed1;
+    bottomCylinders.set(DoubleSolenoid.Value.kOff);
   }
 
   // ----------------------------------------------------------------------------
@@ -75,19 +95,5 @@ public class Elevator extends SubsystemBase
   public boolean TopDeployed() 
   {
     return isDeployed2;
-  }
-
-  // ----------------------------------------------------------------------------
-  // Bar Crawler mechanism motor control.
-  public void driveElevator(final double motorLevel)
-  {
-    elevatorDriveMotor.set(ControlMode.PercentOutput, motorLevel);
-  }
-
-  // ----------------------------------------------------------------------------
-  // Winch mechanism motor control.
-  public void driveWinch(final double winchInput)
-  {
-    winchDriveMotor.set(ControlMode.PercentOutput, winchInput);
   }
 }

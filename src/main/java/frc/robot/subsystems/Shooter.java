@@ -75,7 +75,7 @@ public class Shooter extends SubsystemBase
   // Lower the Shooter mechanism pneumatic.
   public void lowerShootingPiston()
   {
-    ShootingPiston.set(DoubleSolenoid.Value.kReverse);
+    ShootingPiston.set(DoubleSolenoid.Value.kForward);
     shooterPistonDown = true;
   }
   
