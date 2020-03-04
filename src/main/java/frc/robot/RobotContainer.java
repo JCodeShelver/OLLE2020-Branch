@@ -63,7 +63,7 @@ public class RobotContainer
        new DriveHuman(driveSystem,
                       () -> rightStick.getY(),
                       () -> leftStick.getY(),
-                      () -> rightStick.getX()
+                      () -> rightStick.getZ()
                       ));
     shooter.setDefaultCommand(new ShootDefaultActions(shooter, visionPID, elevator, spinner));
     loader.setDefaultCommand(new QueueManager(loader));
@@ -94,7 +94,7 @@ public class RobotContainer
     |  |   U   |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
     |  |       |/| |5       /       LB | NOT BOUND             | NOT BOUND                  | Drive Elevator                          TOP|
     |  |       |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
-    |  |   T   |/| |6       /       RB | NOT BOUND             | NOT BOUND                  | Stop Front Intake motors, Shoot Ball  OH/OH|
+    |  |   T   |/| |6       /       RB | NOT BOUND             | D.Target                 OP| Stop Front Intake motors, Shoot Ball  OH/OH|
     |  |       |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
     |  |       |/| |7       /     Back | NOT BOUND             | NOT BOUND                  | NOT BOUND                                  |
     |  |   T   |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
@@ -126,6 +126,7 @@ public class RobotContainer
     */
     new JoystickButton(rightStick, 3).whenPressed(() -> visionPID.cameraModeSwitch());
     new JoystickButton(rightStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
+    new JoystickButton(rightStick, 6).whenPressed(new DriveAlignToTarget(driveSystem, visionPID));
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
 
     new JoystickButton(controller, XboxController.Button.kB.value).whenPressed(new SpinnerControl(spinner));
