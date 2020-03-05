@@ -81,11 +81,10 @@ public class RobotContainer
     new JoystickButton(controller, 5).toggleWhenPressed(new DriveElevator(elevator));
 
     //Toggling pneumatics
-    new JoystickButton(rightStick, 1).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
-    //new JoystickButton(controller, 7).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
-    new JoystickButton(controller, 8).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));  
-    new JoystickButton(controller, 3).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE));    
-    new JoystickButton(controller, 4).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_UP_DOWN));
+    new JoystickButton(rightStick, 1).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
+    new JoystickButton(controller, 8).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));  
+    new JoystickButton(controller, 3).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE));    
+    new JoystickButton(controller, 4).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.WOF_UP_DOWN));
   }
 
   // Determine choice for auton from Smart Dashboard checkbox.  Set choice
@@ -95,7 +94,7 @@ public class RobotContainer
     // Set simple auton routine as default
     Command autonCommandChoice =  new AutonSimple(driveSystem);
 
-    if (SmartDashboard.getBoolean("Auton Stages",true))
+    if (SmartDashboard.getBoolean("Auton Stages", true))
         autonCommandChoice = new AutonStages(driveSystem, gyroPID, frontIntake, shooter, visionPID, spinner, elevator);
 
     return autonCommandChoice;

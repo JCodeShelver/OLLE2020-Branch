@@ -55,26 +55,14 @@ public class DriveAlignToTarget extends CommandBase
         double xVisionTarget = visionPID.getMeasurement();
         System.out.println("XVISIONTARGET: " + xVisionTarget);
 
-        if (xVisionTarget != 0 && doneTuring == false)
-            doneTurning = true;
-        else
-            doneTuring = false;
-
-
-        if(doneTurning == false)
-        {
-            driveSystem.drive(-idleTurnSpeed, idleTurnSpeed);
-        }
-
-        else
         {
             angleRotateMotorAdjust = visionPID.getOutput();
             System.out.println("PID Output: " + angleRotateMotorAdjust);
 
             // Adjust left/right motor sets to PID output.  Rotate
             // as needed toward target angle
-            double left  = (+angleRotateMotorAdjust * 0.4);// + leftStick.getY();
-            double right = (-angleRotateMotorAdjust * 0.4);// + leftStick.getY();
+            double left  = (+angleRotateMotorAdjust * 0.5);// + leftStick.getY();
+            double right = (-angleRotateMotorAdjust * 0.5);// + leftStick.getY();
 
             driveSystem.drive(left, right);
         }

@@ -49,11 +49,15 @@ public class PrepareToShoot extends CommandBase
     
     //-------------------------------------------------
     // Called repeatedly when this Command is scheduled to run
+
     public void execute() 
     {
         Distance = yToDistanceFormula(visionPID.getYValue());
         SmartDashboard.putNumber("Distance from Target", Distance);
-        RPM = distanceToRPMFormula(Distance);
+        RPM =  distanceToRPMFormula(Distance);
+
+        //RPM =- controller.getY(Hand.kRight)*200;
+
         shooterSystem.setSetPoint(RPM);
         shooterSystem.spinToSetPoint();
         visionPID.LEDon();

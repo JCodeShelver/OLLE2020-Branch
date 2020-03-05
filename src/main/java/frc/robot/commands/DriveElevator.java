@@ -5,11 +5,9 @@ package frc.robot.commands;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Elevator;
-
-import javax.lang.model.util.ElementScanner6;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveElevator extends CommandBase 
@@ -54,7 +52,17 @@ public class DriveElevator extends CommandBase
 
     
     double winchInput = Math.abs(controller.getY(Hand.kRight));
-    elevator.driveWinch(winchInput);
+
+    if(controller.getPOV(0) > 0)
+    {
+      elevator.driveWinch(-winchInput);
+      SmartDashboard.putBoolean("Winch Inverted", true);
+    }
+    else
+    {
+      elevator.driveWinch(winchInput);
+      SmartDashboard.putBoolean("Winch Inverted", false);
+    }
 
     Constants.EndgameEnabled = true;
   }

@@ -26,7 +26,8 @@ public class AutonStages extends SequentialCommandGroup
         addCommands(
             new AutonTargetAndShootSystem(driveSystem, shooter, visionPID, 3),
             new DriveSegment(driveSystem, gyroPID, 0.5, 20, 0.0),
-            new PneumaticManager(intake, spinner, elevator, shooter, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN),
+            new PneumaticManager(intake, spinner, elevator, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN),
+            new DriveTurn(driveSystem, gyroPID, 40),
             new AutoPickUpBalls(driveSystem, gyroPID, intake, .25, 20, 0),
             new DriveTurn(driveSystem, gyroPID, 45.0),
             new AutonShooting(shooter, visionPID, 3)

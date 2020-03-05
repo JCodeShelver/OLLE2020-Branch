@@ -46,14 +46,13 @@ public class Shooter extends SubsystemBase
   public void spinToSetPoint()
   {
     //currentSetPoint = -4200;
-    TPM = -shooterMotor.getSelectedSensorVelocity();
+    TPM = shooterMotor.getSelectedSensorVelocity();
 
     System.out.println("Current Set point for RPM: " + currentSetPoint);
     System.out.println("Current RPM: " + TPM/Constants.SHOOTER_TICKS_PER_RPM);
     SmartDashboard.putNumber("Shooter RPM", TPM/Constants.SHOOTER_TICKS_PER_RPM);
 
-    
-    double pidOutput = ShooterPID.calculate(TPM/Constants.SHOOTER_TICKS_PER_RPM, currentSetPoint);
+    double pidOutput = -ShooterPID.calculate(TPM/Constants.SHOOTER_TICKS_PER_RPM, currentSetPoint);
 
     System.out.println("Motor: " + pidOutput);
 
