@@ -14,7 +14,7 @@ public class AutonSimple extends CommandBase {
   private final DriveSystem driveSystem;   // Reference to drive system object 
   private Timer driveTimer = new Timer();
 
-  private double DRIVE_TIME = 2.0;    // Duration of action
+  private double DRIVE_TIME = 0.5;    // Duration of action
 
   // ----------------------------------------------------------------------------
   public AutonSimple(DriveSystem d) {
@@ -39,7 +39,7 @@ public class AutonSimple extends CommandBase {
 
 
     if (driveTimer.get() < DRIVE_TIME)
-      driveSystem.drive(-0.5,-0.5);
+      driveSystem.drive(0.3,0.3);
     else
       driveSystem.drive(0.0,0.0);
 

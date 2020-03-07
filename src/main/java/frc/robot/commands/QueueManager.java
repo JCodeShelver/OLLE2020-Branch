@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Loader;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -9,6 +10,7 @@ public class QueueManager extends CommandBase
 {
     private Loader loader;
     private XboxController controller;
+    private Joystick leftStick;
 
     boolean ballInQueue = false, ballComingIn = false, ballAtBack = false;
 
@@ -17,6 +19,7 @@ public class QueueManager extends CommandBase
   {
       loader = l;
       controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
+      leftStick = new Joystick(Constants.LEFT_STICK_USB_PORT);
       addRequirements(loader);
   }
 
@@ -34,17 +37,20 @@ public class QueueManager extends CommandBase
   public void execute() 
   {
     
+    //Intake sensor
     if(loader.ballAtIntake())
         ballComingIn = true;
     else
 
         ballComingIn = false;
     
+    //Inside of Conveyor
     if(loader.ballInSystem())
         ballInQueue = true;
     else
         ballInQueue = false;
 
+    //Back of queue area
     if(loader.ballAtBack())
         ballAtBack = true;
     else
@@ -89,6 +95,9 @@ public class QueueManager extends CommandBase
     //     loader.MovingMotorOn(-.5);
     // else
     //     loader.MovingMotorOff();
+
+    if(leftStick.getY() > .1 || leftStick.getY() < -.1)
+        loader.MovingMotorOn(leftStick.getY());
 
 
 

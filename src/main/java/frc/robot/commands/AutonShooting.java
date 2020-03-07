@@ -78,7 +78,7 @@ public class AutonShooting extends CommandBase
         System.out.println("Firing");
         shooterSystem.shootBall();
       }
-      else if(!shooterSystem.isShooterPistonDown())
+      else if(!shooterSystem.isShooterPistonDown() && Constants.ballInShooter == false)
       {
           BallsShot ++;
           shooterSystem.lowerShootingPiston();

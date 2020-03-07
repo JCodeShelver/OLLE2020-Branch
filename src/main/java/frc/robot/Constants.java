@@ -56,7 +56,7 @@ public final class Constants
     public static  final double VISION_PID_P           = 0.03;
     public static  final double VISION_PID_I           = 0.06;
     public static  final double VISION_PID_D           = 0.0025;
-    public static  final double VISION_X_OFFSET        = 5.0;
+    public static  final double VISION_X_OFFSET        = -30.0;
 
     //PID_P = .0025, PID_I = 0.01, PID_D = 0.000175;
     public static  final double SHOOTER_PID_P               = 0.001;

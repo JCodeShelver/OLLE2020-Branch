@@ -48,16 +48,16 @@ public class DriveHuman extends CommandBase
   {
       SmartDashboard.updateValues();
 
-      // if(rightStick.getRawButton(11))
-      //   driveSystem.ArcadeDrive(rightStickYValue.getAsDouble()/2, -rightStickXValue.getAsDouble()/2);
-      // else
-      //   driveSystem.ArcadeDrive(rightStickYValue.getAsDouble(), -rightStickXValue.getAsDouble());
+      if(rightStick.getRawButton(11))
+        driveSystem.ArcadeDrive(rightStickYValue.getAsDouble()/2, -rightStickXValue.getAsDouble()/2);
+      else
+        driveSystem.ArcadeDrive(rightStickYValue.getAsDouble(), -rightStickXValue.getAsDouble());
 
       // if(leftStick.getRawButton(1))
       //   driveSystem.Quadraticdrive(leftStickValue.getAsDouble(),rightStickYValue.getAsDouble());
       // else
       
-        driveSystem.Quadraticdrive(leftStickValue.getAsDouble(),rightStickYValue.getAsDouble());
+        // driveSystem.Quadraticdrive(leftStickValue.getAsDouble(),rightStickYValue.getAsDouble());
   }
 
 }

@@ -19,7 +19,7 @@ public class DriveAlignToTarget extends CommandBase
     private final VisionPID     visionPID;
     boolean doneTurning; 
     
-    Joystick leftStick  = new Joystick(Constants.RIGHT_STICK_USB_PORT);
+    Joystick rightStick  = new Joystick(Constants.RIGHT_STICK_USB_PORT);
 
     double angleRotateMotorAdjust;          // For adjusting left/right motors for angle correction
     
@@ -61,8 +61,8 @@ public class DriveAlignToTarget extends CommandBase
 
             // Adjust left/right motor sets to PID output.  Rotate
             // as needed toward target angle
-            double left  = (+angleRotateMotorAdjust * 0.5);// + leftStick.getY();
-            double right = (-angleRotateMotorAdjust * 0.5);// + leftStick.getY();
+            double left  = (+angleRotateMotorAdjust * 0.5) + rightStick.getY();
+            double right = (-angleRotateMotorAdjust * 0.5) + rightStick.getY();
 
             driveSystem.drive(left, right);
         }

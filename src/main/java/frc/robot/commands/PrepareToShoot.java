@@ -22,7 +22,7 @@ public class PrepareToShoot extends CommandBase
     private final Shooter   shooterSystem;
     private final VisionPID visionPID;
     public double Distance, RPM;
-    public boolean RPMGood;
+    public boolean RPMGood, shooterPistonUp;
     public boolean XGood, ballInPlace;
     public XboxController controller;
     public Joystick leftStick, rightStick;
@@ -91,11 +91,13 @@ public class PrepareToShoot extends CommandBase
       {
         System.out.println("Firing");
         shooterSystem.shootBall();
+        //shooterPistonUp = true;
       }
       else
       {
         System.out.println("Lowering");
         shooterSystem.lowerShootingPiston();
+        //shooterPistonUp = false;
       }
     }
     
