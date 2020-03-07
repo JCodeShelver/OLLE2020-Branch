@@ -53,8 +53,6 @@ public class DriveSystem extends SubsystemBase
         else
             adjustedR = inputR*inputR;
 
-            adjustedR /= 4;
-
         leftMotor1.set(adjustedL);
         leftMotor2.set(adjustedL);
         rightMotor1.set(adjustedR);

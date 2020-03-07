@@ -45,17 +45,12 @@ public class Shooter extends SubsystemBase
   // Precondition:  SetPoint has been set!
   public void spinToSetPoint()
   {
-    //currentSetPoint = -4200;
-    TPM = shooterMotor.getSelectedSensorVelocity();
 
-    System.out.println("Current Set point for RPM: " + currentSetPoint);
-    System.out.println("Current RPM: " + TPM/Constants.SHOOTER_TICKS_PER_RPM);
+    TPM = -shooterMotor.getSelectedSensorVelocity();
+
     SmartDashboard.putNumber("Shooter RPM", TPM/Constants.SHOOTER_TICKS_PER_RPM);
 
-    double pidOutput = -ShooterPID.calculate(TPM/Constants.SHOOTER_TICKS_PER_RPM, currentSetPoint);
-
-    System.out.println("Motor: " + pidOutput);
-
+    double pidOutput = ShooterPID.calculate(TPM/Constants.SHOOTER_TICKS_PER_RPM, currentSetPoint);
     shooterMotor.set(ControlMode.PercentOutput, pidOutput);
   }
   
@@ -88,12 +83,6 @@ public class Shooter extends SubsystemBase
   public double getRPM()
   {
     return shooterMotor.getSelectedSensorVelocity()/Constants.SHOOTER_TICKS_PER_RPM;
-  }
-
-  // Set shooter motor full speed
-  public void motorOnFull()
-  {
-    shooterMotor.set(ControlMode.PercentOutput, 1.0);
   }
 
   public void updateBallInShooter()

@@ -28,6 +28,7 @@ import frc.robot.commands.ShootDefaultActions;
 import frc.robot.commands.GetColorData;
 import frc.robot.commands.PneumaticManager;
 import frc.robot.commands.QueueManager;
+import frc.robot.commands.StopSpinning;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
@@ -75,6 +76,7 @@ public class RobotContainer
   private void configureButtonBindings() 
   {
     new JoystickButton(controller, 2).whenPressed(new SpinToColor(spinner));
+    new JoystickButton(controller, 2).whenReleased(new StopSpinning(spinner));
     new JoystickButton(rightStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
     new JoystickButton(rightStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));

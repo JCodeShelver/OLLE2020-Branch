@@ -25,7 +25,7 @@ public class PrepareToShoot extends CommandBase
     public boolean RPMGood;
     public boolean XGood, ballInPlace;
     public XboxController controller;
-    public Joystick leftStick;
+    public Joystick leftStick, rightStick;
 
     //-------------------------------------------------
     // Constructor:  Capture time and motor level for straight drive
@@ -48,6 +48,7 @@ public class PrepareToShoot extends CommandBase
         XGood = false;
         controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
         leftStick = new Joystick(Constants.LEFT_STICK_USB_PORT);
+        rightStick = new Joystick(Constants.RIGHT_STICK_USB_PORT);
     }
     
     //-------------------------------------------------
@@ -57,12 +58,15 @@ public class PrepareToShoot extends CommandBase
     {
         Distance = yToDistanceFormula(visionPID.getYValue());
         SmartDashboard.putNumber("Distance from Target", Distance);
+        
         //RPM =  distanceToRPMFormula(Distance);
 
-        //RPM -= controller.getY(Hand.kRight)*200;
+        if(rightStick.getRawButton(5))
+          RPM = 1000;
+        else
+          RPM = 3700;
 
-        RPM = 3700;
-        RPM += leftStick.getY()*200;
+        RPM += leftStick.getRawAxis(3)*200;
 
         shooterSystem.setSetPoint(RPM);
         shooterSystem.spinToSetPoint();
@@ -120,7 +124,8 @@ public class PrepareToShoot extends CommandBase
     public void end(boolean interrupted)      
     {
       shooterSystem.stop();
+      Constants.shooterSystemActive = false;
+      visionPID.LEDoff();
     }
-
 
 }

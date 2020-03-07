@@ -7,18 +7,15 @@ package frc.robot.commands;
 import frc.robot.subsystems.Spinner;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SpinToColor extends CommandBase {
+public class StopSpinning extends CommandBase {
 
   private final Spinner spinner;   // Reference to spinner system object 
 
-  private int onColorCount;
-  private boolean onTargetColor;
 
   // ----------------------------------------------------------------------------
-  public SpinToColor(Spinner s) 
+  public StopSpinning(Spinner s) 
   {
     spinner = s;
-    onColorCount = 0;
   }
 
   // ----------------------------------------------------------------------------
@@ -37,25 +34,8 @@ public class SpinToColor extends CommandBase {
 
     // spinner.sampleRecentColors();      // Build sample set of most recent colors sensed
 
-    spinner.motorOn();
-    
+    spinner.motorOff();
 
-    // Manage boolean value used for counting
-    // if (spinner.isSensorOnTargetColor())
-    // {
-    //   if (onTargetColor == false)
-    //       onTargetColor = true;   
-    // }
-    // else
-    // {
-    //   if (onTargetColor == true)
-    //   {
-    //       onTargetColor = false;
-    //       onColorCount++;           // If on color and now off, count one visit
-    //   }
-    // }
-
-    System.out.println("Count: " + onColorCount);
   }
 
   // ----------------------------------------------------------------------------
@@ -65,19 +45,8 @@ public class SpinToColor extends CommandBase {
   {
     return true;
 
-    // if (spinner.isSensorOnTargetColor() && onColorCount >= 7)
-    // {
-    //    spinner.motorOff();
-    //    return true;
-    // }
-    // else
-    //     return false;
   }
 
-  @Override
-  public void end(boolean interrupted)
-  {
-    //spinner.motorOff();
-  }
+
 
 }

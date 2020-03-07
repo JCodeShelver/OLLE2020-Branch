@@ -44,11 +44,10 @@ public class ShootDefaultActions extends CommandBase
     public void execute() 
     {
         Constants.EndgameEnabled = false;
-        Constants.shooterSystemActive = false;
         shooter.updateBallInShooter();
         shooter.stop();
         visionPID.LEDoff();
-        spinner.motorOff();
+        // spinner.motorOff();
         elevator.driveWinch(0.0);
         elevator.driveElevator(0.0);
     }

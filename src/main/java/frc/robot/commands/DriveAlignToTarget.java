@@ -68,14 +68,11 @@ public class DriveAlignToTarget extends CommandBase
         }
     }
 
-    public void interupted()
+    @Override
+    public void end(boolean interrupted)
     {
-
-    }
-
-    public void end()
-    {
-
+        driveSystem.drive(0.0, 0.0);
+        visionPID.LEDoff();
     }
     
     //-------------------------------------------------
