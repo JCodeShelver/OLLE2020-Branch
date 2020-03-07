@@ -26,13 +26,14 @@ public class DriveHuman extends CommandBase
   private DoubleSupplier rightStickYValue;
   private DoubleSupplier rightStickXValue;
   private XboxController controller;
-  private Joystick rightStick;
+  private Joystick rightStick, leftStick;
 
   public DriveHuman(DriveSystem d, DoubleSupplier righty, DoubleSupplier left, DoubleSupplier rightx)
   {
     driveSystem = d;
     controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
     rightStick = new Joystick(Constants.RIGHT_STICK_USB_PORT);
+    leftStick = new Joystick(Constants.LEFT_STICK_USB_PORT);
     leftStickValue  = left;
     rightStickYValue = righty;
     rightStickXValue = rightx;
@@ -46,11 +47,16 @@ public class DriveHuman extends CommandBase
   public void execute()
   {
       SmartDashboard.updateValues();
-      //driveSystem.Quadraticdrive(leftStickValue.getAsDouble(),rightStickYValue.getAsDouble());
-      if(rightStick.getRawButton(11))
-        driveSystem.ArcadeDrive(rightStickYValue.getAsDouble()/2, -rightStickXValue.getAsDouble()/2);
+
+      // if(rightStick.getRawButton(11))
+      //   driveSystem.ArcadeDrive(rightStickYValue.getAsDouble()/2, -rightStickXValue.getAsDouble()/2);
+      // else
+      //   driveSystem.ArcadeDrive(rightStickYValue.getAsDouble(), -rightStickXValue.getAsDouble());
+
+      if(leftStick.getRawButton(1))
+        driveSystem.Quadraticdrive(leftStickValue.getAsDouble(),rightStickYValue.getAsDouble());
       else
-        driveSystem.ArcadeDrive(rightStickYValue.getAsDouble(), -rightStickXValue.getAsDouble());
+        driveSystem.Quadraticdrive(leftStickValue.getAsDouble(),rightStickYValue.getAsDouble());
   }
 
 }

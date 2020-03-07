@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,6 +25,7 @@ public class PrepareToShoot extends CommandBase
     public boolean RPMGood;
     public boolean XGood, ballInPlace;
     public XboxController controller;
+    public Joystick leftStick;
 
     //-------------------------------------------------
     // Constructor:  Capture time and motor level for straight drive
@@ -45,6 +47,7 @@ public class PrepareToShoot extends CommandBase
         RPMGood = false;
         XGood = false;
         controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
+        leftStick = new Joystick(Constants.LEFT_STICK_USB_PORT);
     }
     
     //-------------------------------------------------
@@ -54,15 +57,19 @@ public class PrepareToShoot extends CommandBase
     {
         Distance = yToDistanceFormula(visionPID.getYValue());
         SmartDashboard.putNumber("Distance from Target", Distance);
-        RPM =  distanceToRPMFormula(Distance);
+        //RPM =  distanceToRPMFormula(Distance);
 
-        //RPM =- controller.getY(Hand.kRight)*200;
+        //RPM -= controller.getY(Hand.kRight)*200;
+
+        RPM = 3700;
+        RPM += leftStick.getY()*200;
 
         shooterSystem.setSetPoint(RPM);
         shooterSystem.spinToSetPoint();
         visionPID.LEDon();
         Constants.shooterSystemActive = true;
         shooterSystem.updateBallInShooter();
+        visionPID.getVisionData();
 
         if( Math.abs(visionPID.getOutput()) <= .05)
         XGood = true;
@@ -109,12 +116,11 @@ public class PrepareToShoot extends CommandBase
     }
 
     //-------------------------------------------------
-    protected void end()      
-    { 
-        shooterSystem.stop();
-    }
-    protected void interrupted() 
+    @Override
+    public void end(boolean interrupted)      
     {
-        shooterSystem.stop();
-     }
+      shooterSystem.stop();
+    }
+
+
 }

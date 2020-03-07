@@ -25,13 +25,13 @@ public class VisionPID extends PIDSubsystem
 	public VisionPID() 
 	{
 
-		super( new PIDController(Constants.VISION_PID_P, Constants.VISION_PID_I, Constants.VISION_PID_D));   
+		super(new PIDController(Constants.VISION_PID_P, Constants.VISION_PID_I, Constants.VISION_PID_D));   
 		
 		tableData = NetworkTableInstance.getDefault();
-        table = tableData.getTable("limelight");
+        table 	  = tableData.getTable("limelight");
 
 		getController().setTolerance(Constants.VISION_X_PID_TOLERANCE);   // Degree tolerance for set point
-		getController().setSetpoint(5);
+		getController().setSetpoint(Constants.VISION_X_OFFSET);
 	}
 
 	// Primary action to get current vision x-coordinate measure.  Defined as abstract and there
