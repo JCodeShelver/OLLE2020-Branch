@@ -14,9 +14,7 @@ import frc.robot.subsystems.FrontIntake;
 public class FrontIntakeDriver extends CommandBase 
 {
   private final FrontIntake frontIntake;   
-  
   private XboxController controller;
-  
   private double input;
 
   // ----------------------------------------------------------------------------

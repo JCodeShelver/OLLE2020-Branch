@@ -20,7 +20,6 @@ public class QueueManager extends CommandBase
 
     private Joystick leftStick;
     private XboxController controller;
-
     private boolean ballInQueue = false, ballComingIn = false, ballAtBack = false;
 
     // ----------------------------------------------------------------------------

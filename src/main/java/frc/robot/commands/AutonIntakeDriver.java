@@ -14,7 +14,6 @@ import frc.robot.Constants;
 public class AutonIntakeDriver extends CommandBase 
 {
   private final FrontIntake frontIntake;   
-
   private double input;
 
   // ----------------------------------------------------------------------------

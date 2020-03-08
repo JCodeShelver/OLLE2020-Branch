@@ -22,7 +22,6 @@ public class Shooter extends SubsystemBase
   private final DigitalInput   BallInShooter;
   private final PIDController  ShooterPID;
   private final TalonSRX       shooterMotor;
-
   private boolean shooterPistonDown;
   private double  currentSetPoint;
   private int     TPM;

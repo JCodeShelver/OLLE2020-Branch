@@ -19,7 +19,7 @@ public class AutonShooting extends CommandBase
   private final Shooter   shooterSystem;
   private final VisionPID visionPID;
 
-  public boolean RPMGood, XGood, ballInPlace;
+  public boolean ballInPlace, RPMGood, XGood;
   public double Distance, RPM;
   public int BallsShot, BallsToShoot;
 

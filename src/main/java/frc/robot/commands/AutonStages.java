@@ -18,6 +18,8 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Spinner;
 import frc.robot.subsystems.VisionPID;
 
+import frc.robot.Constants;
+
 public class AutonStages extends SequentialCommandGroup 
 {
     // --------------------------------------------------------------------------

@@ -19,14 +19,16 @@ public class DriveElevator extends CommandBase
   private final Elevator elevator;   
   
   private final XboxController controller;
-
+  
   // ----------------------------------------------------------------------------
   // Constructor
   public DriveElevator(Elevator e) 
   {
     elevator = e;
-    //addRequirements(elevator);
+
     controller = new XboxController(Constants.XBOX_CONTROLLER_USB_PORT);
+    
+    //addRequirements(elevator);
   }
 
   // ----------------------------------------------------------------------------
@@ -56,7 +58,7 @@ public class DriveElevator extends CommandBase
 
     double winchInput = Math.abs(controller.getY(Hand.kRight));
 
-    if(controller.getPOV(0) > 0)
+    if (controller.getPOV(0) > 0)
     {
       elevator.driveWinch(-winchInput);
       SmartDashboard.putBoolean("Winch Inverted", true);

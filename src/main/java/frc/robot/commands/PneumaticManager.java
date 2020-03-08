@@ -21,7 +21,6 @@ public class PneumaticManager extends CommandBase
   private final FrontIntake frontIntake;   
   private final Elevator elevator;
   private final Spinner spinner;
-
   private Constants.IntakeMovementActions actionCode;
 
   // ----------------------------------------------------------------------------

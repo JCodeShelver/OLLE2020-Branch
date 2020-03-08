@@ -26,7 +26,6 @@ public class Spinner extends SubsystemBase
   private final DoubleSolenoid assemblyCylinder, wheelCylinder;
   private final I2C.Port i2cPort;
   private final TalonSRX spinnerMotor;
-  
   private boolean engaged = false, systemUp = false;
   private String recentColorSequence;
 

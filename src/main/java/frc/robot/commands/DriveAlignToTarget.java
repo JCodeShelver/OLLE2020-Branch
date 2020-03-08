@@ -19,8 +19,7 @@ public class DriveAlignToTarget extends CommandBase
     // Robot object referencess required for this action
     private final DriveSystem   driveSystem;  
     private final VisionPID     visionPID;
-        
-    
+
     private final Joystick leftStick   = new Joystick(Constants.LEFT_STICK_USB_PORT);
     private final Joystick rightStick  = new Joystick(Constants.RIGHT_STICK_USB_PORT);
 

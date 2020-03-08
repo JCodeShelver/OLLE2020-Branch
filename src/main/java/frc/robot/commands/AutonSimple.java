@@ -13,9 +13,8 @@ import frc.robot.subsystems.DriveSystem;
 public class AutonSimple extends CommandBase
 {
   private final DriveSystem driveSystem;   // Reference to drive system object 
-
   private Timer driveTimer = new Timer();
-  
+
   private double DRIVE_TIME = 0.5;    // Duration of action
 
   // ----------------------------------------------------------------------------
