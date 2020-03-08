@@ -22,17 +22,12 @@ import frc.robot.Constants;
 public class Spinner extends SubsystemBase 
 { 
   private final ColorMatch m_colorMatcher;
-
   private final ColorSensorV3 m_colorSensor;
-  
   private final DoubleSolenoid assemblyCylinder, wheelCylinder;
-  
   private final I2C.Port i2cPort;
-  
   private final TalonSRX spinnerMotor;
   
   private boolean engaged = false, systemUp = false;
-  
   private String recentColorSequence;
 
   // ----------------------------------------------------------------------------

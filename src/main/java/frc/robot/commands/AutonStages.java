@@ -11,29 +11,33 @@ import frc.robot.commands.DriveSegment;
 import frc.robot.commands.DriveTurn;
 
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.FrontIntake;
 import frc.robot.subsystems.GyroPID;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Spinner;
 import frc.robot.subsystems.VisionPID;
 
 public class AutonStages extends SequentialCommandGroup 
 {
     // --------------------------------------------------------------------------
-    // Constuctor
-    public AutonStages(DriveSystem driveSystem, GyroPID gyroPID, FrontIntake intake, Shooter shooter, VisionPID visionPID)
+    // Constructor
+    public AutonStages(DriveSystem driveSystem, GyroPID gyroPID, FrontIntake intake, Shooter shooter, VisionPID visionPID, Spinner spinner, Elevator elevator)
     {
         gyroPID.resetGyro();
         
         addCommands(
-            new AutonShooting(shooter, visionPID, 3),
-            new DriveSegment(driveSystem, gyroPID, -0.5, 40, 0.0),
-            new AutoPickUpBalls(driveSystem, gyroPID, intake),
-            new DriveTurn(driveSystem, gyroPID, 45.0),
-            new AutonShooting(shooter, visionPID, 3)
+            new AutonTargetAndShootSystem(driveSystem, shooter, visionPID, 3),
+            new DriveSegment(driveSystem, gyroPID, 0.5, 10, 0.0)
+            //new PneumaticManager(intake, spinner, elevator, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN),
+            // new DriveTurn(driveSystem, gyroPID, 40),
+            // new AutoPickUpBalls(driveSystem, gyroPID, intake, 0.25, 20, 0),
+            // new DriveTurn(driveSystem, gyroPID, 45.0),
+            // new AutonShooting(shooter, visionPID, 3)
         );
 
         /*
-           new DriveSegment(driveSystem,gyroPID,0.5,44,45.0), 
-           new DriveSegment(driveSystem,gyroPID,0.5,111,-90.0) ); */
+           new DriveSegment(driveSystem, gyroPID, 0.5, 44, 45.0), 
+           new DriveSegment(driveSystem, gyroPID, 0.5, 111, -90.0)); */
     }
 }

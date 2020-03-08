@@ -6,8 +6,9 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.subsystems.Elevator;
 
@@ -41,12 +42,30 @@ public class DriveElevator extends CommandBase
   @Override
   public void execute() 
   {
-    double crawlerInput = controller.getY(Hand.kLeft);
-    elevator.driveElevator(crawlerInput);
+    // double crawlerInput = controller.getY(Hand.kLeft);
+    // elevator.driveElevator(crawlerInput);
+
+    double elevatorInput = controller.getY(Hand.kLeft);
+
+    if (elevatorInput > 0.05)
+      elevator.retractBottomCylinders();
+    else if (elevatorInput < -0.05)
+      elevator.extendBottomCylinders();
+    else 
+      elevator.stopBottomCylinders();
 
     double winchInput = Math.abs(controller.getY(Hand.kRight));
-    elevator.driveWinch(winchInput);
 
+    if(controller.getPOV(0) > 0)
+    {
+      elevator.driveWinch(-winchInput);
+      SmartDashboard.putBoolean("Winch Inverted", true);
+    }
+    else
+    {
+      elevator.driveWinch(winchInput);
+      SmartDashboard.putBoolean("Winch Inverted", false);
+    }
     Constants.EndgameEnabled = true;
   }
 

@@ -20,9 +20,7 @@ public class AutonShooting extends CommandBase
   private final VisionPID visionPID;
 
   public boolean RPMGood, XGood, ballInPlace;
-
   public double Distance, RPM;
-
   public int BallsShot, BallsToShoot;
 
   // ----------------------------------------------------------------------------
@@ -56,15 +54,16 @@ public class AutonShooting extends CommandBase
     Distance = yToDistanceFormula(visionPID.getYValue());
     SmartDashboard.putNumber("Distance from Target", Distance);
     
-    RPM = distanceToRPMFormula(Distance);
-    shooterSystem.setSetPoint(RPM);
+    //RPM = distanceToRPMFormula(Distance);
+    //shooterSystem.setSetPoint(RPM);
+    shooterSystem.setSetPoint(3000);
     shooterSystem.spinToSetPoint();
     
     visionPID.LEDon();
     Constants.shooterSystemActive = true;
     shooterSystem.updateBallInShooter();
 
-    if (Math.abs(visionPID.getOutput()) <= .05)
+    if (Math.abs(visionPID.getOutput()) <= 0.05)
       XGood = true;
     else
       XGood = false;
@@ -80,10 +79,9 @@ public class AutonShooting extends CommandBase
       System.out.println("Firing");
       shooterSystem.shootBall();
     }
-    else if (!shooterSystem.isShooterPistonDown())
+    else if (!shooterSystem.isShooterPistonDown() && !Constants.ballInShooter)
     {
       BallsShot ++;
-      System.out.println("Balls Shot: " + BallsShot);
       shooterSystem.lowerShootingPiston();
     }
     else
@@ -91,6 +89,7 @@ public class AutonShooting extends CommandBase
       System.out.println("Lowering");
       shooterSystem.lowerShootingPiston();
     }
+    System.out.println("Balls Shot: " + BallsShot);
   }
   
   // ----------------------------------------------------------------------------
@@ -112,7 +111,7 @@ public class AutonShooting extends CommandBase
   private double yToDistanceFormula(double y)
   {
     //Actual target on test frame
-    return 90.2 - 1.33 * y + .213 * y * y;
+    return 90.2 - 1.33 * y + 0.213 * y * y;
   }
 
   // ----------------------------------------------------------------------------

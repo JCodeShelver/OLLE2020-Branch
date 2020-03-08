@@ -16,7 +16,6 @@ import frc.robot.Constants;
 public class DriveSystem extends SubsystemBase 
 {
     private final CANSparkMax leftMotor1, leftMotor2, rightMotor1, rightMotor2;
-
     private final TalonSRX encoderReading;
     
     private double adjustedL, adjustedR, adjustedX, adjustedY;
@@ -75,7 +74,7 @@ public class DriveSystem extends SubsystemBase
     // Return distance traveled in inches.
     public double getDistanceInches()
     {
-        return encoderReading.getSelectedSensorPosition()/Constants.INCHES_PER_TICK;
+        return encoderReading.getSelectedSensorPosition() / Constants.INCHES_PER_TICK;
     }
     
     // --------------------------------------------------------------------------

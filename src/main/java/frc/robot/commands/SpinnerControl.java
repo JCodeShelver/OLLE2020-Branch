@@ -16,14 +16,14 @@ public class SpinnerControl extends CommandBase
   private final Spinner spinner;   // Reference to spinner system object 
 
   private boolean isRotationControlDone, isPositionControlDone, onTargetColor;
-
   private int onColorCount;
 
   // ----------------------------------------------------------------------------
   // Constructor
   public SpinnerControl(Spinner s) 
   {
-    spinner      = s;    
+    spinner      = s;
+        
     onColorCount = 0;
     isRotationControlDone = SmartDashboard.getBoolean("Rotation Control", false);
     isPositionControlDone = SmartDashboard.getBoolean("Position Control", false);

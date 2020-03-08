@@ -60,10 +60,12 @@ public final class Constants
     public static final double INCHES_PER_TICK                   = 0.052019;
 
     // Limelight's PID settings.
-    public static final double VISION_X_PID_TOLERANCE            = 3.0;    // Absolute vision distance angle range
-    public static final double VISION_PID_P                      = 0.06;
-    public static final double VISION_PID_I                      = 0.03;
+    public static final double VISION_X_PID_TOLERANCE            = 1.0;    // Absolute vision distance angle range
+    public static final double VISION_PID_P                      = 0.03;
+    public static final double VISION_PID_I                      = 0.06;
     public static final double VISION_PID_D                      = 0.0025;
+    public static final double VISION_X_OFFSET                   = -30.0;
+
 
     // Shooter mechanism's PID settings.
     // PID_P = .0025, PID_I = 0.01, PID_D = 0.000175;

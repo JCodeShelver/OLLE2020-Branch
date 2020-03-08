@@ -92,52 +92,52 @@ public class RobotContainer
     |  |       |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
     |  |       |/| |4       /        Y | NOT BOUND             | Prepare To Shoot        TOP| Spinner Assembly Toggle                  OP|
     |  |   U   |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
-    |  |       |/| |5       /       LB | NOT BOUND             | NOT BOUND                  | Drive Elevator                          TOP|
+    |  |       |/| |5       /       LB | NOT BOUND             | Choke Shooter RPM        OH| Drive Elevator                          TOP|
     |  |       |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
-    |  |   T   |/| |6       /       RB | NOT BOUND             | NOT BOUND                  | Stop Front Intake motors, Shoot Ball  OH/OH|
+    |  |   T   |/| |6       /       RB | NOT BOUND             | Align to Target         TOP| Stop Front Intake motors, Shoot Ball  OH/OH|
     |  |       |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
-    |  |       |/| |7       /     Back | NOT BOUND             | NOT BOUND                  | Elevator Bottom Toggle                   OP|
+    |  |       |/| |7       /     Back | NOT BOUND             | NOT BOUND                  | NOT BOUND                                  |
     |  |   T   |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
     |  |       |/| |8       /    Start | NOT BOUND             | NOT BOUND                  | Elevator Top Toggle                      OP|
     |  |       |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
     |  |   O   |/| |9       /       LS | NOT BOUND             | NOT BOUND                  | NOT BOUND                                  |
     |  |       |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
-    |  |       |/| |10      /       RS | NOT BOUND             | Get Color Data           OP| Moving Motor                             OH|
+    |  |       |/| |10      /       RS | NOT BOUND             | Get Color Data           OP| NOT BOUND                                  |
     |  |   N   |/| |-------------------+-----------------------+----------------------------+--------------------------------------------+
-    |  |       |/| |11      /      N/A | NOT BOUND             | NOT BOUND                  | NOT APPLICABLE                             |
+    |  |       |/| |11      /      N/A | NOT BOUND             | Half Drive Inputs        OH| NOT APPLICABLE                             |
     |  \\_____///  |-------------------+-----------------------+----------------------------+--------------------------------------------+
     |   ```````    |12      /      N/A | NOT BOUND             | NOT BOUND                  | NOT APPLICABLE                             |
     |==============+===================+=======================+============================+============================================+
-    |==============+===========================+=======================+===========================+==========================================+
-    |    _______   |           Axes            |       Continued       |         Continued         |         Continued                        |
-    |   /_____//\  |---------------------------+-----------------------+---------------------------+------------------------------------------+
-    |  |/  T  \//| |1  /  X  /   Left X        | NOT BOUND             | NOT BOUND                 | NOT BOUND                                |    
-    |  |   R   |/| |---------------------------+-----------------------+---------------------------+------------------------------------------+
-    |  |   I   |/| |2  /  Y  /   Left Y        | D.Human, D.Target     | D.Human                   | NOT BOUND                                |
-    |  |   G   |/| |---------------------------+-----------------------+---------------------------+------------------------------------------+
-    |  |   G   |/| |3  /  Z  /  LT & RT        | NOT BOUND             | D.Human                   | Front Intake motors                      |
-    |  |   E   |/| |---------------------------+-----------------------+---------------------------+------------------------------------------+
-    |  |   R   |/| |4  /  Throttle  /  Right X | NOT BOUND             | NOT BOUND                 | NOT BOUND                                |
-    |  |   S   |/| |---------------------------+-----------------------+---------------------------+------------------------------------------+
-    |  |       |/| |5  /  Hat X  /  Right Y    | NOT BOUND             | NOT BOUND                 | NOT BOUND                                |
-    |  \\_____///  |---------------------------+-----------------------+---------------------------+------------------------------------------+
-    |    ``````    |6  /  Hat Y  /  D-Pad      | NOT BOUND             | NOT BOUND                 | NOT BOUND                                |
-    |-----------------------------------------------------------------------------------------------------------------------------------------+
+    |==============+===========================+=================================+===========================+==========================================+
+    |    _______   |           Axes            |            Continued            |         Continued         |         Continued                        |
+    |   /_____//\  |---------------------------+---------------------------------+---------------------------+------------------------------------------+
+    |  |/  T  \//| |1  /  X  /   Left X        | NOT BOUND                       | NOT BOUND                 | NOT BOUND                                |    
+    |  |   R   |/| |---------------------------+---------------------------------+---------------------------+------------------------------------------+
+    |  |   I   |/| |2  /  Y  /   Left Y        | D.Human, D.Target, Moving motor | D.Human                   | Elevator motors                          |
+    |  |   G   |/| |---------------------------+---------------------------------+---------------------------+------------------------------------------+
+    |  |   G   |/| |3  /  Z  /  LT & RT        | Shooter RPM Tweak               | D.Human                   | Front Intake motors (LT - / RT +)        |
+    |  |   E   |/| |---------------------------+---------------------------------+---------------------------+------------------------------------------+
+    |  |   R   |/| |4  /  Throttle  /  Right X | NOT BOUND                       | NOT BOUND                 | NOT BOUND                                |
+    |  |   S   |/| |---------------------------+---------------------------------+---------------------------+------------------------------------------+
+    |  |       |/| |5  /  Hat X  /  Right Y    | NOT BOUND                       | NOT BOUND                 | Winch motors                             |
+    |  \\_____///  |---------------------------+---------------------------------+---------------------------+------------------------------------------+
+    |    ``````    |6  /  Hat Y  /  D-Pad      | NOT BOUND                       | NOT BOUND                 | NOT BOUND                                |
+    |---------------------------------------------------------------------------------------------------------------------------------------------------+
     */
     new JoystickButton(rightStick, 3).whenPressed(() -> visionPID.cameraModeSwitch());
     new JoystickButton(rightStick, 4).toggleWhenPressed(new PrepareToShoot(shooter, visionPID));
+    new JoystickButton(rightStick, 6).toggleWhenPressed(new DriveAlignToTarget(driveSystem, visionPID));
     new JoystickButton(rightStick, 10).whenPressed(new GetColorData(spinner));
 
     new JoystickButton(controller, XboxController.Button.kB.value).whenPressed(new SpinnerControl(spinner));
     new JoystickButton(controller, XboxController.Button.kBumperLeft.value).toggleWhenPressed(new DriveElevator(elevator));
 
     //Toggling pneumatics
-    new JoystickButton(rightStick, 1).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
+    new JoystickButton(rightStick, 1).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.TOGGLE_INTAKE_UP_DOWN));
 
-    new JoystickButton(controller, XboxController.Button.kX.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE));    
-    new JoystickButton(controller, XboxController.Button.kY.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.WOF_UP_DOWN));
-    new JoystickButton(controller, XboxController.Button.kBack.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS));
-    new JoystickButton(controller, XboxController.Button.kStart.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, shooter, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));  
+    new JoystickButton(controller, XboxController.Button.kX.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.WOF_CONTACT_DISENGAGE));    
+    new JoystickButton(controller, XboxController.Button.kY.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.WOF_UP_DOWN));
+    new JoystickButton(controller, XboxController.Button.kStart.value).whenPressed(new PneumaticManager(frontIntake, spinner, elevator, Constants.IntakeMovementActions.ELEVATOR_TOP_CYLINDERS));  
   }
 
   // ----------------------------------------------------------------------------
@@ -147,9 +147,9 @@ public class RobotContainer
     // Set simple auton routine as default
     Command autonCommandChoice = new AutonSimple(driveSystem);
 
-    if (SmartDashboard.getBoolean("Auton Stages",true))
-        autonCommandChoice = new AutonStages(driveSystem, gyroPID, frontIntake, shooter, visionPID);
-        
+    if (SmartDashboard.getBoolean("Auton Stages", true))
+        autonCommandChoice = new AutonStages(driveSystem, gyroPID, frontIntake, shooter, visionPID, spinner, elevator);
+
     return autonCommandChoice;
   }
 }

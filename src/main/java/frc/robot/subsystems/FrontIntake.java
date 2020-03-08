@@ -15,7 +15,6 @@ import frc.robot.Constants;
 public class FrontIntake extends SubsystemBase 
 { 
   private final DoubleSolenoid deployCylinder;
-  
   private final TalonSRX intakeMotor, sideToSideMotor;
   
   private boolean isOut = false;

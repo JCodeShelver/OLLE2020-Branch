@@ -17,9 +17,7 @@ import frc.robot.Constants;
 public class VisionPID extends PIDSubsystem 
 { 
 	private NetworkTable table;
-
 	private NetworkTableEntry tx, ty, ta;
-
 	private NetworkTableInstance tableData;
 
 	private double pidOutput, currentSetpoint;
@@ -29,11 +27,12 @@ public class VisionPID extends PIDSubsystem
 	public VisionPID() 
 	{
 		super(new PIDController(Constants.VISION_PID_P, Constants.VISION_PID_I, Constants.VISION_PID_D));   
-
+		
 		tableData = NetworkTableInstance.getDefault();
-        table = tableData.getTable("limelight");
+        table 	  = tableData.getTable("limelight");
 
 		getController().setTolerance(Constants.VISION_X_PID_TOLERANCE);   // Degree tolerance for set point
+		getController().setSetpoint(Constants.VISION_X_OFFSET);
 	}
 
 	// --------------------------------------------------------------------------
@@ -49,7 +48,7 @@ public class VisionPID extends PIDSubsystem
 	public double getMeasurement() 
 	{
 		tx = table.getEntry("tx");
-		double x = tx.getDouble(-1.0);
+		double x = tx.getDouble(0.0);
 		return x;
 	}
 
@@ -84,13 +83,13 @@ public class VisionPID extends PIDSubsystem
 	public void getVisionData()
 	{
 		tx = table.getEntry("tx");
-		double x = tx.getDouble(-1.0);
+		double x = tx.getDouble(0.0);
 
 		ty = table.getEntry("ty");
-		double y = ty.getDouble(-1.0);
+		double y = ty.getDouble(0.0);
 		
 		ta = table.getEntry("ta");
-		double a = ta.getDouble(-1.0);
+		double a = ta.getDouble(0.0);
 
 		SmartDashboard.putNumber("Vision X", x);
 		SmartDashboard.putNumber("Vision Y", y);

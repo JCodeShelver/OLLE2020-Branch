@@ -19,17 +19,12 @@ import frc.robot.Constants;
 public class Shooter extends SubsystemBase 
 {
   private final DoubleSolenoid ShootingPiston;
-
   private final DigitalInput   BallInShooter;
-  
   private final PIDController  ShooterPID;
-  
   private final TalonSRX       shooterMotor;
 
   private boolean shooterPistonDown;
-  
   private double  currentSetPoint;
-  
   private int     TPM;
 
   // ----------------------------------------------------------------------------
@@ -37,13 +32,9 @@ public class Shooter extends SubsystemBase
   public Shooter() 
   {
     BallInShooter  = new DigitalInput(3);
-
     shooterMotor   = new TalonSRX(Constants.SHOOTER_MOTOR_CAN_ID);
-    
     ShooterPID     = new PIDController(Constants.SHOOTER_PID_P, Constants.SHOOTER_PID_I, Constants.SHOOTER_PID_D);
-    
     ShootingPiston = new DoubleSolenoid(Constants.PCM0, Constants.SHOOTER_FIRE_CYLINDER_INPORT, Constants.SHOOTER_FIRE_CYLINDER_OUTPORT);
-    
     TPM            = 0;
 
     shooterMotor.setInverted(true);
@@ -54,7 +45,7 @@ public class Shooter extends SubsystemBase
   // Get the RPM of the motor of the Shooter mechanism.
   public double getRPM()
   {
-    return -shooterMotor.getSelectedSensorVelocity()/Constants.SHOOTER_TICKS_PER_RPM;
+    return -(shooterMotor.getSelectedSensorVelocity()) / Constants.SHOOTER_TICKS_PER_RPM;
   }
   
   // ----------------------------------------------------------------------------
@@ -75,7 +66,7 @@ public class Shooter extends SubsystemBase
   // Lower the Shooter mechanism pneumatic.
   public void lowerShootingPiston()
   {
-    ShootingPiston.set(DoubleSolenoid.Value.kReverse);
+    ShootingPiston.set(DoubleSolenoid.Value.kForward);
     shooterPistonDown = true;
   }
   
@@ -97,7 +88,7 @@ public class Shooter extends SubsystemBase
   // Raise the Shooter mechanism pneumatic.
   public void shootBall()
   {
-    ShootingPiston.set(DoubleSolenoid.Value.kForward);
+    ShootingPiston.set(DoubleSolenoid.Value.kReverse);
     shooterPistonDown = false;
   }
   
@@ -106,12 +97,14 @@ public class Shooter extends SubsystemBase
   // Precondition:  SetPoint has been set!
   public void spinToSetPoint()
   {
+    TPM = -shooterMotor.getSelectedSensorVelocity();
+    SmartDashboard.putNumber("Shooter RPM", TPM / Constants.SHOOTER_TICKS_PER_RPM);
+
     //currentSetPoint = -3700;
     System.out.println("Current Set point for RPM: " + currentSetPoint);
     System.out.println("Current RPM: " +   this.getRPM());
-    SmartDashboard.putNumber("Shooter RPM", this.getRPM());
 
-    double pidOutput = ShooterPID.calculate(this.getRPM(), currentSetPoint);
+    double pidOutput = ShooterPID.calculate(TPM / Constants.SHOOTER_TICKS_PER_RPM, currentSetPoint);
 
     //System.out.println("Motor: " + pidOutput);
     shooterMotor.set(ControlMode.PercentOutput, pidOutput);

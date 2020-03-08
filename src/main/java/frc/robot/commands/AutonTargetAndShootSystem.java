@@ -1,7 +1,8 @@
 // FRC Team 3770 - BlitzCreek - OLLE 2020
-// Autonomous Pick-up Balls Command
-// Autonomous routine requiring multiple
-// segments & turns in sequence.
+// Autonomous Targeting and Shooting Command
+// Autonomous routine requiring multiple 
+// segments & turns in sequence. Drive 
+// forward two seconds and stop.
 
 package frc.robot.commands;
 
@@ -24,10 +25,12 @@ import frc.robot.subsystems.VisionPID;
 
 import frc.robot.Constants;
 
-public class AutoPickUpBalls extends ParallelDeadlineGroup
+public class AutonTargetAndShootSystem extends ParallelDeadlineGroup
 {
-    public AutoPickUpBalls(DriveSystem d, GyroPID g, FrontIntake i, double power, double distance, double angle)
+    // --------------------------------------------------------------------------
+    // Constructor
+    public AutonTargetAndShootSystem(DriveSystem d, Shooter s, VisionPID v, int BallCount)
     {
-        super(new DriveSegment(d, g, power, distance, angle), new AutonIntakeDriver(i, 0.75));           
+        super(new AutonShooting(s, v, BallCount), new DriveAlignToTarget(d, v));           
     }
 }

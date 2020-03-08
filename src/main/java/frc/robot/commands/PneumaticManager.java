@@ -21,19 +21,17 @@ public class PneumaticManager extends CommandBase
   private final FrontIntake frontIntake;   
   private final Elevator elevator;
   private final Spinner spinner;
-  private final Shooter shooter;
 
   private Constants.IntakeMovementActions actionCode;
 
   // ----------------------------------------------------------------------------
   // Constructor
-  public PneumaticManager(FrontIntake i, Spinner s, Elevator e, Shooter sh, Constants.IntakeMovementActions code) 
+  public PneumaticManager(FrontIntake i, Spinner s, Elevator e, Constants.IntakeMovementActions code) 
   {
     frontIntake = i;
     spinner     = s;
     elevator    = e;
-    shooter     = sh;
-    actionCode  = code;
+    actionCode = code;
   }
 
   // ----------------------------------------------------------------------------
@@ -85,23 +83,23 @@ public class PneumaticManager extends CommandBase
       SmartDashboard.putBoolean("Elevator Stages 2-3", elevator.TopDeployed());
     }
 
-    if (actionCode == Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS)
-    {
-      if (elevator.BottomDeployed())
-        elevator.retractBottomCylinders();
-      else
-        elevator.extendBottomCylinders();
-      SmartDashboard.putBoolean("Elevator Stage 1", elevator.BottomDeployed());
-    }
+    // if (actionCode == Constants.IntakeMovementActions.ELEVATOR_BOTTOM_CYLINDERS)
+    // {
+    //   if (elevator.BottomDeployed())
+    //     elevator.retractBottomCylinders();
+    //   else
+    //     elevator.extendBottomCylinders();
+    //   SmartDashboard.putBoolean("Elevator Stage 1", elevator.BottomDeployed());
+    // }
 
-    if (actionCode == Constants.IntakeMovementActions.SHOOTER_FIRE_PISTON)
-    {
-      if (shooter.isShooterPistonDown())
-        shooter.shootBall();
-      else
-        shooter.lowerShootingPiston();
-      SmartDashboard.putBoolean("Shooter Piston Down", shooter.isShooterPistonDown());
-    }
+    // if (actionCode == Constants.IntakeMovementActions.SHOOTER_FIRE_PISTON)
+    // {
+    //   if (shooter.isShooterPistonDown())
+    //     shooter.shootBall();
+    //   else
+    //     shooter.lowerShootingPiston();
+    //   SmartDashboard.putBoolean("Shooter Piston Down", shooter.isShooterPistonDown());
+    // }
   }
   
   // ----------------------------------------------------------------------------

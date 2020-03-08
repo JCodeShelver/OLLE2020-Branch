@@ -15,7 +15,6 @@ import frc.robot.Constants;
 public class Elevator extends SubsystemBase 
 { 
   private final DoubleSolenoid bottomCylinders, top2Cylinders;
-
   private final TalonSRX elevatorDriveMotor, winchDriveMotor;
   
   private boolean isDeployed1 = false, isDeployed2 = false;
@@ -32,11 +31,31 @@ public class Elevator extends SubsystemBase
   }
 
   // ----------------------------------------------------------------------------
+  // Return the state of the pneumatics for stage 1 of the Elevator mechanism.
+  public boolean BottomDeployed() 
+  {
+    return isDeployed1;
+  }
+
+  // ----------------------------------------------------------------------------
+  // Bar Crawler mechanism motor control.
+  public void driveElevator(final double motorLevel)
+  {
+    elevatorDriveMotor.set(ControlMode.PercentOutput, motorLevel);
+  }
+
+  // ----------------------------------------------------------------------------
+  // Winch mechanism motor control.
+  public void driveWinch(final double winchInput)
+  {
+    winchDriveMotor.set(ControlMode.PercentOutput, winchInput);
+  }
+
+  // ----------------------------------------------------------------------------
   // Extend Stage 1 of the Elevator mechanism.
   public void extendBottomCylinders()
   {
     bottomCylinders.set(DoubleSolenoid.Value.kForward);
-    isDeployed1 = true;
   }
   
   // ----------------------------------------------------------------------------
@@ -64,30 +83,15 @@ public class Elevator extends SubsystemBase
   }
 
   // ----------------------------------------------------------------------------
-  // Return the state of the pneumatics for stage 1 of the Elevator mechanism.
-  public boolean BottomDeployed() 
+  // Stop Stage 1 of the Elevator mechanism.
+  public void stopBottomCylinders()
   {
-    return isDeployed1;
+    bottomCylinders.set(DoubleSolenoid.Value.kOff);
   }
-
   // ----------------------------------------------------------------------------
   // Return the state of the pneumatics for stages 2 and 3 of the Elevator mechanism.
   public boolean TopDeployed() 
   {
     return isDeployed2;
-  }
-
-  // ----------------------------------------------------------------------------
-  // Bar Crawler mechanism motor control.
-  public void driveElevator(final double motorLevel)
-  {
-    elevatorDriveMotor.set(ControlMode.PercentOutput, motorLevel);
-  }
-
-  // ----------------------------------------------------------------------------
-  // Winch mechanism motor control.
-  public void driveWinch(final double winchInput)
-  {
-    winchDriveMotor.set(ControlMode.PercentOutput, winchInput);
   }
 }

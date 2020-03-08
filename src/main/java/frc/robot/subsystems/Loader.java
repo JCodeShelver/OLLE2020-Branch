@@ -16,7 +16,6 @@ import frc.robot.Constants;
 public class Loader extends SubsystemBase 
 { 
   private final DigitalInput backSwitch, closeSwitch, intakeSwitch;
-
   private final TalonSRX loadingMotor, movingMotor;
 
   // ----------------------------------------------------------------------------

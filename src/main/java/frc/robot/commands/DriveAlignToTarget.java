@@ -17,10 +17,12 @@ import frc.robot.Constants;
 public class DriveAlignToTarget extends CommandBase
 {
     // Robot object referencess required for this action
-    private final VisionPID     visionPID;
     private final DriveSystem   driveSystem;  
-
-    private final Joystick leftStick = new Joystick(Constants.LEFT_STICK_USB_PORT);
+    private final VisionPID     visionPID;
+        
+    
+    private final Joystick leftStick   = new Joystick(Constants.LEFT_STICK_USB_PORT);
+    private final Joystick rightStick  = new Joystick(Constants.RIGHT_STICK_USB_PORT);
 
     private boolean doneTuring, doneTurning;
     
@@ -55,21 +57,16 @@ public class DriveAlignToTarget extends CommandBase
     {
         visionPID.LEDon();
         double xVisionTarget = visionPID.getMeasurement();
-
-        if (xVisionTarget != 0 && !doneTuring)
-            doneTurning = true;
-        else
-            doneTuring = false;
-
-        if (!doneTurning)
-            driveSystem.drive(-idleTurnSpeed, idleTurnSpeed);
-        else
+        System.out.println("XVISIONTARGET: " + xVisionTarget);
+        
         {
             angleRotateMotorAdjust = visionPID.getOutput();
+            System.out.println("PID Output: " + angleRotateMotorAdjust);
+            
             // Adjust left/right motor sets to PID output.  Rotate
             // as needed toward target angle
-            double left  = (+angleRotateMotorAdjust * 0.4) + leftStick.getY();
-            double right = (-angleRotateMotorAdjust * 0.4) + leftStick.getY();
+            double left  = (+angleRotateMotorAdjust * 0.5) + rightStick.getY();
+            double right = (-angleRotateMotorAdjust * 0.5) + rightStick.getY();
 
             driveSystem.drive(left, right);
         }
@@ -84,9 +81,11 @@ public class DriveAlignToTarget extends CommandBase
 
     // --------------------------------------------------------------------------
     //
-    public void end()
+    @Override
+    public void end(boolean interrupted)
     {
-
+        driveSystem.drive(0.0, 0.0);
+        visionPID.LEDoff();
     }
     
     // --------------------------------------------------------------------------
@@ -95,9 +94,6 @@ public class DriveAlignToTarget extends CommandBase
     // Then, stop when absolute error within tolerance.
     public boolean isFinished() 
     {
-        if (!Constants.shooterSystemActive)
-            return true;
-        else
-            return false;
+        return false;
     }
 }
